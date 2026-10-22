@@ -1,0 +1,7 @@
+export function feeMoney(cents:number){return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",minimumFractionDigits:cents%100?2:0,maximumFractionDigits:cents%100?2:0}).format(cents/100);}
+export function parseFee(value:unknown):number|null{if(typeof value!=="string"||!/^\d{1,5}(?:\.\d{1,2})?$/.test(value.trim()))return null;const cents=Math.round(Number(value)*100);return cents>=50&&cents<=1000000?cents:null;}
+
+export function parseAnnualSalary(value:unknown):number|null{if(typeof value!=="string"||!/^\d{1,6}(?:\.\d{1,2})?$/.test(value.trim()))return null;const [whole,fraction=""]=value.trim().split(".");const cents=Number(whole)*100+Number(fraction.padEnd(2,"0"));return cents>0&&cents<=99999999?cents:null;}
+export function parsePlacementRate(value:unknown):number|null{if(typeof value!=="string"||!/^\d{1,3}(?:\.\d{1,2})?$/.test(value.trim()))return null;const [whole,fraction=""]=value.trim().split(".");const bps=Number(whole)*100+Number(fraction.padEnd(2,"0"));return bps>=1&&bps<=10000?bps:null;}
+export function feePercent(bps:number){return `${(bps/100).toFixed(2).replace(/\.?0+$/,"")}%`;}
+export function annualPlacementFee(salaryCents:number,rateBps:number){if(!Number.isSafeInteger(salaryCents)||salaryCents<=0||salaryCents>99999999||!Number.isInteger(rateBps)||rateBps<1||rateBps>10000)throw Error("Invalid salary or placement rate.");return Number((BigInt(salaryCents)*BigInt(rateBps)+BigInt(5000))/BigInt(10000));}

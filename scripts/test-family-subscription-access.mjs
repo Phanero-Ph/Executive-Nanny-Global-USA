@@ -1,0 +1,29 @@
+import 'dotenv/config';
+import mysql from 'mysql2/promise';
+import {randomUUID,createHmac} from 'node:crypto';
+import assert from 'node:assert/strict';
+const url=new URL(process.env.DATABASE_URL);assert.ok(['localhost','127.0.0.1'].includes(url.hostname));const connection=await mysql.createConnection({uri:process.env.DATABASE_URL,timezone:'Z'}),base=process.env.APP_URL||'http://localhost:3000',id=randomUUID(),cycle=randomUUID(),receipt=randomUUID();await connection.execute("SET time_zone = '+00:00'");
+const payload=Buffer.from(JSON.stringify({uid:id,role:'family',version:0,exp:Date.now()+3600000})).toString('base64url'),signature=createHmac('sha256',process.env.SESSION_SECRET||'dev-secret-change-in-production').update(payload).digest('hex'),cookie='egn_session='+payload+'.'+signature;
+const applicationUrl=new URL(base);assert.ok(['localhost','127.0.0.1'].includes(applicationUrl.hostname),'Access tests require a local application URL.');
+async function page(path){const r=await fetch(base+path,{headers:{Cookie:cookie},redirect:'manual',signal:AbortSignal.timeout(120000)});return{status:r.status,location:r.headers.get('location'),html:await r.text()};}
+async function blocked(){for(const path of ['/dashboard/family/new','/dashboard/family?view=matches']){const r=await page(path);assert.equal(r.status,307,path);assert.ok(r.location.includes('view=membership')&&r.location.includes('locked=nanny'));}}
+async function submit(){return fetch(base+'/api/find-nanny',{method:'POST',headers:{Cookie:cookie,'Content-Type':'application/json'},body:JSON.stringify({careCategory:'nanny',submissionKey:randomUUID(),name:'Subscription fixture',email:'subscription-'+id+'@example.com',phone:'5550100',startDate:new Date(Date.now()+86400000).toISOString().slice(0,10),numberOfChildren:'1',nannyTypes:['Full-time'],childrenAges:[],additionalCare:[]}),signal:AbortSignal.timeout(120000)});}
+try{
+ await connection.execute('INSERT INTO users(id,name,email,role,password_hash,email_verified_at) VALUES(?,?,?,?,?,UTC_TIMESTAMP())',[id,'Subscription fixture','subscription-'+id+'@example.com','family','fixture-no-login']);
+ await blocked();assert.equal((await submit()).status,409,'Direct nanny submission is blocked without paid subscription');
+ for(const path of ['/dashboard/family?view=profile','/dashboard/family?view=requests','/dashboard/family?view=history','/dashboard/family?view=caregiver','/dashboard/family?view=caregiver-shortlist','/dashboard/family/book','/dashboard/messages'])assert.equal((await page(path)).status,200,path);
+ const caregiverShortlist=await page('/dashboard/family?view=caregiver-shortlist');assert.ok(caregiverShortlist.html.includes('<h1>Caregiver Shortlist</h1>')&&caregiverShortlist.html.includes('Your caregiver shortlist'),'Dedicated caregiver shortlist must render without subscription');
+ const locked=await page('/dashboard/family?view=membership&locked=nanny');assert.equal(locked.status,200);assert.ok(locked.html.includes('A paid subscription unlocks nanny placement'));assert.ok(locked.html.includes('subscription required'));const disabledButtons=locked.html.match(/<button[^>]*>/g)||[];assert.ok(disabledButtons.some(tag=>tag.includes('disabled')&&tag.includes('Request a Nanny — subscription required')),'Nanny menu must be a disabled button');assert.ok(disabledButtons.some(tag=>tag.includes('disabled')&&tag.includes('Nanny Shortlist — subscription required')),'Shortlist menu must be a disabled button');
+ console.log('Unpaid family: nanny page and live shortlist locked; backend submission rejected; history, profile, messages and caregiver access retained.');
+ const today=new Date().toISOString().slice(0,10),end=new Date(Date.now()+30*86400000).toISOString().slice(0,10);await connection.execute('INSERT INTO membership_cycles(id,user_id,plan,amount_cents,start_date,end_date,created_by) VALUES(?,?,?,?,?,?,?)',[cycle,id,'Basic',5900,today,end,id]);
+ await blocked();await connection.execute('INSERT INTO membership_payments(id,cycle_id,amount_cents,reference,method,paid_date,recorded_by) VALUES(?,?,?,?,?,?,?)',[receipt,cycle,5900,'subscription-'+receipt,'cash',today,id]);
+ for(const path of ['/dashboard/family/new','/dashboard/family?view=matches'])assert.equal((await page(path)).status,200,path);
+ const unlocked=await page('/dashboard/family');assert.ok(!unlocked.html.includes('Request a Nanny — subscription required'));
+ console.log('Confirmed active payment unlocks nanny request and live shortlist pages.');
+ await connection.execute('UPDATE membership_payments SET refunded_cents=100 WHERE id=?',[receipt]);await blocked();assert.equal((await submit()).status,409);
+ await connection.execute('UPDATE membership_payments SET refunded_cents=0,voided_at=UTC_TIMESTAMP() WHERE id=?',[receipt]);await blocked();
+ await connection.execute('UPDATE membership_payments SET voided_at=NULL WHERE id=?',[receipt]);await connection.execute('UPDATE membership_cycles SET cancelled_at=UTC_TIMESTAMP() WHERE id=?',[cycle]);await blocked();
+ await connection.execute("UPDATE membership_cycles SET cancelled_at=NULL,start_date='2000-01-01',end_date='2000-02-01' WHERE id=?",[cycle]);await blocked();
+ await connection.execute("UPDATE membership_cycles SET start_date='2099-01-01',end_date='2099-02-01' WHERE id=?",[cycle]);await blocked();
+ console.log('Refunded, voided, cancelled, expired and future memberships remain locked. Subscription access checks passed without emails or external payments.');
+}finally{await connection.execute('DELETE FROM family_requests WHERE user_id=?',[id]);await connection.execute('DELETE FROM membership_payments WHERE id=?',[receipt]);await connection.execute('DELETE FROM membership_cycles WHERE id=?',[cycle]);await connection.execute('DELETE FROM users WHERE id=?',[id]);await connection.end();console.log('Temporary subscription fixtures cleaned up.');}

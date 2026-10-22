@@ -1,0 +1,7 @@
+import {getCurrentUser} from "@/lib/auth";
+import {adminCan} from "@/lib/admin-permissions";
+import Link from "next/link";
+import {and,desc,eq,isNull} from "drizzle-orm";
+import {db} from "@/db";
+import {trainingCertificates,trainingEnrollments} from "@/db/schema";
+export async function TrainingAchievements({userId,links=false}:{userId:string;links?:boolean}){const actor=await getCurrentUser();if(actor?.role==="admin"&&!await adminCan(actor,"training.view"))return null;const certificates=await db.select({id:trainingCertificates.id,title:trainingCertificates.courseTitle}).from(trainingCertificates).innerJoin(trainingEnrollments,eq(trainingCertificates.enrollmentId,trainingEnrollments.id)).where(and(eq(trainingEnrollments.userId,userId),eq(trainingEnrollments.status,"completed"),isNull(trainingCertificates.revokedAt))).orderBy(desc(trainingCertificates.issuedAt));return <section className="mt-5 rounded-xl border border-cream-300 bg-white p-5"><h3 className="text-lg text-ink-900">Completed training</h3>{!certificates.length?<p className="mt-3 text-xs text-slate-500">Approved course completions will appear here.</p>:<ul className="mt-3 space-y-3">{certificates.map(c=><li key={c.id} className="text-sm text-slate-600">{c.title}{links&&<Link href={`/dashboard/nanny/training/certificates/${c.id}`} className="mt-1 block text-xs text-teal-brand">View certificate</Link>}</li>)}</ul>}</section>;}

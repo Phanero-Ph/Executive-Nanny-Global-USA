@@ -1,0 +1,16 @@
+"use client";
+import {useAdminPermissions} from "./AdminPermissions";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import {NANNY_ADMIN_DECISION_STATUSES} from "@/data/review-statuses";
+function AdminReviewFormContent({ kind, id, status, statuses }: { kind:string; id:string; status:string; statuses:Record<string,string> }) {
+ const router=useRouter();const [saving,setSaving]=useState(false),[error,setError]=useState(""),[saved,setSaved]=useState(false);
+ const choices=kind==="nanny"?NANNY_ADMIN_DECISION_STATUSES:statuses;
+ async function save(event:React.FormEvent<HTMLFormElement>) {
+  event.preventDefault();const form=event.currentTarget;const data=new FormData(form);setSaving(true);setError("");setSaved(false);
+  try {const response=await fetch(`/api/admin/reviews/${kind}/${id}`,{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({status:data.get("status"),note:data.get("note"),expectedStatus:status,feedback:data.get("feedback")})});const result=await response.json();if(!response.ok) throw new Error(result.error);form.reset();setSaved(true);router.refresh();}catch(err){setError(err instanceof Error?err.message:"Could not save review.");}finally{setSaving(false);}
+ }
+ return <form onSubmit={save} className="space-y-5"><label className="block"><span className="application-label">Submission status</span><select name="status" defaultValue={status} required className="application-input">{!Object.hasOwn(choices,status)&&<option value={status}>{statuses[status]||status.replaceAll("_"," ")} · current status</option>}{Object.entries(choices).map(([value,label])=><option key={value} value={value}>{label}</option>)}</select></label><label className="block"><span className="application-label">Internal note</span><textarea name="note" rows={5} maxLength={10000} placeholder="Record your review and next steps..." className="application-input" /></label>{kind==="nanny"&&<label className="block"><span className="application-label">Applicant-facing feedback</span><textarea name="feedback" rows={4} maxLength={5000} className="application-input" placeholder="Required when requesting corrections or rejecting an application."/><span className="text-xs text-slate-500">Shared with the applicant for correction or rejection decisions.</span></label>}<p className="text-xs text-slate-500">{kind==="nanny"?"Internal notes stay private. Applicant feedback is shared for correction or rejection decisions. Mark eligible for matching only after screening, references and current credentials are complete.":"Notes are visible only to administrators. Status changes appear in the user's dashboard. For Request a Nanny requests, select a candidate before requesting the placement fee. Confirm placement through matching after payment."}</p>{error&&<p role="alert" className="text-sm text-red-700">{error}</p>}{saved&&<p role="status" className="text-sm text-teal-brand">Review saved.</p>}<button disabled={saving} className="application-submit">{saving?"Saving...":"Save review"}</button></form>;
+}
+
+export function AdminReviewForm(props:Parameters<typeof AdminReviewFormContent>[0]){const {can}=useAdminPermissions();const {kind}=props;return can(kind==="family"?"families.review":"nannies.approve")?<AdminReviewFormContent {...props}/>:null;}

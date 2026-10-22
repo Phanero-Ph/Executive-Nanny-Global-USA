@@ -1,0 +1,10 @@
+
+# Private caregiver application attachments
+.data/
+
+node_modules/
+.next/
+.next-development/
+.env
+.env.*
+!.env.example

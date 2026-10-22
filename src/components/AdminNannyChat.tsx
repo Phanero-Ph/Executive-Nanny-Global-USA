@@ -1,0 +1,10 @@
+"use client";
+import {useState} from "react";
+import {ConversationView} from "@/components/Messaging";
+import {MessageCircle,Loader2} from "lucide-react";
+
+export function AdminNannyChat({memberId,memberName,adminId,conversationId}:{memberId:string;memberName:string;adminId:string;conversationId:string|null}){
+ const [id,setId]=useState(conversationId),[open,setOpen]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState("");
+ async function toggle(){if(open){setOpen(false);return;}setOpen(true);if(id)return;setBusy(true);setError("");try{const response=await fetch("/api/messages",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({memberId})});const data=await response.json();if(!response.ok)throw new Error(data.error||"Could not open the nanny conversation.");setId(data.id);}catch(e){setError(e instanceof Error?e.message:"Could not open the nanny conversation.");}finally{setBusy(false);}}
+ return <section className="mt-6 rounded-2xl border border-cream-300 bg-white p-5 sm:p-6"><div className="flex flex-wrap items-center justify-between gap-4"><div><p className="text-xs font-semibold uppercase tracking-[.14em] text-teal-brand">Private agency conversation</p><h2 className="mt-2 text-xl text-ink-900">Chat with {memberName}</h2><p className="mt-1 text-sm text-slate-500">Only this nanny and authorized agency administrators can access the conversation.</p></div><button type="button" onClick={()=>void toggle()} disabled={busy} className="application-secondary inline-flex items-center gap-2">{busy?<Loader2 size={16} className="animate-spin" aria-hidden="true"/>:<MessageCircle size={16} aria-hidden="true"/>}{busy?"Opening chat…":open?"Close chat":"Open chat"}</button></div>{error&&<p role="alert" className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{error}</p>}{open&&busy&&<p role="status" className="mt-4 text-sm text-slate-500">Starting your private conversation…</p>}{open&&id&&<div className="mt-5 h-[min(72vh,720px)] min-h-[420px] overflow-hidden rounded-xl border border-cream-300 bg-white"><ConversationView key={id} id={id} userId={adminId} role="admin"/></div>}</section>;
+}

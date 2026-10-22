@@ -1,0 +1,6 @@
+export const BOOKING_LIMITS:Record<string,number|null>={Basic:null,Standard:null,Deluxe:null,Premium:null};
+export const BOOKING_LABELS:Record<string,string>={requested:"Awaiting caregiver",assigned:"Caregiver invited",accepted:"Awaiting team confirmation",confirmed:"Confirmed",completed:"Completed",cancelled:"Cancelled"};
+export const OPEN_BOOKING_STATUSES=["requested","assigned","accepted","confirmed"];
+export function membershipWindow(cycle:{startDate:string;endDate:string;periodStart:Date|null;periodEnd:Date|null}){return {start:cycle.periodStart??new Date(cycle.startDate+"T00:00:00Z"),end:cycle.periodEnd??new Date(cycle.endDate+"T00:00:00Z")};}
+export function bookingTime(value:Date){return new Intl.DateTimeFormat("en-US",{dateStyle:"medium",timeStyle:"short",timeZone:"Africa/Lagos"}).format(value)+" WAT";}
+export function parseBookingTime(value:unknown){if(typeof value!=="string"||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2}(\.\d{1,3})?)?(Z|[+-]\d{2}:\d{2})$/.test(value))return null;const date=new Date(value);const raw=value.slice(0,10);if(!Number.isFinite(date.getTime())||new Date(raw+"T00:00:00Z").toISOString().slice(0,10)!==raw)return null;date.setUTCMilliseconds(0);return date;}

@@ -1,0 +1,3 @@
+import {AdminInviteAcceptance} from "@/components/AdminInviteAcceptance";
+export const metadata={title:"Administrator invitation",robots:{index:false,follow:false},referrer:"no-referrer" as const};
+export default async function Invite({searchParams}:{searchParams:Promise<{token?:string}>}){const {token}=await searchParams;return <section className="application-page px-5 py-16"><div className="mx-auto max-w-lg rounded-3xl border border-cream-300 bg-white p-7 sm:p-10">{token&&/^[a-f0-9]{64}$/.test(token)?<AdminInviteAcceptance token={token}/>:<><h1 className="text-2xl">Invitation unavailable</h1><p className="mt-4 text-sm text-slate-500">Open the invitation link sent to your email, or ask your administrator to resend it.</p></>}</div></section>;}

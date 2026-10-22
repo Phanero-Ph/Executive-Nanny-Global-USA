@@ -1,0 +1,3 @@
+import Link from "next/link";
+import {LockKeyhole,Plus} from "lucide-react";
+export function FamilyNannyAction({subscribed,label="Request a Babysitter"}:{subscribed:boolean;label?:string}){return subscribed?<Link href="/dashboard/family/new" className="application-submit"><Plus size={16} aria-hidden="true"/>{label}</Link>:<div className="family-subscription-actions"><div><Link href="/dashboard/family?view=membership&locked=nanny" aria-label={`${label} — subscription required. View plans.`} className="application-submit family-nanny-disabled"><LockKeyhole size={14} aria-hidden="true"/>{label}</Link><span>Subscription required</span></div><Link href="/dashboard/family?view=membership&locked=nanny" className="application-secondary">View plans</Link></div>;}

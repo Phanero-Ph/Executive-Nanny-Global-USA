@@ -1,0 +1,6 @@
+import { PRICING } from "@/data/site";
+export const MEMBERSHIP_PLANS = PRICING.memberships.map(plan => ({name:plan.name,amountCents:Number(plan.price.replace("$",""))*100,description:plan.blurb}));
+export const money = (cents:number) => new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(cents/100);
+export function validDate(value:unknown):value is string { return typeof value === "string" && /^\d{4}-\d{2}-\d{2}$/.test(value) && Number.isFinite(Date.parse(value)) && new Date(value+"T00:00:00Z").toISOString().slice(0,10) === value; }
+export function nextMonth(value:string) { const date=new Date(value+"T00:00:00Z"),day=date.getUTCDate();date.setUTCDate(1);date.setUTCMonth(date.getUTCMonth()+1);const last=new Date(Date.UTC(date.getUTCFullYear(),date.getUTCMonth()+1,0)).getUTCDate();date.setUTCDate(Math.min(day,last));return date.toISOString().slice(0,10); }
+export function cycleStatus(cycle:{startDate:string;endDate:string;cancelledAt:Date|null;amountCents:number;periodStart?:Date|null;periodEnd?:Date|null},paid:number,today=new Date().toISOString().slice(0,10)) { return cycle.cancelledAt?"Cancelled":paid<cycle.amountCents?"Payment due":(cycle.periodStart?Date.now()<cycle.periodStart.getTime():today<cycle.startDate)?"Scheduled":(cycle.periodEnd?Date.now()>=cycle.periodEnd.getTime():today>=cycle.endDate)?"Expired":"Active"; }

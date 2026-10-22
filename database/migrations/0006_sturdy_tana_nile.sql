@@ -1,0 +1,1 @@
+ALTER TABLE `membership_payments` ADD `refunded_cents` int DEFAULT 0 NOT NULL;

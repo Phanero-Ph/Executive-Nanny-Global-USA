@@ -1,0 +1,3 @@
+"use client";
+import {useState} from "react";
+export function VerificationSignOut(){const [busy,setBusy]=useState(false),[error,setError]=useState("");async function signOut(){setBusy(true);setError("");try{const r=await fetch("/api/auth/logout",{method:"POST"});if(!r.ok)throw Error();window.location.href="/login";}catch{setError("Could not sign out. Please try again.");setBusy(false);}}return <div className="mt-5 text-center"><button type="button" onClick={signOut} disabled={busy} className="text-xs text-slate-500 underline">{busy?"Signing out…":"Sign out or use a different account"}</button>{error&&<p role="alert" className="mt-3 text-xs text-red-700">{error}</p>}</div>;}

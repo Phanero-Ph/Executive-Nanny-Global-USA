@@ -1,0 +1,8 @@
+"use client";
+import {createContext,useContext,useEffect,useRef,useState,type ReactNode} from "react";
+import {useRouter} from "next/navigation";
+import {grantAllows,type AdminGrant,type AdminPermission} from "@/lib/admin-permission-catalog";
+const Context=createContext<{role:string;grant:AdminGrant|null}>({role:"admin",grant:null});
+export function AdminPermissionsProvider({role,initial,children}:{role:string;initial:AdminGrant|null;children:ReactNode}){const [grant,setGrant]=useState(initial),last=useRef(JSON.stringify(initial)),router=useRouter();useEffect(()=>{if(role!=="admin")return;let active=true;async function refresh(){if(document.visibilityState!=="visible")return;try{const r=await fetch("/api/admin/access",{cache:"no-store"});if(r.status===401){router.replace("/login");router.refresh();return;}if(!r.ok)return;const data=await r.json(),value=JSON.stringify(data);if(active&&value!==last.current){last.current=value;setGrant(data);router.refresh();}}catch{}}const timer=setInterval(refresh,15000);window.addEventListener("focus",refresh);window.addEventListener("egn-admin-access",refresh);void refresh();return()=>{active=false;clearInterval(timer);window.removeEventListener("focus",refresh);window.removeEventListener("egn-admin-access",refresh);};},[role,router]);return <Context.Provider value={{role,grant}}>{children}</Context.Provider>;}
+export function useAdminPermissions(){const {role,grant}=useContext(Context);return{role,grant,can:(permission:AdminPermission)=>role!=="admin"||grantAllows(grant,permission)};}
+export function PermissionGate({permission,children}:{permission:AdminPermission;children:ReactNode}){return useAdminPermissions().can(permission)?<>{children}</>:null;}

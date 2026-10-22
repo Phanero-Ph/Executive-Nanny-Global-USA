@@ -1,0 +1,30 @@
+import Link from "next/link";
+import {redirect} from "next/navigation";
+import {desc,eq} from "drizzle-orm";
+import {db} from "@/db";
+import {applicationScreenings,caregiverCredentials,nannyApplications} from "@/db/schema";
+import {getDashboardUser as getCurrentUser} from "@/lib/dashboard-auth";
+import {CREDENTIAL_KINDS,credentialStatus} from "@/lib/credentials";
+import {applicationDigest} from "@/lib/screening-policy";
+import {AcademyForm} from "@/components/AcademyActions";
+import {BadgeCheck,FileCheck2,ShieldCheck} from "lucide-react";
+export const dynamic="force-dynamic";
+export const metadata={title:"Caregiver credentials",robots:{index:false,follow:false}};
+export default async function Credentials(){
+ const user=await getCurrentUser();if(!user)redirect("/login");if(user.role!=="nanny")redirect(`/dashboard/${user.role}`);
+ const [records,applications]=await Promise.all([
+  db.select().from(caregiverCredentials).where(eq(caregiverCredentials.userId,user.id)),
+  db.select().from(nannyApplications).where(eq(nannyApplications.userId,user.id)).orderBy(desc(nannyApplications.createdAt)).limit(1),
+ ]);
+ const application=applications[0];
+ const [screening]=application?await db.select().from(applicationScreenings).where(eq(applicationScreenings.applicationId,application.id)):[];
+ let agencyCheckStatus="Pending";let agencyCheckExpiry="";
+ try{if(screening&&screening.applicationDigest===applicationDigest(application!.bio)){const checks=JSON.parse(screening.checks);if(checks.backgroundCheckStatus==="clear"&&checks.backgroundCheckExpiresOn>=new Date().toISOString().slice(0,10)){agencyCheckStatus="Clear";agencyCheckExpiry=checks.backgroundCheckExpiresOn;}else if(checks.backgroundCheckStatus==="needs_follow_up")agencyCheckStatus="Agency follow-up in progress";}}catch{}
+ const uploadedCount=Object.keys(CREDENTIAL_KINDS).filter(kind=>records.some(row=>row.kind===kind&&credentialStatus(row)==="verified")).length;
+ return <section className="application-page bg-cream-50 px-5 py-12"><div className="mx-auto max-w-4xl"><Link href="/dashboard/nanny" className="text-sm text-teal-brand">← Dashboard</Link><p className="mt-6 text-xs font-semibold uppercase tracking-[.15em] text-teal-brand">Professional requirements</p><h1 className="mt-2 text-4xl text-ink-900">Your credentials</h1><p className="mt-3 max-w-2xl text-sm leading-7 text-slate-600">Upload your current CPR and First Aid certificates. Both documents must be reviewed and approved by our agency before you can be matched.</p>
+  <section className="mt-7 rounded-2xl border border-orange-200 bg-orange-50 p-5 sm:p-6" aria-labelledby="required-documents-title"><div className="flex items-start gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white text-orange-600"><FileCheck2 size={20} aria-hidden="true"/></span><div><h2 id="required-documents-title" className="text-lg text-ink-900">Action required: provide 2 certificates</h2><p className="mt-2 text-sm leading-6 text-slate-600">Please upload both of the following as PDF files, up to 10 MB each:</p><ul className="mt-3 grid gap-2 text-sm font-semibold text-ink-900 sm:grid-cols-2"><li className="flex items-center gap-2"><BadgeCheck size={16} className="text-orange-600"/>CPR certification</li><li className="flex items-center gap-2"><BadgeCheck size={16} className="text-orange-600"/>First Aid certification</li></ul><p className="mt-3 text-xs leading-5 text-slate-500">Expired certificates must be replaced. Replacing a certificate starts a new agency review.</p></div></div></section>
+  <div className="mt-6 grid gap-5 md:grid-cols-2">{Object.entries(CREDENTIAL_KINDS).map(([kind,label])=>{const record=records.find(row=>row.kind===kind),status=record?credentialStatus(record):"Not uploaded",verified=status==="verified";return <section key={kind} className="rounded-2xl border border-cream-300 bg-white p-6"><div className="flex items-start justify-between gap-3"><div><p className="text-[10px] font-semibold uppercase tracking-[.13em] text-teal-brand">Required certificate</p><h2 className="mt-2 text-xl text-ink-900">{label}</h2></div><span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${verified?"bg-teal-pale text-teal-brand":"bg-orange-50 text-orange-700"}`}>{status}</span></div><p className="mt-3 text-xs leading-5 text-slate-500">{record?.expiresOn?`Valid through ${record.expiresOn} (UTC).`:"Submit a current certificate for agency verification."}</p>{record&&<a href={`/api/credentials/${record.id}`} className="mt-3 inline-block text-xs font-medium text-teal-brand">View uploaded PDF</a>}{record?.feedback&&<p className="mt-3 rounded-lg bg-cream-50 p-4 text-xs leading-5 text-slate-600">Agency feedback: {record.feedback}</p>}<AcademyForm endpoint="/api/credentials" base={{kind,revision:record?.revision??0}} fields={[{name:"file",label:record?"Upload replacement certificate (PDF)":"Upload certificate (PDF)",type:"file"}]} label={record?"Replace certificate":"Upload certificate"} multipart/></section>;})}</div>
+  <section className="mt-6 rounded-2xl border border-cream-300 bg-white p-5 sm:p-6"><div className="flex items-start gap-3"><span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-teal-pale text-teal-brand"><ShieldCheck size={20} aria-hidden="true"/></span><div className="min-w-0"><div className="flex flex-wrap items-center gap-3"><h2 className="text-lg text-ink-900">Background check</h2><span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${agencyCheckStatus==="Clear"?"bg-teal-pale text-teal-brand":"bg-slate-100 text-slate-600"}`}>{agencyCheckStatus}</span></div><p className="mt-2 text-sm leading-6 text-slate-600">Executive Global Nanny conducts and records your background check. You do not need to upload a background-check document.</p>{agencyCheckExpiry&&<p className="mt-2 text-xs text-slate-500">Agency check current through {agencyCheckExpiry}.</p>}</div></div></section>
+  <p className="mt-5 text-center text-xs text-slate-500">Verified certificates: {uploadedCount} of 2 · Background checks are handled by the agency.</p>
+ </div></section>;
+}

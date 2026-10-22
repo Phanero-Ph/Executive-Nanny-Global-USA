@@ -1,0 +1,58 @@
+/* Scheduled caregiver request page. */
+.caregiver-request-page{max-width:1160px;margin:0 auto}
+.caregiver-back{display:inline-flex;align-items:center;gap:8px;color:#64748b;font-size:12px;font-weight:500}
+.caregiver-back:hover{color:var(--color-ink-900)}
+.caregiver-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 0 32px}
+.caregiver-heading h1{margin:12px 0;color:var(--color-ink-900);font-size:clamp(28px,3vw,38px);line-height:1.2;letter-spacing:-.03em}
+.caregiver-heading>div>p:last-child{max-width:580px;color:#64748b;font-size:14px;line-height:1.8}
+.caregiver-heading-icon{display:grid;place-items:center;flex-shrink:0;width:74px;height:74px;border:1px solid #dae8e2;border-radius:23px;background:#edf5f2;color:var(--color-teal-brand)}
+.caregiver-request-layout{display:grid;grid-template-columns:minmax(0,1fr) 285px;gap:28px;align-items:start}
+.caregiver-form-column,.caregiver-form,.caregiver-form>fieldset{min-width:0}
+.caregiver-form>fieldset{display:grid;gap:20px;border:0;margin:0;padding:0}
+.caregiver-form-card{padding:28px;border:1px solid #e0e7e7;border-radius:18px;background:white;box-shadow:0 3px 15px #0a3d4a03}
+.caregiver-section-heading{display:flex;align-items:center;gap:13px;margin-bottom:22px}
+.caregiver-section-heading>span{display:grid;place-items:center;flex-shrink:0;width:43px;height:43px;background:#eef5f2;border:1px solid #e1ece6;border-radius:13px;color:var(--color-teal-brand)}
+.caregiver-section-heading p{font-size:9px;letter-spacing:.14em;font-weight:600;color:#7c9189;margin-bottom:5px}
+.caregiver-section-heading h2{color:var(--color-ink-900);font-size:17px;letter-spacing:-.015em;line-height:1.5}
+.caregiver-section-description{margin:-6px 0 22px;font-size:12px;line-height:1.8;color:#64748b}
+.caregiver-field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.caregiver-fields{display:grid;gap:20px}
+.caregiver-form .application-label{font-size:12px;font-weight:500;margin-bottom:9px}
+.caregiver-form .application-label>span{color:var(--color-ember-600)}
+.caregiver-form .application-input{min-height:50px;border-color:#dce5e6;background:#f9fbfb;border-radius:11px;font-size:14px}
+.caregiver-form textarea{resize:vertical;line-height:1.8}
+.caregiver-form .application-input::placeholder{color:#98a5ae;font-size:12px}
+.caregiver-form .application-input:focus{background:white;border-color:var(--color-teal-brand)}
+.caregiver-field-hint{display:flex;align-items:flex-start;gap:7px;margin-top:14px;color:#7b8995;font-size:11px;line-height:1.8}
+.caregiver-field-hint svg{flex-shrink:0;margin-top:3px}
+.caregiver-form-footer{display:flex;justify-content:space-between;align-items:center;gap:22px;padding:4px 0 12px}
+.caregiver-form-footer p{max-width:270px;color:#778694;font-size:11px;line-height:1.8}
+.caregiver-form-footer .application-submit{flex-shrink:0;min-height:50px;border-radius:12px;padding:13px 20px}
+.caregiver-form fieldset:disabled .application-input{background:#f1f4f4;color:#87959a;cursor:not-allowed}
+.caregiver-form-error{padding:16px;margin-top:16px;border:1px solid #fecaca;border-radius:12px;background:#fef2f2;color:#b91c1c;font-size:13px;line-height:1.8}
+.caregiver-request-aside{position:sticky;top:28px}
+.caregiver-summary{padding:26px 23px;background:#edf5f2;border:1px solid #dbe8e1;border-radius:18px}
+.caregiver-overline{font-size:9px;letter-spacing:.14em;font-weight:600;color:var(--color-teal-brand)}
+.caregiver-summary h2{margin:15px 0 12px;font-size:23px;color:var(--color-ink-900);letter-spacing:-.025em;line-height:1.35}
+.caregiver-summary>p:last-of-type{font-size:12px;color:#698079;line-height:1.8}
+.caregiver-membership{display:flex;gap:10px;align-items:center;padding:17px 0;margin-top:14px;border-bottom:1px solid #d5e3db}
+.caregiver-membership>span{display:grid;place-items:center;width:27px;height:27px;flex-shrink:0;border-radius:50%;background:#e1e9e6;color:#7b8982}
+.caregiver-membership>span.is-active{background:#d8e9df;color:#38785b}
+.caregiver-membership strong{display:block;font-size:12px;color:var(--color-ink-900);font-weight:600}
+.caregiver-membership small{display:block;margin-top:5px;font-size:10px;line-height:1.6;color:#698079}
+.caregiver-summary dl{display:grid;gap:16px;margin-top:20px}
+.caregiver-summary dl>div{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:10px}
+.caregiver-summary dt{color:#7c8f86}.caregiver-summary dd{color:var(--color-ink-900);font-weight:500;text-align:right}
+.caregiver-next{padding:26px 6px}.caregiver-next h3{font-size:13px;color:var(--color-ink-900)}
+.caregiver-next ol{display:grid;gap:20px;margin-top:20px}
+.caregiver-next li{display:flex;align-items:flex-start;gap:11px}
+.caregiver-next li>span{display:grid;place-items:center;flex-shrink:0;width:23px;height:23px;border:1px solid #dbe4e2;border-radius:50%;background:white;color:#719188;font-size:10px}
+.caregiver-next strong{display:block;margin-top:2px;font-size:11px;font-weight:500;color:var(--color-ink-900)}
+.caregiver-next li p{font-size:11px;line-height:1.8;color:#7b8995;margin-top:5px}
+.caregiver-next>a{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--color-teal-brand);font-weight:500;margin-top:24px}
+.caregiver-eligibility{display:flex;gap:12px;padding:18px;border:1px solid #f1ddbd;background:#fff9ef;border-radius:14px;margin-bottom:20px;color:#916b38}
+.caregiver-eligibility>svg{flex-shrink:0}.caregiver-eligibility strong{font-size:12px;font-weight:600}
+.caregiver-eligibility p{font-size:12px;line-height:1.8;margin-top:5px}.caregiver-eligibility a{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:11px;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:1100px){.caregiver-request-layout{grid-template-columns:minmax(0,1fr) 240px;gap:20px}.caregiver-form-card{padding:24px}.caregiver-summary{padding:22px 18px}.caregiver-field-grid{grid-template-columns:1fr}.caregiver-form-footer{flex-wrap:wrap}}
+@media(max-width:767px){.caregiver-request-layout{grid-template-columns:1fr}.caregiver-request-aside{position:static;display:grid;grid-template-columns:1fr 1fr;gap:20px}.caregiver-next{padding:6px}.caregiver-heading{padding:24px 0}.caregiver-field-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.caregiver-form .application-input{font-size:16px}}
+@media(max-width:520px){.caregiver-heading-icon{display:none}.caregiver-form-card{padding:22px 18px}.caregiver-field-grid{grid-template-columns:1fr}.caregiver-request-aside{grid-template-columns:1fr}.caregiver-form-footer{gap:14px}.caregiver-form-footer p{max-width:none}.caregiver-form-footer .application-submit{width:100%}.caregiver-section-heading h2{font-size:16px}.caregiver-next{padding:10px 5px}}

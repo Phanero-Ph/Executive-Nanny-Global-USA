@@ -1,0 +1,12 @@
+import {eq,and} from "drizzle-orm";
+import {db} from "@/db";
+import {agencyFeeSettings,caregiverFees,familyRequests,nannyMatches,nannyApplications} from "@/db/schema";
+import {syncCaregiverFeeCheckout} from "./caregiver-fee-events";
+type Tx=Parameters<Parameters<typeof db.transaction>[0]>[0];
+export async function getAgencyFees(connection:Tx|typeof db=db){const [row]=await connection.select().from(agencyFeeSettings).where(eq(agencyFeeSettings.id,1));return row??{id:1,searchCents:30000,placementCents:5000,placementRateBps:1500,revision:0,updatedBy:null,updatedAt:null};}
+export async function getRequestFees(requestId:string){await syncCaregiverFeeCheckout(requestId);const [settings,issued]=await Promise.all([getAgencyFees(),db.select().from(caregiverFees).where(eq(caregiverFees.requestId,requestId))]);const search=issued.find(f=>f.kind==="search"),placement=issued.find(f=>f.kind==="placement");const persistedPlacementStatus=placement?.paidAt?(placement.refundedCents>0?"refunded":"paid"):placement?.status;if(placement&&["paid","refunded"].includes(persistedPlacementStatus??""))await db.update(familyRequests).set({placementFeeStatus:persistedPlacementStatus}).where(eq(familyRequests.id,requestId));const [candidate]=placement?.matchId?await db.select({name:nannyApplications.name,status:nannyMatches.status}).from(nannyMatches).innerJoin(nannyApplications,eq(nannyMatches.nannyApplicationId,nannyApplications.id)).where(and(eq(nannyMatches.id,placement.matchId),eq(nannyMatches.familyRequestId,requestId))):[];
+ // A saved request rate is only a creation-time snapshot. Until a placement quote
+ // exists, show the current agency rate; once quoted, keep the issued quote immutable.
+ const feeStatus=(fee:typeof placement)=>fee?.paidAt?(fee.refundedCents>0?"refunded":"paid"):fee?.status??"unpaid";
+ return{searchCents:search?.amountCents??settings.searchCents,searchStatus:feeStatus(search),placementCents:placement?.amountCents??null,placementStatus:feeStatus(placement),placementRateBps:placement?.placementRateBps??settings.placementRateBps,annualSalaryCents:placement?.annualSalaryCents??null,matchId:placement?.matchId??null,candidateName:candidate?.name??null,quoteRevision:placement?.quoteRevision??-1,quoteLocked:!!(placement?.checkoutSessionId||placement?.paidAt||placement?.status==="checkout_pending"),placementReady:!!placement&&(!placement.matchId||candidate?.status==="shortlisted"),legacyFixedFee:!!placement&&!placement.annualSalaryCents};
+}
