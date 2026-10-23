@@ -596,3 +596,54 @@ select:-webkit-autofill {
 .membership-renewal-note { margin-top:18px; color:#75878b; font-size:11px; line-height:1.6; }
 @media (max-width:980px) { .membership-plan-grid { grid-template-columns:1fr; gap:12px; } .membership-plan-card { min-height:205px; padding:19px; } }
 .dashboard-welcome .family-subscription-actions>div>span {color:rgb(227 242 247 / .5);}
+
+/* Mobile safeguards shared by the marketing site and all private workspaces. */
+html, body { max-width: 100%; }
+body { overflow-x: clip; }
+main, .dashboard-shell, .dashboard-workspace, .dashboard-content { min-width: 0; }
+img, video, canvas { max-width: 100%; }
+.dashboard-content .overflow-x-auto,
+.dashboard-content .dashboard-table-wrap,
+.dashboard-content .admin-caregiver-table-wrap { max-width: 100%; overscroll-behavior-inline: contain; -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 639px) {
+  .dashboard-shell { overflow-x: clip; }
+  .dashboard-navigation { width: min(292px, calc(100vw - 28px)); max-width: calc(100vw - 28px); padding-bottom: env(safe-area-inset-bottom); }
+  .dashboard-topbar { min-height: 66px; gap: 8px; padding: 9px 12px; }
+  .dashboard-topbar > div:first-child { min-width: 0; gap: 9px; }
+  .dashboard-topbar > div:last-child { gap: 7px; }
+  .dashboard-menu-button, .dashboard-signout { width: 42px; height: 42px; flex: 0 0 auto; }
+  .dashboard-user-avatar { width: 34px; height: 34px; }
+  .dashboard-content { padding: 20px 14px 32px; }
+  .dashboard-content .application-page { min-width: 0; }
+  .dashboard-heading { gap: 12px; margin-bottom: 20px; }
+  .dashboard-heading > div { min-width: 0; }
+  .dashboard-heading h1 { overflow-wrap: anywhere; font-size: clamp(23px, 7vw, 30px); }
+  .dashboard-heading .application-submit, .dashboard-heading .application-secondary { max-width: 100%; white-space: normal; }
+  .dashboard-description { font-size: 13px; line-height: 1.7; }
+  .dashboard-welcome { gap: 15px; padding: 21px; }
+  .dashboard-welcome h2 { font-size: 21px; }
+  .dashboard-stats { gap: 10px; }
+  .dashboard-stat { padding: 14px; }
+  .dashboard-stat strong { font-size: 25px; }
+  .dashboard-stat strong.dashboard-stat-word { font-size: 18px; }
+  .dashboard-card { padding: 17px; }
+  .dashboard-card-title { align-items: flex-start; gap: 9px; }
+  .dashboard-list-row { flex-direction: column; gap: 8px; }
+  .dashboard-table-wrap, .admin-caregiver-table-wrap { width: 100%; overflow-x: auto; }
+  .dashboard-bottomline { flex-direction: column; gap: 6px; padding: 16px 14px; }
+  .application-page { min-width: 0; }
+  .application-section, .application-actions { padding: 18px; }
+  .application-input, .dashboard-content .application-input, select, textarea { font-size: 16px; }
+  .application-submit, .application-secondary { min-height: 44px; }
+  .dashboard-content .application-submit, .dashboard-content .application-secondary { min-height: 44px; }
+}
+
+@media (max-width: 359px) {
+  .dashboard-topbar { padding-right: 8px; padding-left: 8px; }
+  .dashboard-topbar > div:first-child { gap: 6px; }
+  .dashboard-topbar > div:last-child { gap: 4px; }
+  .dashboard-menu-button, .dashboard-signout { width: 38px; height: 42px; }
+  .dashboard-content { padding-right: 10px; padding-left: 10px; }
+  .dashboard-stat { padding: 11px; }
+}
