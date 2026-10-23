@@ -3,8 +3,8 @@ import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
-  // Keep build worker pools within the process/thread limits of shared hosts.
-  experimental: { cpus: 2 },
+  // Keep Next's page-data worker pool within strict shared-host limits.
+  experimental: { cpus: 1, workerThreads: false },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.pexels.com", pathname: "/photos/**" },
