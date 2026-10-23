@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, MonitorPlay, Award, ClipboardCheck } from "lucide-react";
 import { IMAGES, TRAINING_COURSES } from "@/data/site";

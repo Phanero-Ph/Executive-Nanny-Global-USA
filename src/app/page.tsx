@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import {
   ShieldCheck,

@@ -1,7 +1,7 @@
 import {getAgencyFees} from "@/lib/agency-fees";
 import {feeMoney,feePercent} from "@/lib/fee-format";
 import type { Metadata } from "next";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 import { PRICING, SERVICES } from "@/data/site";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import { Phone, Mail, MapPin, ShieldCheck, HeartPulse, Star } from "lucide-react";
 import { SITE } from "@/data/site";
 

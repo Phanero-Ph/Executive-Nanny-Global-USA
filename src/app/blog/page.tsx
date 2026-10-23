@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowRight, Clock3, CalendarDays, TrendingUp, Tag } from "lucide-react";
 import { BLOG_PAGE_POSTS } from "@/data/blog";

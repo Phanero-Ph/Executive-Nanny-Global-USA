@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";

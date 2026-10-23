@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { HeartHandshake, ShieldCheck, GraduationCap, MapPin, MessageCircle, Users, Award, Check } from "lucide-react";
 import { PageHero, SectionHeader, CtaBand } from "@/components/ui";

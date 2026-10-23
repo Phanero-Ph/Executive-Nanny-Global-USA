@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowLeft, Check, PhoneCall } from "lucide-react";

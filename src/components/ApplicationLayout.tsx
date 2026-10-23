@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowUpRight, Check, Phone, ShieldCheck } from "lucide-react";
 import { SITE, IMAGES } from "@/data/site";
