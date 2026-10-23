@@ -65,7 +65,7 @@ export default function TrainingPage() {
             <div className="grid grid-cols-2 gap-4">
               {[IMAGES.training2, IMAGES.training3, IMAGES.training4, IMAGES.training1].map((img, i) => (
                 <div key={i} className={`overflow-hidden rounded-2xl shadow-card ${i % 2 === 1 ? "mt-6" : ""}`}>
-                  <Image src={img} alt="EGN Training Academy session" width={500} height={380} loading="lazy" unoptimized className="aspect-[4/3] w-full object-cover" />
+                  <Image src={img} alt="EGN Training Academy session" width={500} height={380} loading="lazy" className="aspect-[4/3] w-full object-cover" />
                 </div>
               ))}
             </div>

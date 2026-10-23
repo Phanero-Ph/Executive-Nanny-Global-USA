@@ -53,7 +53,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="overflow-hidden rounded-3xl shadow-card">
-              <Image src={post.image} alt={post.title} width={1200} height={700} unoptimized className="aspect-[16/9] w-full object-cover" />
+              <Image src={post.image} alt={post.title} width={1200} height={700} className="aspect-[16/9] w-full object-cover" />
             </div>
           </Reveal>
           <Reveal>
@@ -116,7 +116,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   <div className="overflow-hidden">
                     <Image
                       src={r.image}
-                      unoptimized
                       alt={r.title}
                       width={600}
                       height={400}

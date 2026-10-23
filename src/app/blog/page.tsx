@@ -68,7 +68,6 @@ export default function BlogPage() {
                   <div className="overflow-hidden">
                     <Image
                       src={post.image}
-                      unoptimized
                       alt={post.title}
                       width={800}
                       height={500}
