@@ -66,6 +66,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <div className="overflow-hidden rounded-3xl shadow-card">
                 <Image
                   src={service.image}
+                  unoptimized
                   alt={service.title}
                   width={1200}
                   height={700}
@@ -163,6 +164,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                   <div className="overflow-hidden">
                     <Image
                       src={r.image}
+                      unoptimized
                       alt={r.title}
                       width={700}
                       height={440}

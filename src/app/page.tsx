@@ -131,6 +131,7 @@ export default function HomePage() {
               <div className="relative overflow-hidden rounded-[2rem] border-8 border-white shadow-card-lg">
                 <Image
                   src={IMAGES.hero}
+                  unoptimized
                   alt="Nanny joyfully playing with a young child in a bright New Jersey living room"
                   width={1200}
                   height={800}
@@ -210,6 +211,7 @@ export default function HomePage() {
                   <div className="relative overflow-hidden">
                     <Image
                       src={service.image}
+                      unoptimized
                       alt={service.title}
                       width={800}
                       height={500}
@@ -290,6 +292,7 @@ export default function HomePage() {
               <div className="overflow-hidden rounded-[2rem] border border-white/10 shadow-card-lg">
                 <Image
                   src={IMAGES.readingBook}
+                  unoptimized
                   alt="Caregiver reading with a child during a calm afternoon"
                   width={1000}
                   height={750}
@@ -383,6 +386,7 @@ export default function HomePage() {
               <div className="overflow-hidden rounded-[2rem] shadow-card-lg">
                 <Image
                   src={IMAGES.training1}
+                  unoptimized
                   alt="Caregivers learning together at the EGN Training Academy"
                   width={1000}
                   height={750}
@@ -420,6 +424,7 @@ export default function HomePage() {
                 >
                   <Image
                     src={area.image}
+                    unoptimized
                     alt={`Childcare services in ${area.name}, NJ`}
                     width={600}
                     height={400}
@@ -484,6 +489,7 @@ export default function HomePage() {
                   <div className="overflow-hidden">
                     <Image
                       src={post.image}
+                      unoptimized
                       alt={post.title}
                       width={800}
                       height={500}

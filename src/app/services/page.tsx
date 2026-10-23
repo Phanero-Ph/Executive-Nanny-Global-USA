@@ -70,6 +70,7 @@ export default async function ServicesPage() {
                 <div className={`relative min-h-64 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
                   <Image
                     src={service.image}
+                    unoptimized
                     alt={service.title}
                     fill
                     loading="lazy"
