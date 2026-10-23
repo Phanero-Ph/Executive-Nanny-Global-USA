@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {actorChatEnabled,threadChatEnabled} from "@/lib/chat-settings";
 import {and,count,desc,eq,gt,inArray,lt,lte,ne} from "drizzle-orm";
 import {db} from "@/db";
@@ -30,7 +31,7 @@ export async function GET(req:Request,{params}:{params:Promise<{id:string}>}){
  }catch{return Response.json({error:"Unable to load conversation."},{status:500});}
 }
 export async function POST(req:Request,{params}:{params:Promise<{id:string}>}){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return Response.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return Response.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return Response.json({error:"Please sign in."},{status:401});if(!await actorChatEnabled(actor))return Response.json({error:"Chat is currently unavailable for your account.",code:"CHAT_DISABLED"},{status:403,headers:{"Cache-Control":"private, no-store"}});const {id}=await params;if(!UUID.test(id))return Response.json({error:"Conversation not found."},{status:404});
  if(Number(req.headers.get("content-length"))>16384)return Response.json({error:"Message is too long."},{status:400});const body=await req.json().catch(()=>null);
  if(!body||!["send","read"].includes(body.action))return Response.json({error:"Choose a valid message action."},{status:400});

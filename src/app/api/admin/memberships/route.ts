@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { NextResponse } from "next/server";
 import { and,eq,sql } from "drizzle-orm";
 import { db } from "@/db";
@@ -8,7 +9,7 @@ import { isDuplicateEntry } from "@/db/errors";
 import { MEMBERSHIP_PLANS,validDate,nextMonth,money } from "@/lib/membership";
 import { appUrl } from "@/lib/mail";
 export async function POST(req:Request) {
- if(req.headers.get("origin") && req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role!=="admin")return NextResponse.json({error:"Administrator access required."},{status:403});if(!await adminCan(actor,"payments.manage"))return NextResponse.json({error:"You do not have permission for this action."},{status:403});
  try {
  const body=await req.json().catch(()=>null);if(!body || typeof body!=="object")return NextResponse.json({error:"Invalid request."},{status:400});if(!["create","payment","void","cancel"].includes(body.action))return NextResponse.json({error:"Invalid action."},{status:400});

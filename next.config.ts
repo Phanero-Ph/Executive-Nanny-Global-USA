@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
   // Keep Next's page-data worker pool within strict shared-host limits.
   experimental: { cpus: 1, workerThreads: false },
   images: {
+    // Shared hosting may not reliably serve Next's runtime image optimizer.
+    // Let the browser fetch the public source files and approved image CDN.
+    unoptimized: true,
     remotePatterns: [
       { protocol: "https", hostname: "images.pexels.com", pathname: "/photos/**" },
     ],

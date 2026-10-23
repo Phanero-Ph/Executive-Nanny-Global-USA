@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {credentialsEligible} from "@/lib/credentials";
 import { NextResponse } from "next/server";
 import { and,count,eq,inArray,ne,or,sql } from "drizzle-orm";
@@ -20,7 +21,7 @@ async function paidCycle(tx:Tx,cycleId:string,familyId:string,start:Date,end:Dat
  return payments.filter(p=>!p.voidedAt).reduce((sum,p)=>sum+p.amountCents-p.refundedCents,0)>=cycle.amountCents;
 }
 async function handle(req:Request,create:boolean){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role==="admin"&&!await adminCan(actor,"matching.manage"))return Response.json({error:"Permission required."},{status:403});
  if(create&&actor.role!=="family")return NextResponse.json({error:"A family account is required."},{status:403});
  const body=await req.json().catch(()=>null);if(!body||typeof body!=="object")return NextResponse.json({error:"Invalid request."},{status:400});

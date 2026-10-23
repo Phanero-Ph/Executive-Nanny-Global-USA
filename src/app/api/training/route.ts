@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {NextResponse} from "next/server";
 import {and,count,eq,sql} from "drizzle-orm";
 import {db} from "@/db";
@@ -6,7 +7,7 @@ import {users,trainingCourses,trainingLessons,trainingEnrollments,trainingProgre
 import {getCurrentUser} from "@/lib/auth";
 import {appUrl} from "@/lib/mail";
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role!=="nanny")return NextResponse.json({error:"A caregiver account is required."},{status:403});
  const body=await req.json().catch(()=>null);if(!body||typeof body.courseId!=="string"||!["enroll","lesson","review"].includes(body.action))return NextResponse.json({error:"Invalid academy request."},{status:400});
  if(body.action!=="enroll"&&!Number.isInteger(body.revision))return NextResponse.json({error:"Invalid enrollment revision."},{status:400});

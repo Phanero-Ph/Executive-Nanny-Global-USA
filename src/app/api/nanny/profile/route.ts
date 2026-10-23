@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 export async function PATCH(req: Request) {
- if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
+ if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
  const user = await getCurrentUser();
  if (!user) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
  if (user.role !== "nanny") return NextResponse.json({ error: "A nanny account is required." }, { status: 403 });

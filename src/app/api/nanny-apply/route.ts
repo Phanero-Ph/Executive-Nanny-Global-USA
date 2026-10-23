@@ -1,4 +1,5 @@
 import { notifySubmission } from "@/lib/mail";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { notifyVerification } from "@/lib/account-recovery";
 import { isDuplicateEntry } from "@/db/errors";
 import { NextResponse } from "next/server";
@@ -17,7 +18,7 @@ export async function POST(req: Request) {
  const savedFiles: string[] = [];
  let committed = false;
  try {
-  if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
+  if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
   const account = await getCurrentUser({allowUnverified:true});
     if(account&&["family","nanny"].includes(account.role)&&!account.emailVerifiedAt)return NextResponse.json({error:"Verify your email address before submitting a request or application. Open the verification link in your email or visit /verify-email to resend it.",code:"EMAIL_VERIFICATION_REQUIRED"},{status:403});
   if (account && account.role !== "nanny") return NextResponse.json({ error: "A nanny account is required." }, { status: 403 });

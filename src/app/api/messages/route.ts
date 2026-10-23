@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {actorChatEnabled,getChatSettings} from "@/lib/chat-settings";
 import {NextResponse} from "next/server";
 import {and,eq,or,like,inArray} from "drizzle-orm";
@@ -16,7 +17,7 @@ export async function GET(req:Request){
  try{return NextResponse.json({conversations:await conversationInbox(actor)},{headers:{"Cache-Control":"private, no-store"}});}catch{return NextResponse.json({error:"Unable to load messages."},{status:500});}
 }
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(!await actorChatEnabled(actor))return Response.json({error:"Chat is currently unavailable for your account.",code:"CHAT_DISABLED"},{status:403,headers:{"Cache-Control":"private, no-store"}});if(!["family","nanny","admin"].includes(actor.role))return NextResponse.json({error:"Account access required."},{status:403});
  const body=await req.json().catch(()=>null);
  const memberId=actor.role==="admin"?body?.memberId:actor.id;

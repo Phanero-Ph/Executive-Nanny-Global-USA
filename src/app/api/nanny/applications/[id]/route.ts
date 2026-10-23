@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { and, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { users, nannyApplications, applicationScreenings, reviewEvents } from "@/db/schema";
@@ -7,7 +8,7 @@ import { validRow } from "@/lib/nanny-application";
 import { parseApplication, EDITABLE_APPLICATION_STATUSES } from "@/lib/application-data";
 import { APPLICATION_STEPS, REFERENCE_FIELDS, WORK_FIELDS, LANGUAGE_FIELDS } from "@/data/nanny-application";
 export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
- if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
+ if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
  const user = await getCurrentUser();
  if (!user) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
  if (user.role !== "nanny") return NextResponse.json({ error: "A nanny account is required." }, { status: 403 });

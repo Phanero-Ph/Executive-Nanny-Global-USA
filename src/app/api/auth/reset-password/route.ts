@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { createHash } from "node:crypto";
 import { and,eq,gt,isNull,sql } from "drizzle-orm";
 import { db } from "@/db";
 import { accountTokens,users } from "@/db/schema";
 import { hashPassword,sessionCookieName } from "@/lib/auth";
 export async function POST(req:Request) {
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  try {
   const {token,password,confirmPassword}=await req.json();
   if(typeof token!=="string"||!/^[a-f0-9]{64}$/.test(token))return NextResponse.json({error:"This link is invalid or expired."},{status:400});

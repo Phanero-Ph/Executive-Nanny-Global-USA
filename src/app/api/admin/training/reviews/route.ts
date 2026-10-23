@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {NextResponse} from "next/server";
 import {and,count,eq,isNull,sql} from "drizzle-orm";
 import {db} from "@/db";
@@ -6,7 +7,7 @@ import {users,trainingCourses,trainingLessons,trainingEnrollments,trainingProgre
 import {getCurrentUser} from "@/lib/auth";
 import {appUrl} from "@/lib/mail";
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role!=="admin")return NextResponse.json({error:"Administrator access required."},{status:403});if(!await adminCan(actor,"training.manage"))return NextResponse.json({error:"You do not have permission for this action."},{status:403});
  const body=await req.json().catch(()=>null);if(!body||typeof body.enrollmentId!=="string"||!Number.isInteger(body.revision)||!["issue","return","revoke"].includes(body.action)||typeof body.note!=="string"||body.note.length>2000||typeof body.feedback!=="string"||body.feedback.length>2000)return NextResponse.json({error:"Invalid review request."},{status:400});
  if(body.action==="return"&&!body.feedback.trim()||body.action==="revoke"&&!body.note.trim())return NextResponse.json({error:"Provide caregiver feedback for a return, or an internal reason for revocation."},{status:400});

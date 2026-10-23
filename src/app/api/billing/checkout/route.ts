@@ -1,4 +1,5 @@
 import type Stripe from "stripe";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { and,eq,sql } from "drizzle-orm";
@@ -9,7 +10,7 @@ import { appUrl } from "@/lib/mail";
 import { getStripe,checkedPrice,stripeReady } from "@/lib/stripe";
 export const runtime="nodejs";
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const user=await getCurrentUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});if(user.role!=="family")return NextResponse.json({error:"A family account is required."},{status:403});
  if(!stripeReady())return NextResponse.json({error:"Online subscriptions are being configured. Please contact our team."},{status:503});
  const body=await req.json().catch(()=>null);if(!body||typeof body.plan!=="string")return NextResponse.json({error:"Choose a membership plan."},{status:400});

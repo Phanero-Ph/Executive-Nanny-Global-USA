@@ -1,4 +1,5 @@
 import {getAgencyFees} from "@/lib/agency-fees";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { validDate } from "@/lib/membership";
 import { nannySubmissionAllowance, PlacementError } from "@/lib/placement-policy";
 import { notifySubmission } from "@/lib/mail";
@@ -16,7 +17,7 @@ const ages = ["0-1 years", "2-4 years", "5-8 years", "9-12 years", "13+ years"];
 const care = ["Light housekeeping", "Meal preparation", "Homework help", "Transportation", "Pet care", "School pickup / transportation"];
 export async function POST(req: Request) {
   try {
-    if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
+    if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
     const account = await getCurrentUser({allowUnverified:true});
     if(!account)return NextResponse.json({error:"Create your family account, verify your email, and sign in before submitting a care request."},{status:401});
     if(account&&["family","nanny"].includes(account.role)&&!account.emailVerifiedAt)return NextResponse.json({error:"Verify your email address before submitting a request or application. Open the verification link in your email or visit /verify-email to resend it.",code:"EMAIL_VERIFICATION_REQUIRED"},{status:403});

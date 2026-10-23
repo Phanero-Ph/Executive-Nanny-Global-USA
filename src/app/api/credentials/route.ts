@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {NextResponse} from "next/server";
 import {randomUUID} from "node:crypto";
 import {mkdir,writeFile,unlink} from "node:fs/promises";
@@ -11,7 +12,7 @@ import {CREDENTIAL_KINDS} from "@/lib/credentials";
 import {appUrl} from "@/lib/mail";
 export const runtime="nodejs";
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role==="admin"&&!await adminCan(actor,"credentials.review"))return Response.json({error:"Permission required."},{status:403});if(!["nanny","admin"].includes(actor.role))return NextResponse.json({error:"Caregiver or administrator access required."},{status:403});
  let newFile:string|undefined;
  try{

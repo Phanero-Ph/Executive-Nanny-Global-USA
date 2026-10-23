@@ -1,11 +1,12 @@
 import {NextResponse} from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {eq} from "drizzle-orm";
 import {db} from "@/db";
 import {users,stripeBilling} from "@/db/schema";
 import {getCurrentUser} from "@/lib/auth";
 import {getStripe} from "@/lib/stripe";
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const user=await getCurrentUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});if(user.role!=="family")return NextResponse.json({error:"A family account is required."},{status:403});
  try{const outcome=await db.transaction(async tx=>{
  await tx.select({id:users.id}).from(users).where(eq(users.id,user.id)).for("update");

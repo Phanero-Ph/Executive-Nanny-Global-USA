@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {randomUUID} from "node:crypto";
 import {mkdir,writeFile,unlink} from "node:fs/promises";
 import path from "node:path";
@@ -10,7 +11,7 @@ import {getCurrentUser} from "@/lib/auth";
 export const runtime="nodejs";
 const text=(v:unknown,max:number)=>typeof v==="string"&&v.trim().length>0&&v.length<=max;
 export async function POST(req:Request){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role!=="admin")return NextResponse.json({error:"Administrator access required."},{status:403});if(!await adminCan(actor,"training.manage"))return NextResponse.json({error:"You do not have permission for this action."},{status:403});
  let uploaded:string|undefined;let removed:string|undefined;
  try{

@@ -1,4 +1,5 @@
 import {actorChatEnabled,threadChatEnabled} from "@/lib/chat-settings";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {createHash} from "node:crypto";
 import {and,count,eq,gt,isNull,sql} from "drizzle-orm";
 import {getCurrentUser} from "@/lib/auth";
@@ -8,7 +9,7 @@ import {UUID,canReadConversation} from "@/lib/messaging";
 import {boundedForm,validateChatFile,saveChatFile,removeChatFile,cleanupChatUploads} from "@/lib/chat-files";
 export const runtime="nodejs";
 export async function POST(req:Request,{params}:{params:Promise<{id:string}>}){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return Response.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return Response.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return Response.json({error:"Please sign in."},{status:401});if(!await actorChatEnabled(actor))return Response.json({error:"Chat is currently unavailable for your account.",code:"CHAT_DISABLED"},{status:403,headers:{"Cache-Control":"private, no-store"}});const {id}=await params;if(!UUID.test(id))return Response.json({error:"Conversation not found."},{status:404});
  const [thread]=await db.select().from(conversations).where(eq(conversations.id,id));if(!thread||!canReadConversation(actor,thread)||!await threadChatEnabled(thread,db,actor))return Response.json({error:"Conversation not found."},{status:404});
  let file:Awaited<ReturnType<typeof validateChatFile>>,hash:string,uploadKey:string;

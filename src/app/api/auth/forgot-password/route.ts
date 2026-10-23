@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { isValidEmail } from "@/lib/utils";
 import { recoveryAllowed, issueAccountToken } from "@/lib/account-recovery";
 export async function POST(req: Request) {
- if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error:"Request origin not allowed." },{status:403});
+ if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error:"Request origin not allowed." },{status:403});
  try {
   const body=await req.json();const email=typeof body.email==="string"?body.email.trim().toLowerCase():"";
   if (!isValidEmail(email) || email.length>254) return NextResponse.json({error:"Enter a valid email address."},{status:400});

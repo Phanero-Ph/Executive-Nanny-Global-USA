@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {NextResponse} from "next/server";
 import {eq} from "drizzle-orm";
 import {db} from "@/db";
@@ -7,7 +8,7 @@ import {getCurrentUser} from "@/lib/auth";
 import {parseApplication} from "@/lib/application-data";
 import {applicationDigest,SCREENING_CHECKS, type ReferenceReview} from "@/lib/screening-policy";
 export async function PUT(req:Request,{params}:{params:Promise<{id:string}>}){
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const user=await getCurrentUser();if(!user)return NextResponse.json({error:"Please sign in."},{status:401});if(user.role!=="admin")return NextResponse.json({error:"Administrator access required."},{status:403});if(!await adminCan(user,"nannies.approve"))return NextResponse.json({error:"You do not have permission for this action."},{status:403});
  try{
   const {id}=await params,body=await req.json();

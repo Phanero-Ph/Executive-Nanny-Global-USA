@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import { createHash } from "node:crypto";
 import { and,eq,gt,isNull,sql } from "drizzle-orm";
 import { db } from "@/db";
@@ -6,7 +7,7 @@ import { accountTokens,users } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 import { issueAccountToken,recoveryAllowed } from "@/lib/account-recovery";
 export async function POST(req:Request) {
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  try {
   const body=await req.json();
   if(body.action==="resend") {

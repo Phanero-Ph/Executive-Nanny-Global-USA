@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {adminRequestVisibility} from "@/lib/admin-request-visibility";
 import {caregiverSearchAllowed,caregiverPlacementAllowed,nannySubmissionAllowance} from "@/lib/placement-policy";
 import {screeningEligible} from "@/lib/screening";
@@ -12,7 +13,7 @@ import { isDuplicateEntry } from "@/db/errors";
 import { queueEmail,appUrl } from "@/lib/mail";
 const TRANSITIONS:Record<string,string[]>={shortlisted:["shortlisted","placed","closed"],interview:["shortlisted","placed","closed"],placed:["placed","closed"],closed:["shortlisted"]};
 async function handle(req:Request,create:boolean) {
- if(req.headers.get("origin")&&req.headers.get("origin")!==new URL(req.url).origin)return NextResponse.json({error:"Request origin not allowed."},{status:403});
+ if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  const actor=await getCurrentUser();if(!actor)return NextResponse.json({error:"Please sign in."},{status:401});if(actor.role!=="admin")return NextResponse.json({error:"Administrator access required."},{status:403});if(!await adminCan(actor,"matching.manage"))return NextResponse.json({error:"You do not have permission for this action."},{status:403});
  try {
   const body=await req.json();

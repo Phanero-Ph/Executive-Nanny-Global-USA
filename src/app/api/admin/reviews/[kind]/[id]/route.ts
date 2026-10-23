@@ -1,4 +1,5 @@
 import {adminCan} from "@/lib/admin-permissions";
+import { isAllowedRequestOrigin } from "@/lib/request-origin";
 import {screeningEligible} from "@/lib/screening";
 import {applicationScreenings} from "@/db/schema";
 import {applicationDigest} from "@/lib/screening-policy";
@@ -14,7 +15,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { FAMILY_REVIEW_STATUSES, NANNY_REVIEW_STATUSES } from "@/data/review-statuses";
 import {NANNY_ADMIN_DECISION_STATUSES} from "@/data/review-statuses";
 export async function PATCH(req: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
- if (req.headers.get("origin") && req.headers.get("origin") !== new URL(req.url).origin) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
+ if (!isAllowedRequestOrigin(req)) return NextResponse.json({ error: "Request origin not allowed." }, { status: 403 });
  const user = await getCurrentUser();
  if (!user) return NextResponse.json({ error: "Please sign in." }, { status: 401 });
  if (user.role !== "admin") return NextResponse.json({ error: "Administrator access required." }, { status: 403 });
