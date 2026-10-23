@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3000",
-    "build": "next build --webpack",
+    "build": "node scripts/build.mjs",
     "start": "node server.js",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
