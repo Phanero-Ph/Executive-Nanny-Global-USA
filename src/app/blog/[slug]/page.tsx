@@ -80,7 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <div>
                 <p className="font-extrabold text-ink-900">{post.author}</p>
                 <p className="text-sm text-slate-500">
-                  The EGN team supports NJ families and caregivers from our Branchburg headquarters.{" "}
+                  The EGN team supports NJ families, nannies, and babysitters from our Branchburg headquarters.{" "}
                   <a href={SITE.phoneHref} className="font-bold text-ember-600 hover:underline">
                     {SITE.phone}
                   </a>

@@ -146,7 +146,7 @@ export default function HomePage() {
                   </span>
                   <div>
                     <p className="text-sm font-extrabold text-ink-900">Background-Checked</p>
-                    <p className="text-xs font-medium text-slate-500">Vetted, CPR-certified caregivers</p>
+                    <p className="text-xs font-medium text-slate-500">Vetted, CPR-certified nannies and babysitters</p>
                   </div>
                 </div>
               </div>
@@ -246,7 +246,7 @@ export default function HomePage() {
             <SectionHeader
               eyebrow="How We Work"
               title={<>The Executive Global Nanny Process</>}
-              sub="Finding the right caregiver doesn't have to take weeks. Our quick and efficient service provides peace of mind while saving you valuable time."
+              sub="Finding the right nanny or babysitter doesn't have to take weeks. Our quick and efficient service provides peace of mind while saving you valuable time."
             />
           </Reveal>
           <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -254,7 +254,7 @@ export default function HomePage() {
               { icon: CalendarCheck, step: "Step 1", title: "We Interview", text: "Thorough interviews to pick only qualified candidates." },
               { icon: Search, step: "Step 2", title: "We Check", text: "Rigorous background checks and reference verification." },
               { icon: Users, step: "Step 3", title: "We Match", text: "Meticulous match process based on your family's needs." },
-              { icon: ClipboardCheck, step: "Step 4", title: "72 Hours to Your Perfect Match", text: "From your first consultation to meeting your perfectly matched caregiver, our streamlined process delivers results in just 3 days." },
+              { icon: ClipboardCheck, step: "Step 4", title: "72 Hours to Your Perfect Match", text: "From your first consultation to meeting your perfectly matched nanny or babysitter, our streamlined process delivers results in just 3 days." },
             ].map((s, i) => (
               <Reveal key={s.title} delay={i * 90}>
                 <li className="relative h-full rounded-3xl border border-cream-300 bg-white p-7 shadow-card">
@@ -290,7 +290,7 @@ export default function HomePage() {
               <div className="overflow-hidden rounded-[2rem] border border-white/10 shadow-card-lg">
                 <Image
                   src={IMAGES.readingBook}
-                  alt="Caregiver reading with a child during a calm afternoon"
+                  alt="Nanny reading with a child during a calm afternoon"
                   width={1000}
                   height={750}
                   loading="lazy"
@@ -318,11 +318,11 @@ export default function HomePage() {
             </Reveal>
             <ul className="mt-8 space-y-4">
               {[
-                { icon: FileCheck2, title: "Social Security Number Trace", text: "Identity verification as part of caregiver screening." },
+                { icon: FileCheck2, title: "Social Security Number Trace", text: "Identity verification as part of nanny and babysitter screening." },
                 { icon: Search, title: "National Criminal Database Search", text: "Thorough background checks for professionalism and trustworthiness." },
                 { icon: Users, title: "Motor Vehicle Report", text: "Driving-record review included in placement screening." },
-                { icon: HeartPulse, title: "CPR/First Aid Certification Verification", text: "Certified caregivers prepared to support your family's safety." },
-                { icon: BadgeCheck, title: "Sex Offender Records", text: "Records checked as part of the caregiver vetting process." },
+                { icon: HeartPulse, title: "CPR/First Aid Certification Verification", text: "Certified nannies and babysitters prepared to support your family's safety." },
+                { icon: BadgeCheck, title: "Sex Offender Records", text: "Records checked as part of nanny and babysitter screening." },
                 { icon: ShieldCheck, title: "Trial & Backup Care", text: "A 2-day trial period (family pays the candidate) and 5 days of complimentary backup care." },
               ].map((item, i) => (
                 <Reveal key={item.title} delay={i * 60}>
@@ -357,7 +357,7 @@ export default function HomePage() {
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {[
                 { icon: Wallet, title: "Basic Nanny Training", text: "Childcare essentials, safety protocols, and age-appropriate activities." },
-                { icon: GraduationCap, title: "Pro Caregiver Training", text: "Advanced skills and career development for caregivers seeking to advance their careers." },
+                { icon: GraduationCap, title: "Professional Nanny Training", text: "Advanced skills and career development for nannies seeking to advance their careers." },
                 { icon: Users, title: "Weekly Instagram Series", text: "Conversations on childcare, nannying, parenting and motherhood. You could be one of our guests." },
                 { icon: Clock3, title: "Professional Certification", text: "Training programs that help you develop essential caregiving skills." },
               ].map((f, i) => (
@@ -383,7 +383,7 @@ export default function HomePage() {
               <div className="overflow-hidden rounded-[2rem] shadow-card-lg">
                 <Image
                   src={IMAGES.training1}
-                  alt="Caregivers learning together at the EGN Training Academy"
+                  alt="Nannies learning together at the EGN Training Academy"
                   width={1000}
                   height={750}
                   loading="lazy"
@@ -538,13 +538,13 @@ export default function HomePage() {
                 align="left"
                 eyebrow="Get Started"
                 title={<>Your Partner in Quality Childcare</>}
-                sub="We understand that finding quality childcare is essential for busy families. Our babysitting services, backup care, and full-time nanny placements connect you with highly vetted, CPR-certified, and professional caregivers."
+                sub="We understand that finding quality childcare is essential for busy families. Our babysitting services, backup care, and full-time nanny placements connect you with highly vetted, CPR-certified nannies and babysitters."
               />
             </Reveal>
             <Reveal delay={100}>
               <ul className="mt-8 space-y-4">
                 {[
-                  "Fast Matching · Vetted Caregivers · Peace of Mind",
+                  "Fast Matching · Vetted Nannies and Babysitters · Peace of Mind",
                   "Personalized Matching & Ongoing Support",
                   "90 days guaranteed replacement period",
                 ].map((item) => (

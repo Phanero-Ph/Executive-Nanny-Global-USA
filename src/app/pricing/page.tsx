@@ -10,7 +10,7 @@ import { FAQS } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Pricing — Search Fees, Memberships & Caregiver Plans",
+  title: "Pricing — Search Fees, Memberships & Nanny Plans",
   description:
     "Babysitter subscriptions from $59/month. Nanny placement requires separate search and placement fees, with no family subscription required.",
   alternates: { canonical: "/pricing" },
@@ -44,7 +44,7 @@ export default async function PricingPage() {
             <SectionHeader
               eyebrow="For Families"
               title={<>Placement search fees</>}
-              sub="Choose a babysitter subscription or pay per nanny request. Caregiver wages are separate from company fees."
+              sub="Choose a babysitter subscription or pay per nanny request. Nanny and babysitter wages are separate from company fees."
             />
           </Reveal>
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
@@ -161,14 +161,14 @@ export default async function PricingPage() {
         </div>
       </section>
 
-      {/* Caregiver subscription */}
+      {/* Nanny subscription */}
       <section className="bg-cream-100 py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <Reveal>
             <SectionHeader
-              eyebrow="For Caregivers"
-              title={<>Caregiver subscription</>}
-              sub="Approved caregivers hold an active subscription that keeps profiles visible for matching and unlocks the full Training Academy."
+              eyebrow="For Nannies"
+              title={<>Nanny subscription</>}
+              sub="Approved nannies hold an active subscription that keeps profiles visible for matching and unlocks the full Training Academy."
             />
           </Reveal>
           <Reveal delay={120}>
@@ -201,7 +201,7 @@ export default async function PricingPage() {
                   href="/apply"
                   className="mt-6 block rounded-xl bg-ember-500 px-6 py-3.5 text-center font-bold text-white shadow-ember transition hover:bg-ember-600"
                 >
-                  Apply as a Caregiver
+                  Apply as a Nanny
                 </Link>
               </div>
               <div className="p-8 sm:p-10">

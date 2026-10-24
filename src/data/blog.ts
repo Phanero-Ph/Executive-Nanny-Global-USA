@@ -16,7 +16,7 @@ const REFERENCE_POSTS = [
   },
   {
     title: "Tips for Working with Children of Different Ages",
-    excerpt: "Creating harmony in a home with children of different ages starts with structure, empathy, and age-appropriate expectations. We equip caregivers with the skills to manage multi-age homes confidently.",
+    excerpt: "Creating harmony in a home with children of different ages starts with structure, empathy, and age-appropriate expectations. We equip nannies with the skills to manage multi-age homes confidently.",
     category: "Childcare", date: "Nov 19", readTime: "6 min read", href: INSTAGRAM,
   },
   {

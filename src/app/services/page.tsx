@@ -24,7 +24,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Our Services"
         title="Complete childcare, one trusted agency"
-        sub="Every service is delivered by vetted, CPR-certified caregivers and backed by a dedicated Branchburg-based team."
+        sub="Every service is delivered by vetted, CPR-certified nannies and babysitters and backed by a dedicated Branchburg-based team."
       />
 
       <section id="babysitting-memberships" aria-labelledby="membership-heading" className="scroll-mt-20 bg-cream-100 py-16 sm:py-20">
@@ -33,7 +33,7 @@ export default async function ServicesPage() {
             <div className="mx-auto max-w-3xl text-center">
               <span className="text-sm font-semibold tracking-wider text-ember-600 uppercase">Monthly subscriptions</span>
               <h2 id="membership-heading" className="mt-3 text-3xl text-ink-900 sm:text-4xl">Babysitter subscriptions</h2>
-              <p className="mt-4 text-lg text-slate-600">Choose 3, 5, 8 or unlimited babysitter search submissions per paid month. Company search and placement fees are included; caregiver wages are separate.</p>
+              <p className="mt-4 text-lg text-slate-600">Choose 3, 5, 8 or unlimited babysitter search submissions per paid month. Company search and placement fees are included; nanny and babysitter wages are separate.</p>
             </div>
           </Reveal>
           <div className="mt-10 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">

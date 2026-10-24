@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s | Executive Global Nanny",
   },
   description:
-    "Executive Global Nanny provides professional nanny placement, babysitting services, and backup childcare in Branchburg and throughout New Jersey. CPR-certified, background-checked caregivers for busy families.",
+    "Executive Global Nanny provides professional nanny placement, babysitting services, and backup childcare in Branchburg and throughout New Jersey. CPR-certified, background-checked nannies and babysitters for busy families.",
   keywords: [
     "nanny services New Jersey",
     "babysitting Branchburg NJ",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Executive Global Nanny",
     title: "Executive Global Nanny | Professional Nanny Services in Branchburg, NJ",
     description:
-      "Trusted childcare solutions in New Jersey. Professional nanny placement, babysitting services, and backup care with vetted, CPR-certified caregivers.",
+      "Trusted childcare solutions in New Jersey. Professional nanny placement, babysitting services, and backup care with vetted, CPR-certified nannies and babysitters.",
   },
   twitter: {
     card: "summary_large_image",

@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: "Service Not Found" };
   return {
     title: `${service.title} in New Jersey`,
-    description: `${service.description} Serving Branchburg, Somerset County & all of NJ with vetted, CPR-certified caregivers.`,
+    description: `${service.description} Serving Branchburg, Somerset County & all of NJ with vetted, CPR-certified nannies and babysitters.`,
     alternates: { canonical: `/services/${service.slug}` },
   };
 }

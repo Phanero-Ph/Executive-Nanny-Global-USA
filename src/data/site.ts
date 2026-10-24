@@ -88,7 +88,7 @@ export const SERVICES: Service[] = [
       "Our signature service: a thoroughly vetted, full-time nanny placed in your home with a 90-day replacement guarantee.",
     longDescription: [
       "Finding the right full-time nanny is one of the most important decisions your family will make. Our recruiters take time to understand your parenting style, schedule, household rhythms, and long-term goals — then curate a shortlist of candidates who truly fit.",
-      "Every full-time candidate completes identity verification, reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview before you ever meet them. You interview only the best — typically 2 to 4 exceptional caregivers.",
+      "Every full-time candidate completes identity verification, reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview before you ever meet them. You interview only the best — typically 2 to 4 exceptional nannies.",
       "Once you choose your nanny, we support the transition with a trial period, a written work agreement template, and check-ins at 30, 60, and 90 days. If the placement isn't right within the guarantee window, we rematch at no additional placement fee.",
     ],
     image: IMAGES.familyPlay,
@@ -140,7 +140,7 @@ export const SERVICES: Service[] = [
     title: "Babysitting & Date-Night Care",
     short: "Vetted sitters on demand, booked in minutes.",
     description:
-      "Membership-based babysitting with CPR-certified caregivers — perfect for date nights, events, and weekend plans.",
+      "Membership-based babysitting with CPR-certified babysitters — perfect for date nights, events, and weekend plans.",
     longDescription: [
       "Our babysitting membership gives your family on-demand access to a bench of vetted, CPR-certified sitters across Somerset, Hunterdon, Morris, and Middlesex counties.",
       "Request care in minutes through your family portal: share the date, time, ages, and bedtime routine — we confirm a sitter who already knows your household preferences. Members enjoy priority booking and flexible scheduling, with monthly plans ranging from 3 bookings to unlimited babysitter submissions.",
@@ -167,10 +167,10 @@ export const SERVICES: Service[] = [
     title: "Backup & Emergency Care",
     short: "Same-day care when plans fall apart.",
     description:
-      "Last-minute coverage for sick days, school closures, and caregiver gaps — often confirmed within hours.",
+      "Last-minute coverage for sick days, school closures, and nanny or babysitter gaps — often confirmed within hours.",
     longDescription: [
       "School closed? Regular nanny sick? Meeting you can't miss? Our backup-care bench exists for exactly these mornings.",
-      "Backup members keep a household profile on file so we can dispatch a vetted caregiver fast — often within 2 to 4 hours in our core service area. Every backup caregiver meets the same screening bar: verified identity, references, background check, and CPR certification.",
+      "Backup members keep a household profile on file so we can arrange a vetted babysitter quickly — often within 2 to 4 hours in our core service area. Every backup babysitter meets the same screening bar: verified identity, references, background check, and CPR certification.",
     ],
     image: IMAGES.kitchenPlay,
     icon: "siren",
@@ -267,7 +267,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
     county: "Somerset County",
     zips: ["08876", "08853"],
     description: [
-      "Executive Global Nanny is headquartered in Branchburg, NJ — which means Branchburg families get our fastest response times, deepest caregiver bench, and same-day backup availability.",
+      "Executive Global Nanny is headquartered in Branchburg, NJ — which means Branchburg families get our fastest response times, deepest network of nannies and babysitters, and same-day backup availability.",
       "From neighborhoods around Raritan Valley Community College to the family streets off Route 28 and Old York Road, our nannies, sitters, and newborn specialists serve Branchburg daily — including after-school coverage for Branchburg Township schools.",
     ],
     highlights: [
@@ -285,7 +285,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
     zips: ["08807", "08836"],
     description: [
       "Bridgewater's growing families rely on EGN for full-time nanny placements, after-school care, and on-demand babysitting across neighborhoods from Martinsville to Finderne.",
-      "With easy Route 22 and I-287 access, our caregivers reach Bridgewater homes quickly — ideal for backup care on school-closure days and early-morning coverage.",
+      "With easy Route 22 and I-287 access, our nannies and babysitters reach Bridgewater homes quickly — ideal for backup care on school-closure days and early-morning coverage.",
     ],
     highlights: [
       "Full-time & part-time nanny placements",
@@ -302,7 +302,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
     zips: ["08844"],
     description: [
       "Hillsborough families choose EGN for dependable, long-term nannies and flexible babysitting that keeps up with busy school and sports calendars.",
-      "Our recruiters regularly place caregivers in Hillsborough for after-school routines, homework support, and full-day infant care — all backed by our 90-day replacement guarantee on placements.",
+      "Our recruiters regularly place nannies in Hillsborough for after-school routines, homework support, and full-day infant care — all backed by our 90-day replacement guarantee on placements.",
     ],
     highlights: [
       "Long-term nanny placements",
@@ -319,11 +319,11 @@ export const SERVICE_AREAS: ServiceArea[] = [
     zips: ["08876", "08807", "08844", "07920", "08869", "08558"],
     description: [
       "As a Somerset County agency, we serve the full county — Basking Ridge, Bedminster, Bernardsville, Far Hills, Franklin, Montgomery, North Plainfield, Raritan, Somerville, Warren, and Watchung.",
-      "County-wide coverage means a larger vetted caregiver pool, quicker shortlists, and reliable backup care from Branchburg to the northern hills.",
+      "County-wide coverage means a larger vetted nanny and babysitter pool, quicker shortlists, and reliable backup care from Branchburg to the northern hills.",
     ],
     highlights: [
       "Full-county coverage, one agency",
-      "Largest vetted caregiver pool in the county",
+      "Largest vetted nanny and babysitter pool in the county",
       "School-district-aware matching",
       "Same-day backup in core towns",
     ],
@@ -336,10 +336,10 @@ export const SERVICE_AREAS: ServiceArea[] = [
     zips: ["08822", "08559", "08827", "08833", "08801"],
     description: [
       "From Flemington and Raritan Township to Clinton, Readington, and Lebanon, Hunterdon County families trust EGN for personalized nanny placements and dependable sitters.",
-      "We match with commute and transport needs in mind — including driving-capable caregivers for school pickups and activities across the county's spread-out communities.",
+      "We match with commute and transport needs in mind — including nannies and babysitters who can drive for school pickups and activities across the county's spread-out communities.",
     ],
     highlights: [
-      "Driving-capable caregivers for rural routes",
+      "Nannies and babysitters who can drive for rural routes",
       "Full-time placements & after-school care",
       "Weekend babysitting memberships",
       "Newborn & postpartum support",
@@ -370,7 +370,7 @@ export const SERVICE_AREAS: ServiceArea[] = [
     zips: ["08854", "08536", "08831", "08817", "08859"],
     description: [
       "Serving northern Middlesex — Piscataway, South Plainfield, Edison, Metuchen, and Plainsboro — with vetted nannies and on-demand sitters.",
-      "Our recruiters understand Middlesex school schedules and commuter realities, matching caregivers who fit early starts and NYC-commute households.",
+      "Our recruiters understand Middlesex school schedules and commuter realities, matching nannies and babysitters who fit early starts and NYC-commute households.",
     ],
     highlights: [
       "Early-morning coverage for commuters",
@@ -462,11 +462,11 @@ export const TESTIMONIALS: Testimonial[] = [
   {
     name: "Danielle K., Nanny",
     location: "Somerville, NJ",
-    role: "EGN Caregiver",
+    role: "EGN Nanny",
     quote:
-      "As a caregiver, the training and support stand out. The subscription gives me real visibility with great families, and my recruiter checks in regularly.",
+      "As a nanny, the training and support stand out. The subscription gives me real visibility with great families, and my recruiter checks in regularly.",
     rating: 5,
-    service: "Caregiver Network",
+    service: "Nanny Network",
   },
 ];
 
@@ -494,11 +494,11 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Can we browse nanny profiles ourselves?",
-    a: "No — and that's intentional. EGN is an agency-controlled service: our recruiters curate tailored shortlists from fully vetted, subscription-active caregivers. This protects caregiver privacy and ensures every candidate you meet is already qualified, available, and genuinely suited to your household.",
+    a: "No — and that's intentional. EGN is an agency-controlled service: our recruiters curate tailored shortlists from fully vetted, subscription-active nannies and babysitters. This protects their privacy and ensures every candidate you meet is already qualified, available, and genuinely suited to your household.",
     category: "families",
   },
   {
-    q: "What ages do your caregivers support?",
+    q: "What ages do your nannies and babysitters support?",
     a: "Newborns through age 13, including multiples. Our newborn specialists focus on ages 0–6 months (overnight and daytime), while our nannies and sitters cover infants, toddlers, preschoolers, and school-age children.",
     category: "families",
   },
@@ -514,22 +514,22 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How do babysitter subscriptions work?",
-    a: "Choose Basic ($59/month for 3 babysitter submissions), Standard ($89/month for 5 babysitter submissions), Deluxe ($129/month for 8 babysitter submissions), or Premium ($200/month for unlimited babysitter submissions). All plans include priority booking, vetted CPR-certified caregivers, and flexible scheduling. These limits apply to babysitter search submissions in each paid monthly period. Babysitter search and company placement fees are included; wages are separate.",
+    a: "Choose Basic ($59/month for 3 babysitter submissions), Standard ($89/month for 5 babysitter submissions), Deluxe ($129/month for 8 babysitter submissions), or Premium ($200/month for unlimited babysitter submissions). All plans include priority booking, vetted CPR-certified babysitters, and flexible scheduling. These limits apply to babysitter search submissions in each paid monthly period. Babysitter search and company placement fees are included; wages are separate.",
     category: "pricing",
   },
   {
-    q: "Do caregivers pay to join the platform?",
-    a: "Yes. Approved caregivers hold an active platform subscription ($19/month or $190/year) that keeps their profile visible for matching, unlocks training, and funds ongoing verification. Matching eligibility pauses automatically if a subscription lapses, which protects families from inactive profiles.",
+    q: "Do nannies pay to join the platform?",
+    a: "Yes. Approved nannies hold an active platform subscription ($19/month or $190/year) that keeps their profile visible for matching, unlocks training, and funds ongoing verification. Matching eligibility pauses automatically if a subscription lapses, which protects families from inactive profiles.",
     category: "pricing",
   },
   {
-    q: "How do you vet caregivers?",
-    a: "Every caregiver completes identity verification, professional reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview. Credentials and certifications are re-verified on expiry, and only subscription-active caregivers are proposed to families.",
+    q: "How do you vet nannies?",
+    a: "Every nanny completes identity verification, professional reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview. Credentials and certifications are re-verified on expiry, and only subscription-active nannies are proposed to families.",
     category: "safety",
   },
   {
     q: "Are your nannies CPR and First Aid certified?",
-    a: "Yes — current infant/child CPR and First Aid certification (or enrollment in our certification course) is required before any caregiver is proposed to a family. We verify certificates directly and track expiry dates so nothing lapses unnoticed.",
+    a: "Yes — current infant/child CPR and First Aid certification (or enrollment in our certification course) is required before any nanny is proposed to a family. We verify certificates directly and track expiry dates so nothing lapses unnoticed.",
     category: "safety",
   },
   {
@@ -544,7 +544,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "How do I apply as a nanny or sitter?",
-    a: "Complete the caregiver application online — it takes about 10 minutes and you can save progress. Our team reviews every application within 2 business days, then invites qualified candidates to document review, screening, and a recruiter interview.",
+    a: "Complete the nanny application online — it takes about 10 minutes and you can save progress. Our team reviews every application within 2 business days, then invites qualified candidates to document review, screening, and a recruiter interview.",
     category: "nannies",
   },
   {
@@ -553,12 +553,12 @@ export const FAQS: Faq[] = [
     category: "nannies",
   },
   {
-    q: "How and when do caregivers get paid?",
-    a: "For placements, families pay caregivers directly as household employees on an agreed schedule. For babysitting and backup bookings, members are billed through the platform and caregiver earnings are disbursed weekly. Your recruiter confirms the exact arrangement for every role.",
+    q: "How and when do nannies and babysitters get paid?",
+    a: "For nanny placements, families pay nannies directly as household employees on an agreed schedule. For babysitting and backup bookings, members are billed through the platform and babysitter earnings are disbursed weekly. Your recruiter confirms the exact arrangement for every role.",
     category: "nannies",
   },
   {
-    q: "What training is available to caregivers?",
+    q: "What training is available to nannies?",
     a: "Subscribers get access to the EGN Training Academy: CPR/First Aid certification, newborn care, positive discipline, child nutrition, special-needs awareness, and our Professional Nanny Foundations course — plus certificates that strengthen your profile with families.",
     category: "nannies",
   },
@@ -623,7 +623,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "nanny-interview-questions",
     title: "15 Nanny Interview Questions That Reveal Everything",
     excerpt:
-      "Go beyond 'do you like kids?' — the scenario-based questions our recruiters use to spot exceptional caregivers.",
+      "Go beyond 'do you like kids?' — the scenario-based questions our recruiters use to spot exceptional nannies.",
     category: "Hiring Guide",
     date: "September 14, 2026",
     readTime: "7 min read",
@@ -743,7 +743,7 @@ export const BLOG_POSTS: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "The average working parent faces 8–12 unplanned childcare gaps per year: sick days, school closures, delayed openings, and caregiver vacations. Without a plan, each one becomes a 7am scramble. With a plan, it's a text message.",
+          "The average working parent faces 8–12 unplanned childcare gaps per year: sick days, school closures, delayed openings, and nanny or babysitter vacations. Without a plan, each one becomes a 7am scramble. With a plan, it's a text message.",
         ],
       },
       {
@@ -755,20 +755,20 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Layer 2: A backup-care membership",
         paragraphs: [
-          "This is the layer most families miss. With an EGN backup profile on file — children's ages, routines, allergies, emergency contacts — one request can have a vetted caregiver at your door, often within 2–4 hours in our core service area. No 7am group texts. No vetting strangers from an app.",
+          "This is the layer most families miss. With an EGN backup profile on file — children's ages, routines, allergies, emergency contacts — one request can have a vetted babysitter at your door, often within 2–4 hours in our core service area. No 7am group texts. No vetting strangers from an app.",
         ],
       },
       {
         heading: "Layer 3: Employer & community options",
         paragraphs: [
-          "Check whether your employer offers backup-care benefits (many do, unused), and know your school district's closure-notification system. Keep a 'gap day' kit ready: easy meals, activity ideas, and a pre-packed bag so any caregiver can step in smoothly.",
+          "Check whether your employer offers backup-care benefits (many do, unused), and know your school district's closure-notification system. Keep a 'gap day' kit ready: easy meals, activity ideas, and a pre-packed bag so any babysitter can step in smoothly.",
         ],
       },
     ],
   },
   {
     slug: "why-cpr-first-aid-certification-matters",
-    title: "Why We Require CPR/First Aid for Every Caregiver",
+    title: "Why We Require CPR/First Aid for Every Nanny and Babysitter",
     excerpt:
       "Choking, falls, allergic reactions: the emergencies where minutes matter — and how certification changes outcomes.",
     category: "Safety",
@@ -779,8 +779,8 @@ export const BLOG_POSTS: BlogPost[] = [
     sections: [
       {
         paragraphs: [
-          "Choking is a leading cause of injury for children under 4. Allergic reactions can escalate in minutes. Falls happen in seconds. In each of these moments, the caregiver's response in the first 2–3 minutes matters more than anything else — including how fast 911 arrives.",
-          "That's why EGN requires current infant/child CPR and First Aid certification (or active enrollment in our course) before any caregiver meets a family. No exceptions.",
+          "Choking is a leading cause of injury for children under 4. Allergic reactions can escalate in minutes. Falls happen in seconds. In each of these moments, a nanny's or babysitter's response in the first 2–3 minutes matters more than anything else — including how fast 911 arrives.",
+          "That's why EGN requires current infant/child CPR and First Aid certification (or active enrollment in our course) before any nanny or babysitter is matched with a family. No exceptions.",
         ],
       },
       {
@@ -933,10 +933,10 @@ export const NAV = {
 };
 
 export const STATS = [
-  { value: "500+", label: "Vetted caregivers in our NJ network" },
+  { value: "500+", label: "Nannies and babysitters in our NJ network" },
   { value: "1,200+", label: "Families served across New Jersey" },
   { value: "90-day", label: "Replacement guarantee on placements" },
-  { value: "100%", label: "CPR-certified caregivers, verified" },
+  { value: "100%", label: "CPR-certified nannies and babysitters, verified" },
 ];
 
 export const TOWNS_MARQUEE = [

@@ -147,7 +147,7 @@ export function PageHero({
 }
 
 export function CtaBand({
-  title = "Ready to meet your perfect caregiver?",
+  title = "Ready to meet your perfect nanny or babysitter?",
   sub = "Tell us what your family needs — a dedicated recruiter will respond within one business day.",
   primary = { label: "Find a Nanny", href: "/find-nanny" },
   secondary = { label: `Call ${SITE.phone}`, href: SITE.phoneHref },

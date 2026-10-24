@@ -7,15 +7,15 @@ import { Reveal } from "@/components/ui-client";
 
 export const metadata: Metadata = {
   title: "About Us — Premier Childcare Training & Placement",
-  description: "Discover Executive Global Nanny's mission, vision, caregiver matching process, and professional training programs for families across New Jersey.",
+  description: "Discover Executive Global Nanny's mission, vision, nanny and babysitter matching process, and professional training programs for families across New Jersey.",
   alternates: { canonical: "/about" },
 };
 
 const STEPS = [
-  { icon: MessageCircle, title: "We Interview", text: "Each caregiver undergoes an intensive interview before being placed with a family, to ensure only the top qualified candidates are picked." },
-  { icon: ShieldCheck, title: "We Check", text: "We conduct thorough background checks to ensure that our caregivers meet our high standards of professionalism and trustworthiness." },
-  { icon: Users, title: "We Match", text: "We carefully pair families and caregivers based on qualifications, experience, and personality to ensure a harmonious working relationship." },
-  { icon: HeartHandshake, title: "We Stay Connected", text: "Throughout the placement process, we ensure constant communication and support to both families and caregivers." },
+  { icon: MessageCircle, title: "We Interview", text: "Each nanny undergoes an intensive interview before being placed with a family, to ensure only the top qualified candidates are picked." },
+  { icon: ShieldCheck, title: "We Check", text: "We conduct thorough background checks to ensure that our nannies and babysitters meet our high standards of professionalism and trustworthiness." },
+  { icon: Users, title: "We Match", text: "We carefully pair families with nannies and babysitters based on qualifications, experience, and personality to ensure a harmonious working relationship." },
+  { icon: HeartHandshake, title: "We Stay Connected", text: "Throughout the placement process, we ensure constant communication and support to families, nannies, and babysitters." },
 ];
 const TRAINING = ["Child Development & Psychology", "First Aid & CPR Certification", "Nutrition & Meal Planning", "Behavioral Management Techniques"];
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
         <Reveal><SectionHeader light eyebrow="Our Community" title={<>Proudly Serving New Jersey</>} sub="We primarily serve families across the entire state of New Jersey, bringing trusted childcare to communities from Newark to Princeton, Jersey City to Atlantic City, and everywhere in between." /></Reveal>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           <Reveal><div className="h-full rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-            <GraduationCap className="h-8 w-8 text-ember-400" aria-hidden="true" /><h3 className="mt-4 text-xl font-extrabold text-white">The Training Programs</h3><p className="mt-2 leading-relaxed text-teal-mist/85">From Basic To World-Class Caregiver</p><p className="mt-4 leading-relaxed text-teal-mist/85">Our comprehensive training programs are designed to empower nannies with essential skills, from advanced child development techniques to effective communication and safety protocols.</p>
+            <GraduationCap className="h-8 w-8 text-ember-400" aria-hidden="true" /><h3 className="mt-4 text-xl font-extrabold text-white">The Training Programs</h3><p className="mt-2 leading-relaxed text-teal-mist/85">From Basic to World-Class Nanny</p><p className="mt-4 leading-relaxed text-teal-mist/85">Our comprehensive training programs are designed to empower nannies with essential skills, from advanced child development techniques to effective communication and safety protocols.</p>
           </div></Reveal>
           <Reveal delay={90}><div className="h-full rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
             <Award className="h-8 w-8 text-ember-400" aria-hidden="true" /><h3 className="mt-4 text-xl font-extrabold text-white">Professional Development</h3><ul className="mt-4 space-y-3">{TRAINING.map(item=><li key={item} className="flex items-start gap-2 text-teal-mist/85"><Check className="mt-1 h-4 w-4 shrink-0 text-ember-400" aria-hidden="true" />{item}</li>)}</ul><Link href="/training" className="mt-5 inline-block font-semibold text-ember-400 hover:underline">Explore Training Programs →</Link>

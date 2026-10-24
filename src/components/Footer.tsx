@@ -71,7 +71,7 @@ export function Footer() {
 
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-5 py-5 text-xs text-teal-mist/70 sm:px-6 lg:px-8">
-          <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-ember-400" aria-hidden="true" />Background-checked caregivers</span>
+          <span className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 text-ember-400" aria-hidden="true" />Background-checked nannies and babysitters</span>
           <span className="flex items-center gap-2"><HeartPulse className="h-4 w-4 text-ember-400" aria-hidden="true" />CPR/First Aid verified</span>
           <span className="flex items-center gap-2"><Star className="h-4 w-4 text-ember-400" aria-hidden="true" />90-day placement guarantee</span>
         </div>

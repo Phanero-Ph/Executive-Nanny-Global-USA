@@ -35,7 +35,7 @@ export default function TrainingPage() {
       <PageHero
         eyebrow="Expert-Led Training"
         title="Elevate Your Childcare Skills with Our Expert-Led Training"
-        sub="Join a community of dedicated caregivers and take the first step towards a fulfilling and impactful career. Our training programs are designed to equip you with the essential skills and confidence to excel in professional childcare, all while offering the flexibility you need to learn at your pace."
+        sub="Join a community of dedicated nannies and take the first step towards a fulfilling and impactful career. Our training programs are designed to equip you with the essential skills and confidence to excel in professional childcare, all while offering the flexibility you need to learn at your pace."
       />
 
       <section className="bg-cream-100 py-16 sm:py-20">
@@ -78,7 +78,7 @@ export default function TrainingPage() {
           <Reveal>
             <SectionHeader
               eyebrow="Courses to Explore"
-              title={<>Discover Courses Tailored for Every Caregiver</>}
+              title={<>Discover Courses Tailored for Every Nanny</>}
               sub="And there's a lot more we have for you."
             />
           </Reveal>
@@ -107,14 +107,14 @@ export default function TrainingPage() {
           <Reveal>
             <SectionHeader
               eyebrow="Enroll Now"
-              title={<>Become a World-Class Caregiver</>}
+              title={<>Become a World-Class Nanny</>}
             />
           </Reveal>
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
             {[
               { icon: MonitorPlay, title: "Basic Nanny Training", text: "Essentials · Coming soon. Get started with our collection of basic nanny training video course content: 72 hours of video courses, fully remote learning, Basic Nanny Certification, 1-month access, and job placement." },
               { icon: ClipboardCheck, title: "Live Workshops & Seminars", text: "For Parents · Most Popular. Lifetime access to recorded sessions, real-time Q&A with industry experts, interactive skill-building exercises, comprehensive childcare techniques, and 24/7 updates, tips and information. Make an inquiry to learn more." },
-              { icon: Award, title: "Pro Caregiver Training", text: "Advanced/Upskill · Coming soon. Our comprehensive professional caregiver training series supports your career development: 100+ hours of training, extensive training resources, professional certification, 3-month access, and job placement." },
+              { icon: Award, title: "Professional Nanny Training", text: "Advanced/Upskill · Coming soon. Our comprehensive professional nanny training series supports your career development: 100+ hours of training, extensive training resources, professional certification, 3-month access, and job placement." },
             ].map((s, i) => (
               <Reveal key={s.title} delay={i * 90}>
                 <li className="h-full rounded-3xl border border-cream-300 bg-white p-7 text-center shadow-card">
@@ -136,7 +136,7 @@ export default function TrainingPage() {
                 </span>{" "}
                 and{" "}
                 <span className="text-ember-400">
-                  Pro Caregiver Training: Coming soon
+                  Professional Nanny Training: Coming soon
                 </span>
               </p>
               <div className="mt-5 flex flex-col justify-center gap-3 sm:flex-row">
@@ -160,8 +160,8 @@ export default function TrainingPage() {
 
       <div className="bg-cream-100 pb-20">
         <CtaBand
-          title="Become a World-Class Caregiver"
-          sub="Join a community of dedicated caregivers and take the first step towards a fulfilling and impactful career."
+          title="Become a World-Class Nanny"
+          sub="Join a community of dedicated nannies and take the first step towards a fulfilling and impactful career."
           primary={{ label: "Make Inquiry", href: "/contact" }}
         />
       </div>

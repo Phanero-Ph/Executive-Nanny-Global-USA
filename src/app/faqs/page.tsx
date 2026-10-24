@@ -6,7 +6,7 @@ import { Reveal, FaqAccordion } from "@/components/ui-client";
 export const metadata: Metadata = {
   title: "FAQs — Nanny Services, Pricing & Safety Questions",
   description:
-    "Answers about EGN's nanny matching process, search fees, babysitting memberships, caregiver subscriptions, vetting, and guarantees in New Jersey.",
+    "Answers about EGN's nanny matching process, search fees, babysitting memberships, nanny subscriptions, vetting, and guarantees in New Jersey.",
   alternates: { canonical: "/faqs" },
 };
 
@@ -27,7 +27,7 @@ export default function FaqsPage() {
       <PageHero
         eyebrow="Help Center"
         title="Frequently asked questions"
-        sub="Straight answers on process, pricing, safety, and working with us — for families and caregivers alike."
+        sub="Straight answers on process, pricing, safety, and working with us — for families, nannies, and babysitters."
       />
 
       <section className="bg-cream-100 py-14">

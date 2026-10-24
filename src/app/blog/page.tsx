@@ -9,7 +9,7 @@ import { Reveal } from "@/components/ui-client";
 export const metadata: Metadata = {
   title: "Blog — Childcare Insights & Expert Tips",
   description:
-    "Expert advice, industry news, and helpful resources for families and caregivers from Executive Global Nanny.",
+    "Expert advice, industry news, and helpful resources for families, nannies, and babysitters from Executive Global Nanny.",
   alternates: { canonical: "/blog" },
 };
 
@@ -20,7 +20,7 @@ export default function BlogPage() {
       <PageHero
         eyebrow="Our Blog"
         title="Childcare Insights & Expert Tips"
-        sub="Expert advice, industry news, and helpful resources for families and caregivers."
+        sub="Expert advice, industry news, and helpful resources for families, nannies, and babysitters."
       />
 
       <section className="bg-cream-100 py-16">
