@@ -137,7 +137,7 @@ export function ContactForm() {
     return (
       <SuccessPanel
         title="Message received!"
-        body="Thanks for reaching out — a member of our Branchburg team will respond within one business day."
+        body="A member of our team will reach out to you."
       />
     );
   }
