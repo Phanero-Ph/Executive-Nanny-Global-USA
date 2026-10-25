@@ -54,7 +54,7 @@ export function Footer() {
           <address className="mt-5 grid gap-x-5 gap-y-4 text-sm not-italic">
             <a href={SITE.phoneHref} className="group flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400">
               <span className={contactIcon}><Phone className="h-4 w-4" aria-hidden="true" /></span>
-              <span className="min-w-0"><span className="block text-[11px] leading-5 text-teal-mist/65">Call us</span><span className="block whitespace-nowrap font-medium text-white transition-colors group-hover:text-ember-400">908-505-5484</span></span>
+              <span className="min-w-0"><span className="block text-[11px] leading-5 text-teal-mist/65">Call us</span><span className="block whitespace-nowrap font-medium text-white transition-colors group-hover:text-ember-400">609-429-6399</span></span>
             </a>
             <div className="flex min-w-0 items-center gap-3">
               <span className={contactIcon}><MapPin className="h-4 w-4" aria-hidden="true" /></span>

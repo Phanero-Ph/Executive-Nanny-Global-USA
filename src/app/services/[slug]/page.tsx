@@ -40,7 +40,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           provider: {
             "@type": "LocalBusiness",
             name: "Executive Global Nanny LLC",
-            telephone: "+1-908-505-5484",
+            telephone: "+1-609-429-6399",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Branchburg",

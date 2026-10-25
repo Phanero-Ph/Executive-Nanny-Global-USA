@@ -42,7 +42,7 @@ const jsonLd = [
     description:
       "Professional nanny placement, babysitting services, and backup childcare in Branchburg and throughout New Jersey.",
     url: "https://executiveglobalnannyusa.com",
-    telephone: "+1-908-505-5484",
+    telephone: "+1-609-429-6399",
     email: SITE.email,
     address: {
       "@type": "PostalAddress",
