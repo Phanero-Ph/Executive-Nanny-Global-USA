@@ -4,7 +4,7 @@ export function VerificationSignOut() {
   return (
     <div className="mt-5 text-center">
       <Link href="/login" className="text-xs text-slate-500 underline hover:text-ink-900">
-        Sign out or use a different account
+        Sign in
       </Link>
     </div>
   );
