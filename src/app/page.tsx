@@ -103,7 +103,7 @@ export default function HomePage() {
                 <CtaButton href="/find-nanny" size="lg">
                   Find a Nanny <ArrowRight className="h-5 w-5" aria-hidden="true" />
                 </CtaButton>
-                <CtaButton href="/apply" variant="outline-ink" size="lg">
+                <CtaButton href="/signup?role=nanny" variant="outline-ink" size="lg">
                   I&apos;m a Nanny
                 </CtaButton>
               </div>
@@ -372,7 +372,7 @@ export default function HomePage() {
             </div>
             <Reveal>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                <CtaButton href="/apply">I&apos;m A Nanny <ArrowRight className="h-4 w-4" aria-hidden="true" /></CtaButton>
+              <CtaButton href="/signup?role=nanny">I&apos;m A Nanny <ArrowRight className="h-4 w-4" aria-hidden="true" /></CtaButton>
                 <CtaButton href="/training" variant="outline-ink">Explore Training</CtaButton>
               </div>
               <p className="mt-3 text-sm text-slate-500">Expert conversations, community engagement, and guest opportunities.</p>

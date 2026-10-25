@@ -92,7 +92,7 @@ export function Header() {
           <nav aria-label="Primary navigation" className="hidden min-w-0 items-center justify-end gap-3 xl:flex 2xl:gap-5">
             {NAV.primary.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkStyle}>{item.label}</Link>)}
             <Link href="/find-nanny" className={cn(buttonStyle, "bg-ink-900 shadow-sm hover:bg-ink-800")}>Find Nanny</Link>
-            <Link href="/apply" className={cn(buttonStyle, "bg-ember-500 shadow-sm hover:bg-ember-600")}>I&apos;m a Nanny</Link>
+            <Link href="/signup?role=nanny" className={cn(buttonStyle, "bg-ember-500 shadow-sm hover:bg-ember-600")}>I&apos;m a Nanny</Link>
             {accountLinks()}
           </nav>
 
@@ -129,7 +129,7 @@ export function Header() {
         </div>
         <div className="mt-4 grid gap-2 border-t border-slate-100 pt-4 sm:grid-cols-2">
           <Link href="/find-nanny" onClick={() => setMenuOpen(false)} className={cn(buttonStyle, "bg-ink-900 hover:bg-ink-800")}>Find Nanny</Link>
-          <Link href="/apply" onClick={() => setMenuOpen(false)} className={cn(buttonStyle, "bg-ember-500 hover:bg-ember-600")}>I&apos;m a Nanny</Link>
+          <Link href="/signup?role=nanny" onClick={() => setMenuOpen(false)} className={cn(buttonStyle, "bg-ember-500 hover:bg-ember-600")}>I&apos;m a Nanny</Link>
         </div>
         <div className="mt-4 grid gap-1 border-t border-slate-100 pt-3">
           {accountLinks(true)}

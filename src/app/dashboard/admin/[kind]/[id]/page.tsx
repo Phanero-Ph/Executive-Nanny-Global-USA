@@ -7,7 +7,7 @@ import {adminRequestVisibility} from "@/lib/admin-request-visibility";
 import { TrainingAchievements } from "@/components/TrainingAchievements";
 import Link from "next/link";
 import { redirect,notFound } from "next/navigation";
-import { and,desc,eq } from "drizzle-orm";
+import { and,desc,eq,ne } from "drizzle-orm";
 import { db } from "@/db";
 import { familyRequests,nannyApplications,reviewEvents,users,caregiverCredentials,conversations } from "@/db/schema";
 import {getDashboardUser as getCurrentUser} from "@/lib/dashboard-auth";
@@ -48,7 +48,7 @@ export default async function ReviewPage({params}:{params:Promise<{kind:string;i
  const user=await getCurrentUser();if(!user)redirect("/login");if(user.role!=="admin")redirect(user.role==="nanny"?"/dashboard/nanny":"/dashboard/family");
  const {kind,id}=await params;await requireAdmin(kind==="family"?"families.view":"nannies.view");if(!["family","nanny"].includes(kind))notFound();
  const [family]=kind==="family"?await db.select().from(familyRequests).where(and(eq(familyRequests.id,id),adminRequestVisibility())).limit(1):[];
- const [nanny]=kind==="nanny"?await db.select().from(nannyApplications).where(eq(nannyApplications.id,id)).limit(1):[];
+ const [nanny]=kind==="nanny"?await db.select().from(nannyApplications).where(and(eq(nannyApplications.id,id),ne(nannyApplications.status,"draft"))).limit(1):[];
  const record=family||nanny;if(!record)notFound();const data=nanny?parseApplication(nanny.bio):null;
  const statuses=kind==="family"?FAMILY_REVIEW_STATUSES:NANNY_REVIEW_STATUSES;
  const history=await db.select({id:reviewEvents.id,note:reviewEvents.note,fromStatus:reviewEvents.fromStatus,toStatus:reviewEvents.toStatus,createdAt:reviewEvents.createdAt,reviewer:users.name}).from(reviewEvents).innerJoin(users,eq(reviewEvents.reviewerId,users.id)).where(kind==="family"?eq(reviewEvents.familyRequestId,id):eq(reviewEvents.nannyApplicationId,id)).orderBy(desc(reviewEvents.createdAt));

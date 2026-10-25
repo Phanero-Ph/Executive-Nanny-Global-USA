@@ -198,7 +198,7 @@ export default async function PricingPage() {
                   </div>
                 </div>
                 <Link
-                  href="/apply"
+                  href="/signup?role=nanny"
                   className="mt-6 block rounded-xl bg-ember-500 px-6 py-3.5 text-center font-bold text-white shadow-ember transition hover:bg-ember-600"
                 >
                   Apply as a Nanny

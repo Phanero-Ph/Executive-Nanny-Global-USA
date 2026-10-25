@@ -2,7 +2,7 @@ import {adminCan} from "@/lib/admin-permissions";
 import {AdminNannyProfile} from "@/components/AdminNannyProfile";
 import Link from "next/link";
 import {notFound} from "next/navigation";
-import {and,desc,eq} from "drizzle-orm";
+import {and,desc,eq,ne} from "drizzle-orm";
 import {db} from "@/db";
 import {users,nannyApplications,nannyMatches,familyRequests,caregiverCredentials,applicationScreenings} from "@/db/schema";
 import {requireAdmin} from "@/lib/admin-access";
@@ -15,7 +15,7 @@ import {adminRequestVisibility} from "@/lib/admin-request-visibility";
 import {applicationDigest,screeningComplete} from "@/lib/screening-policy";
 export async function AdminAccountProfile({id,role}:{id:string;role:"family"|"nanny"}){
  const actor=await requireAdmin(role==="nanny"?"nannies.view":"families.view"),canMatching=await adminCan(actor,"matching.view"),canCredentials=await adminCan(actor,"credentials.view");const [user]=await db.select({id:users.id,name:users.name,email:users.email,phone:users.phone,createdAt:users.createdAt,updatedAt:users.updatedAt,emailVerifiedAt:users.emailVerifiedAt}).from(users).where(and(eq(users.id,id),eq(users.role,role)));if(!user)notFound();
- const applications=role==="nanny"?await db.select().from(nannyApplications).where(eq(nannyApplications.userId,id)).orderBy(desc(nannyApplications.createdAt),desc(nannyApplications.id)):[];
+ const applications=role==="nanny"?await db.select().from(nannyApplications).where(and(eq(nannyApplications.userId,id),ne(nannyApplications.status,"draft"))).orderBy(desc(nannyApplications.createdAt),desc(nannyApplications.id)):[];
  const requests=role==="family"?await db.select().from(familyRequests).where(and(eq(familyRequests.userId,id),adminRequestVisibility())).orderBy(desc(familyRequests.createdAt)):[];
  const placements=canMatching?await db.select({id:nannyMatches.id,status:nannyMatches.status,start:nannyMatches.placementStart,familyName:familyRequests.name,caregiverName:nannyApplications.name,requestId:familyRequests.id,applicationId:nannyApplications.id,createdAt:nannyMatches.createdAt}).from(nannyMatches).innerJoin(nannyApplications,eq(nannyApplications.id,nannyMatches.nannyApplicationId)).innerJoin(familyRequests,eq(familyRequests.id,nannyMatches.familyRequestId)).where(and(adminRequestVisibility(),role==="nanny"?eq(nannyApplications.userId,id):eq(familyRequests.userId,id))).orderBy(desc(nannyMatches.updatedAt)):[];
  const credentials=role==="nanny"&&canCredentials?await db.select().from(caregiverCredentials).where(eq(caregiverCredentials.userId,id)):[];

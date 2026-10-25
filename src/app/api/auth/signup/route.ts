@@ -4,20 +4,26 @@ import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { users } from "@/db/schema";
-import { hashPassword, signSession, sessionCookieName, sessionMaxAge } from "@/lib/auth";
+import { nannyApplications, users } from "@/db/schema";
+import { getCurrentUser, hashPassword, signSession, sessionCookieName, sessionMaxAge } from "@/lib/auth";
 import { isValidEmail } from "@/lib/utils";
 
 export async function POST(req: Request) {
   try {
     const body = (await req.json()) as Record<string, string>;
-    const name = body.name?.trim();
+    const role = body.role === "nanny" ? "nanny" : "family";
+    const name = role === "nanny"
+      ? `${body.firstName?.trim() ?? ""} ${body.lastName?.trim() ?? ""}`.trim()
+      : body.name?.trim();
     const email = body.email?.trim().toLowerCase();
     const password = body.password ?? "";
-    const role = body.role === "nanny" ? "nanny" : "family";
 
-    if (!name || !email || !password) {
-      return NextResponse.json({ error: "Name, email, and password are required." }, { status: 400 });
+    if (await getCurrentUser({ allowUnverified: true })) {
+      return NextResponse.json({ error: "You are already signed in. Log out before creating a separate account." }, { status: 409 });
+    }
+
+    if (!name || !email || !password || (role === "nanny" && (!body.firstName?.trim() || !body.lastName?.trim()))) {
+      return NextResponse.json({ error: role === "nanny" ? "First name, last name, email, and password are required." : "Name, email, and password are required." }, { status: 400 });
     }
     if (!isValidEmail(email)) {
       return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 });
@@ -38,9 +44,20 @@ export async function POST(req: Request) {
     }
 
     const user = { id: randomUUID(), role };
-    await db
-      .insert(users)
-      .values({ id: user.id, name, email, phone: body.phone?.trim() || null, role, passwordHash: hashPassword(password) });
+    await db.transaction(async (tx) => {
+      await tx.insert(users).values({ id: user.id, name, email, phone: role === "family" ? body.phone?.trim() || null : null, role, passwordHash: hashPassword(password) });
+      if (role === "nanny") {
+        await tx.insert(nannyApplications).values({
+          userId: user.id,
+          name,
+          email,
+          phone: null,
+          bio: JSON.stringify({ version: 1, values: { firstName: body.firstName.trim(), lastName: body.lastName.trim(), email, country: "United States" }, references: [], workHistory: [], languages: [], attachments: [] }),
+          status: "draft",
+          subscriptionStatus: "inactive",
+        });
+      }
+    });
 
     await notifyVerification(user.id);
     const res = NextResponse.json({ ok: true, role: user.role });

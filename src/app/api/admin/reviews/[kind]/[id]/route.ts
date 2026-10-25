@@ -37,6 +37,7 @@ export async function PATCH(req: Request, { params }: { params: Promise<{ kind: 
    if(kind==="nanny"){
     [nannyApplication]=await tx.select().from(nannyApplications).where(eq(nannyApplications.id,id));
     if(!nannyApplication)return 404;
+    if(nannyApplication.status==="draft")return 404;
     if(body.status==="active"&&!await screeningEligible(tx,nannyApplication))return 412;
    }
    if(kind==="family"){

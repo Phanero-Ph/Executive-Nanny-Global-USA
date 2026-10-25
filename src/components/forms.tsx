@@ -426,7 +426,7 @@ export function LoginForm() {
   );
 }
 
-export function SignupForm() {
+export function SignupForm({ role = "family", existingAccount }: { role?: "family" | "nanny"; existingAccount?: { name: string; role: string } }) {
   const router = useRouter();
   const [registeredRole,setRegisteredRole]=useState<"family"|"nanny">("family");
   const [registeredEmail,setRegisteredEmail]=useState<string|null>(null);
@@ -434,6 +434,18 @@ export function SignupForm() {
   const [error, setError] = useState<string | null>(null);
   const [showPassword,setShowPassword]=useState(false);
   const [showConfirmPassword,setShowConfirmPassword]=useState(false);
+
+  const logoutAndContinue = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/auth/logout", { method: "POST" });
+      if (!response.ok) throw new Error("Could not sign out. Please try again.");
+      window.location.href = `/signup?role=${role}`;
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not sign out.");
+      setLoading(false);
+    }
+  };
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -456,21 +468,25 @@ export function SignupForm() {
     }
   };
 
-  if(registeredEmail)return <RegistrationSuccess role={registeredRole} email={registeredEmail}/>;
+  if(registeredEmail)return <RegistrationSuccess role={registeredRole} email={registeredEmail} message={registeredRole==="nanny"?"Your account is set up. Verify your email, sign in to your dashboard, and complete your nanny application there. Your application will reach the agency only after you submit it.":undefined} nannyApplicationSubmitted={false}/>;
+  if(existingAccount)return <div className="space-y-4 rounded-xl border border-orange-200 bg-orange-50 p-5 text-sm leading-6 text-slate-700"><h2 className="text-lg font-bold text-ink-900">You’re signed in as {existingAccount.role === "family" ? "a family member" : existingAccount.role === "nanny" ? "a nanny" : "an administrator"}.</h2><p>To create a separate {role} account, sign out first. Each email address can belong to one account. If this is already the right account, continue to its dashboard or sign in with another email.</p><div className="flex flex-wrap gap-3"><button type="button" disabled={loading} onClick={logoutAndContinue} className="application-submit">{loading?"Signing out…":"Sign out to continue"}</button><Link className="application-secondary" href={`/dashboard/${existingAccount.role}`}>Go to your dashboard</Link></div><FormError message={error}/></div>;
 
   return (
     <form onSubmit={submit} className="space-y-5">
-      <input type="hidden" name="role" value="family" />
-      <Field label="Full name" required>
+      <input type="hidden" name="role" value={role} />
+      {role === "nanny" ? <div className="grid gap-5 sm:grid-cols-2">
+        <Field label="First name" required><input name="firstName" required placeholder="Jane" className={inputCls} autoComplete="given-name" /></Field>
+        <Field label="Last name" required><input name="lastName" required placeholder="Smith" className={inputCls} autoComplete="family-name" /></Field>
+      </div> : <Field label="Full name" required>
         <input name="name" required placeholder="Jane Smith" className={inputCls} autoComplete="name" />
-      </Field>
-      <div className="grid gap-5 sm:grid-cols-2">
+      </Field>}
+      <div className={`grid gap-5 ${role === "family" ? "sm:grid-cols-2" : ""}`}>
         <Field label="Email" required>
           <input name="email" type="email" required placeholder="you@email.com" className={inputCls} autoComplete="email" />
         </Field>
-        <Field label="Phone">
+        {role === "family" && <Field label="Phone">
           <input name="phone" type="tel" placeholder="(908) 555-1234" className={inputCls} autoComplete="tel" />
-        </Field>
+        </Field>}
       </div>
       <Field label="Password" required hint="At least 8 characters">
         <div className="relative">
@@ -488,6 +504,7 @@ export function SignupForm() {
           </button>
         </div>
       </Field>
+      {role === "nanny" && <p className="rounded-xl bg-teal-pale px-4 py-3 text-sm leading-6 text-ink-900">Create your account with these details first. After verifying your email and signing in, you’ll complete the full nanny application from your dashboard. You can save it and return later.</p>}
       <label className="flex cursor-pointer items-start gap-3 text-sm text-slate-600">
         <input type="checkbox" required className="mt-0.5" />
         <span>
