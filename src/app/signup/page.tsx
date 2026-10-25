@@ -5,6 +5,7 @@ import { PageHero } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
 import { SignupForm } from "@/components/forms";
 import { getCurrentUser } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Create Your Account | Executive Global Nanny",
@@ -16,6 +17,7 @@ export default async function SignupPage({searchParams}:{searchParams:Promise<{r
   const {role:requestedRole}=await searchParams;
   const role=requestedRole==="nanny"?"nanny":"family";
   const currentUser=await getCurrentUser({allowUnverified:true});
+  if(currentUser&&!currentUser.emailVerifiedAt)redirect(`/verify-email?email=${encodeURIComponent(currentUser.email)}`);
   return (
     <>
       <PageHero

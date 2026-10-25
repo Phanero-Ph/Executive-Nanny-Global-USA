@@ -106,13 +106,13 @@ export function RecoveryForm({ mode, token = "", successHref = "/login" }: { mod
   );
 }
 
-export function VerificationControl({ verified }: { verified: boolean }) {
+export function VerificationControl({ verified, email }: { verified: boolean; email?: string }) {
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
   async function resend() {
     setBusy(true);
     try {
-      const response = await fetch("/api/auth/verification", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "resend" }) });
+      const response = await fetch("/api/auth/verification", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "resend", email }) });
       if (!response.ok) throw Error();
       setMessage("Verification requested. Check your email; resends may be limited.");
     } catch {

@@ -21,7 +21,12 @@ export async function POST(req: Request) {
     }
 
     if(user.role==="admin"&&!await adminIsActive(user.id))return NextResponse.json({error:"This administrator account is not active. Contact your agency administrator."},{status:403});
-    const res = NextResponse.json({ ok: true, role: user.role, requiresVerification:requiresEmailVerification(user) });
+    if(requiresEmailVerification(user)){
+      const res=NextResponse.json({ok:true,role:user.role,requiresVerification:true,email:user.email});
+      res.cookies.set(sessionCookieName(),"",{httpOnly:true,sameSite:"lax",secure:process.env.NODE_ENV==="production",path:"/",maxAge:0});
+      return res;
+    }
+    const res = NextResponse.json({ ok: true, role: user.role, requiresVerification:false });
     res.cookies.set(sessionCookieName(), signSession(user.id, user.role, user.sessionVersion), {
       httpOnly: true,
       sameSite: "lax",

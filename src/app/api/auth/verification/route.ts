@@ -6,13 +6,18 @@ import { db } from "@/db";
 import { accountTokens,users } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 import { issueAccountToken,recoveryAllowed } from "@/lib/account-recovery";
+import { isValidEmail } from "@/lib/utils";
 export async function POST(req:Request) {
  if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
  try {
   const body=await req.json();
   if(body.action==="resend") {
-   const user=await getCurrentUser({allowUnverified:true});if(!user)return NextResponse.json({error:"Please sign in."},{status:401});
-   if(!user.emailVerifiedAt&&await recoveryAllowed(user.email))await issueAccountToken(user.id,"verify");
+   const sessionUser=await getCurrentUser({allowUnverified:true});
+   const email=(typeof body.email==="string"?body.email:sessionUser?.email??"").trim().toLowerCase();
+   if(isValidEmail(email)&&await recoveryAllowed(email)){
+    const [user]=await db.select({id:users.id,emailVerifiedAt:users.emailVerifiedAt}).from(users).where(eq(users.email,email)).limit(1);
+    if(user&&!user.emailVerifiedAt)await issueAccountToken(user.id,"verify");
+   }
    return NextResponse.json({ok:true});
   }
   if(typeof body.token!=="string"||!/^[a-f0-9]{64}$/.test(body.token))return NextResponse.json({error:"This verification link is invalid or expired."},{status:400});

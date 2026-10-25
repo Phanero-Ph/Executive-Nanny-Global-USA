@@ -35,10 +35,6 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  useEffect(() => {
     if (!menuOpen) return;
     const oldOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -74,7 +70,7 @@ export function Header() {
     return me ? (
       <>
         <Link href={dashboardHref} onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, mobileStyle)}>{me.requiresVerification ? "Verify email" : "My Dashboard"}</Link>
-        <button type="button" onClick={logout} className={cn(linkStyle, mobileStyle, "text-left")}>Log out</button>
+        {!me.requiresVerification&&<button type="button" onClick={logout} className={cn(linkStyle, mobileStyle, "text-left")}>Log out</button>}
       </>
     ) : (
       <Link href="/login" onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, "font-semibold", mobileStyle)}>Login</Link>

@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { nannyApplications, users } from "@/db/schema";
-import { getCurrentUser, hashPassword, signSession, sessionCookieName, sessionMaxAge } from "@/lib/auth";
+import { getCurrentUser, hashPassword } from "@/lib/auth";
 import { isValidEmail } from "@/lib/utils";
 
 export async function POST(req: Request) {
@@ -60,15 +60,7 @@ export async function POST(req: Request) {
     });
 
     await notifyVerification(user.id);
-    const res = NextResponse.json({ ok: true, role: user.role });
-    res.cookies.set(sessionCookieName(), signSession(user.id, user.role), {
-      httpOnly: true,
-      sameSite: "lax",
-      secure: process.env.NODE_ENV === "production",
-      path: "/",
-      maxAge: sessionMaxAge(),
-    });
-    return res;
+    return NextResponse.json({ ok: true, role: user.role, email });
   } catch (error) {
     if (isDuplicateEntry(error)) return NextResponse.json({ error: "An account with this email already exists. Please log in." }, { status: 409 });
     return NextResponse.json({ error: "Couldn't create your account. Please try again." }, { status: 500 });

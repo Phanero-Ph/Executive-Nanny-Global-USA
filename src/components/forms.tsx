@@ -392,8 +392,8 @@ export function LoginForm() {
     setLoading(true);
     try {
       const fd = new FormData(e.currentTarget);
-      const json = (await postJson("/api/auth/login", Object.fromEntries(fd.entries()))) as { role?: string; requiresVerification?:boolean };
-      router.push(json.requiresVerification?"/verify-email":json.role === "admin" ? "/dashboard/admin" : json.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family");
+      const json = (await postJson("/api/auth/login", Object.fromEntries(fd.entries()))) as { role?: string; requiresVerification?:boolean; email?:string };
+      router.push(json.requiresVerification?`/verify-email?email=${encodeURIComponent(json.email??String(fd.get("email")??""))}`:json.role === "admin" ? "/dashboard/admin" : json.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed.");
@@ -455,9 +455,9 @@ export function SignupForm({ role = "family", existingAccount }: { role?: "famil
         setLoading(false);
         return;
       }
-      const json = (await postJson("/api/auth/signup", Object.fromEntries(fd.entries()))) as { role?: string };
+      const json = (await postJson("/api/auth/signup", Object.fromEntries(fd.entries()))) as { role?: string; email?:string };
       if(json.role==="family"||json.role==="nanny"){
-        router.replace("/verify-email");
+        router.replace(`/verify-email?email=${encodeURIComponent(json.email??String(fd.get("email")??""))}`);
         router.refresh();
         return;
       }
