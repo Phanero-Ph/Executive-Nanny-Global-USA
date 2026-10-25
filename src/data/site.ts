@@ -928,7 +928,7 @@ export const NAV = {
   ],
   ctas: [
     { label: "Find a Nanny", href: "/find-nanny", variant: "ember" as const },
-    { label: "Become a Nanny", href: "/apply", variant: "outline-light" as const },
+    { label: "Become a Nanny", href: "/signup?role=nanny", variant: "outline-light" as const },
   ],
 };
 

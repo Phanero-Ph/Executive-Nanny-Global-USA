@@ -43,6 +43,7 @@ const SECTIONS: LegalSection[] = [
           "Employment history, education, childcare experience, skills, availability, and geographic preferences.",
           "References, identity documents, and professional certificates such as CPR or First Aid credentials.",
           "Screening information obtained by the agency, with appropriate authorization, such as background-check results and reference verification.",
+          "Answers in a nanny application about conviction history, health, prescribed medication, allergies, and caregiving constraints. We use these details to review the application, follow up when relevant, and assess role and placement suitability and care-related safety. Access is limited to authorized team members who need the information for these purposes.",
           "Profile photographs and documents you choose or are required to submit as part of your application.",
         ],
       },

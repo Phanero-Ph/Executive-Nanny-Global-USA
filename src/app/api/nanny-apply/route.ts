@@ -11,7 +11,7 @@ import { users, nannyApplications, applicationScreenings, reviewEvents } from "@
 import { getCurrentUser } from "@/lib/auth";
 import { validRow } from "@/lib/nanny-application";
 import { parseApplication, EDITABLE_APPLICATION_STATUSES } from "@/lib/application-data";
-import { APPLICATION_STEPS, REFERENCE_FIELDS, WORK_FIELDS, LANGUAGE_FIELDS } from "@/data/nanny-application";
+import { APPLICATION_STEPS, REFERENCE_FIELDS, WORK_FIELDS, LANGUAGE_FIELDS, MAX_APPLICATION_FILE_SIZE_BYTES, MAX_APPLICATION_FILE_SIZE_MB } from "@/data/nanny-application";
 type Row = Record<string, string>;
 export const runtime = "nodejs";
 
@@ -24,7 +24,7 @@ export async function POST(req: Request) {
     if (!account) return NextResponse.json({ error: "Create your nanny account, verify your email, and sign in before submitting your application." }, { status: 401 });
     if (account.role !== "nanny") return NextResponse.json({ error: "You are signed in to a different account. Sign out and create a nanny account before applying." }, { status: 403 });
     if (!account.emailVerifiedAt) return NextResponse.json({ error: "Verify your email address before submitting your application." }, { status: 403 });
-    if (Number(req.headers.get("content-length")) > 17 * 1024 * 1024) return NextResponse.json({ error: "Files must be no larger than 5 MB each." }, { status: 413 });
+    if (Number(req.headers.get("content-length")) > 2 * MAX_APPLICATION_FILE_SIZE_BYTES + 2 * 1024 * 1024) return NextResponse.json({ error: `Files must be no larger than ${MAX_APPLICATION_FILE_SIZE_MB} MB each.` }, { status: 413 });
 
     const [draft] = await db.select().from(nannyApplications).where(eq(nannyApplications.userId, account.id)).orderBy(desc(nannyApplications.createdAt), desc(nannyApplications.id)).limit(1);
     if (!draft || !EDITABLE_APPLICATION_STATUSES.includes(draft.status)) return NextResponse.json({ error: "Your application draft was not found. Open your dashboard and continue your application there." }, { status: 409 });
@@ -41,7 +41,7 @@ export async function POST(req: Request) {
     if (values.speaksOtherLanguages === "Yes" && !languages.length) return NextResponse.json({ error: "Please add the languages you speak." }, { status: 400 });
 
     const uploads: { field: string; name: string; storedName: string; content: Buffer }[] = [];
-    for (const field of ["photo", "cv", "resume"]) {
+    for (const field of ["photo", "resume"]) {
       const file = form.get(field);
       if (!(file instanceof File) || !file.size) {
         if ((field === "photo" || field === "resume") && !previous?.attachments.some(item => item.field === field)) return NextResponse.json({ error: "A professional photo and childcare resume are required." }, { status: 400 });
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       }
       const extension = path.extname(file.name).toLowerCase();
       const allowed = field === "photo" ? [".png", ".jpg", ".jpeg"] : [".pdf", ".doc", ".docx"];
-      if (file.size > 5 * 1024 * 1024 || !allowed.includes(extension)) return NextResponse.json({ error: "Use PNG/JPEG for photos and PDF/Word for documents, up to 5 MB each." }, { status: 400 });
+      if (file.size > MAX_APPLICATION_FILE_SIZE_BYTES || !allowed.includes(extension)) return NextResponse.json({ error: `Use PNG/JPEG for photos and PDF/Word for documents, up to ${MAX_APPLICATION_FILE_SIZE_MB} MB each.` }, { status: 400 });
       const content = Buffer.from(await file.arrayBuffer());
       const signature = extension === ".png" ? content.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) : [".jpg", ".jpeg"].includes(extension) ? content[0] === 255 && content[1] === 216 && content[2] === 255 : extension === ".pdf" ? content.subarray(0, 5).toString() === "%PDF-" : extension === ".doc" ? content.subarray(0, 8).equals(Buffer.from([208, 207, 17, 224, 161, 177, 26, 225])) : content[0] === 80 && content[1] === 75 && content.includes(Buffer.from("[Content_Types].xml")) && content.includes(Buffer.from("word/"));
       if (!signature) return NextResponse.json({ error: "A file does not match its permitted format." }, { status: 400 });
