@@ -1,6 +1,5 @@
 "use client";
 
-import {RegistrationSuccess} from "./RegistrationSuccess";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -428,8 +427,6 @@ export function LoginForm() {
 
 export function SignupForm({ role = "family", existingAccount }: { role?: "family" | "nanny"; existingAccount?: { name: string; role: string } }) {
   const router = useRouter();
-  const [registeredRole,setRegisteredRole]=useState<"family"|"nanny">("family");
-  const [registeredEmail,setRegisteredEmail]=useState<string|null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword,setShowPassword]=useState(false);
@@ -459,7 +456,11 @@ export function SignupForm({ role = "family", existingAccount }: { role?: "famil
         return;
       }
       const json = (await postJson("/api/auth/signup", Object.fromEntries(fd.entries()))) as { role?: string };
-      if(json.role==="family"||json.role==="nanny"){setRegisteredRole(json.role);setRegisteredEmail(String(fd.get("email")||"").trim().toLowerCase());return;}
+      if(json.role==="family"||json.role==="nanny"){
+        router.replace("/verify-email");
+        router.refresh();
+        return;
+      }
       router.push(json.role === "admin" ? "/dashboard/admin" : json.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family");
       router.refresh();
     } catch (err) {
@@ -468,7 +469,6 @@ export function SignupForm({ role = "family", existingAccount }: { role?: "famil
     }
   };
 
-  if(registeredEmail)return <RegistrationSuccess role={registeredRole} email={registeredEmail} message={registeredRole==="nanny"?"Your account is set up. Verify your email, sign in to your dashboard, and complete your nanny application there. Your application will reach the agency only after you submit it.":undefined} nannyApplicationSubmitted={false}/>;
   if(existingAccount)return <div className="space-y-4 rounded-xl border border-orange-200 bg-orange-50 p-5 text-sm leading-6 text-slate-700"><h2 className="text-lg font-bold text-ink-900">You’re signed in as {existingAccount.role === "family" ? "a family member" : existingAccount.role === "nanny" ? "a nanny" : "an administrator"}.</h2><p>To create a separate {role} account, sign out first. Each email address can belong to one account. If this is already the right account, continue to its dashboard or sign in with another email.</p><div className="flex flex-wrap gap-3"><button type="button" disabled={loading} onClick={logoutAndContinue} className="application-submit">{loading?"Signing out…":"Sign out to continue"}</button><Link className="application-secondary" href={`/dashboard/${existingAccount.role}`}>Go to your dashboard</Link></div><FormError message={error}/></div>;
 
   return (
