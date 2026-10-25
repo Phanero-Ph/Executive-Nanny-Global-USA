@@ -61,16 +61,18 @@ export function Header() {
     }
   };
 
-  const dashboardHref = me?.requiresVerification ? "/verify-email" : me?.role === "admin" ? "/dashboard/admin" : me?.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family";
+  const dashboardHref = me?.role === "admin" ? "/dashboard/admin" : me?.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family";
   const linkStyle = "whitespace-nowrap text-sm font-medium text-ink-900 transition-colors duration-200 hover:text-ember-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-brand";
   const buttonStyle = "inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors";
 
   const accountLinks = (mobile = false) => {
     const mobileStyle = mobile ? "min-h-11 justify-start rounded-xl px-3 text-base" : "";
-    return me ? (
+    return me?.requiresVerification ? (
+      <Link href="/login" onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, "font-semibold", mobileStyle)}>Login</Link>
+    ) : me ? (
       <>
-        <Link href={dashboardHref} onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, mobileStyle)}>{me.requiresVerification ? "Verify email" : "My Dashboard"}</Link>
-        {!me.requiresVerification&&<button type="button" onClick={logout} className={cn(linkStyle, mobileStyle, "text-left")}>Log out</button>}
+        <Link href={dashboardHref} onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, mobileStyle)}>My Dashboard</Link>
+        <button type="button" onClick={logout} className={cn(linkStyle, mobileStyle, "text-left")}>Log out</button>
       </>
     ) : (
       <Link href="/login" onClick={mobile ? () => setMenuOpen(false) : undefined} className={cn(linkStyle, "font-semibold", mobileStyle)}>Login</Link>
