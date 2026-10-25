@@ -504,7 +504,6 @@ export function SignupForm({ role = "family", existingAccount }: { role?: "famil
           </button>
         </div>
       </Field>
-      {role === "nanny" && <p className="rounded-xl bg-teal-pale px-4 py-3 text-sm leading-6 text-ink-900">Create your account with these details first. After verifying your email and signing in, you’ll complete the full nanny application from your dashboard. You can save it and return later.</p>}
       <label className="flex cursor-pointer items-start gap-3 text-sm text-slate-600">
         <input type="checkbox" required className="mt-0.5" />
         <span>
