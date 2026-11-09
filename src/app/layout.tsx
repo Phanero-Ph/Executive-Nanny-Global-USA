@@ -9,45 +9,28 @@ import { PublicChrome } from "@/components/PublicChrome";
 export const metadata: Metadata = {
   metadataBase: new URL("https://executiveglobalnannyusa.com"),
   title: {
-    default: "Executive Global Nanny | Professional Nanny & Childcare Services in Branchburg, NJ",
+    default: "Nanny & Babysitting Services in New Jersey | Executive Global Nanny",
     template: "%s | Executive Global Nanny",
   },
   description:
-    "Executive Global Nanny provides professional nanny placement, babysitting services, and backup childcare in Branchburg and throughout New Jersey. CPR-certified, background-checked nannies and babysitters for busy families.",
-  keywords: [
-    "nanny services New Jersey",
-    "babysitting Branchburg NJ",
-    "childcare Somerset County",
-    "nanny agency NJ",
-    "professional nannies",
-    "CPR certified babysitters",
-    "full-time nanny placement",
-    "backup childcare New Jersey",
-    "after school care NJ",
-    "newborn care specialist NJ",
-  ],
+    "Find nanny placement, babysitting, and backup childcare with Executive Global Nanny. Based in Branchburg, NJ, serving families statewide and across the U.S.",
   authors: [{ name: "Executive Global Nanny LLC" }],
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: "Executive Global Nanny",
-    title: "Executive Global Nanny | Professional Nanny Services in Branchburg, NJ",
+    url: "https://executiveglobalnannyusa.com",
+    title: "Nanny & Babysitting Services in New Jersey",
     description:
-      "Trusted childcare solutions in New Jersey. Professional nanny placement, babysitting services, and backup care with vetted, CPR-certified nannies and babysitters.",
+      "Nanny placement, babysitting, and backup care for New Jersey families, with services available across the United States.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Executive Global Nanny | Professional Nanny Services in Branchburg, NJ",
-    description: "Trusted childcare solutions in New Jersey. Professional nanny placement, babysitting services, and backup care.",
+    title: "Nanny & Babysitting Services in New Jersey | Executive Global Nanny",
+    description: "Nanny placement, babysitting, and backup care for New Jersey families and households across the United States.",
   },
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.svg" },
-  other: {
-    "geo.region": "US-NJ",
-    "geo.placename": "Branchburg, New Jersey",
-    "geo.position": "40.5618;-74.7102",
-    ICBM: "40.5618, -74.7102",
-  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -1,6 +1,6 @@
 export const PERMISSION_GROUPS=[
- {label:"Families & requests",items:[["families.view","View families and requests"],["families.edit","Edit family contact details"],["families.review","Review requests and update status"]]},
- {label:"Nannies",items:[["nannies.view","View profiles, applications and documents"],["nannies.edit","Edit nanny contact details"],["nannies.approve","Screen and approve applications"]]},
+ {label:"Families & requests",items:[["families.view","View families and requests"],["families.edit","Edit family contact details"],["families.delete","Delete family accounts"],["families.review","Review requests and update status"]]},
+ {label:"Nannies",items:[["nannies.view","View profiles, applications and documents"],["nannies.edit","Edit nanny contact details"],["nannies.delete","Delete nanny accounts"],["nannies.approve","Screen and approve applications"]]},
  {label:"Matching & placements",items:[["matching.view","View matching and booking records"],["matching.manage","Manage shortlists, bookings and placements"]]},
  {label:"Credentials",items:[["credentials.view","View credentials and private documents"],["credentials.review","Verify, return or revoke credentials"]]},
  {label:"Payments",items:[["payments.view","View payment and membership records"],["payments.manage","Manage memberships and recorded receipts"]]},
@@ -12,7 +12,7 @@ export const PERMISSION_GROUPS=[
 ] as const;
 export const ALL_PERMISSIONS=PERMISSION_GROUPS.flatMap(g=>g.items.map(p=>p[0]));
 export type AdminPermission=typeof ALL_PERMISSIONS[number];
-const dependencies:Partial<Record<AdminPermission,AdminPermission[]>>={"families.edit":["families.view"],"families.review":["families.view"],"nannies.edit":["nannies.view"],"nannies.approve":["nannies.view"],"matching.view":["families.view","nannies.view"],"matching.manage":["matching.view"],"credentials.view":["nannies.view"],"credentials.review":["credentials.view"],"payments.view":["families.view"],"payments.manage":["payments.view"],"training.manage":["training.view"],"reports.export":["reports.view"]};
+const dependencies:Partial<Record<AdminPermission,AdminPermission[]>>={"families.edit":["families.view"],"families.delete":["families.view"],"families.review":["families.view"],"nannies.edit":["nannies.view"],"nannies.delete":["nannies.view"],"nannies.approve":["nannies.view"],"matching.view":["families.view","nannies.view"],"matching.manage":["matching.view"],"credentials.view":["nannies.view"],"credentials.review":["credentials.view"],"payments.view":["families.view"],"payments.manage":["payments.view"],"training.manage":["training.view"],"reports.export":["reports.view"]};
 export function normalizePermissions(input:readonly string[]):AdminPermission[]{const result=new Set<AdminPermission>();function add(key:AdminPermission){if(result.has(key))return;result.add(key);for(const dep of dependencies[key]??[])add(dep);}for(const p of input)if(ALL_PERMISSIONS.includes(p as AdminPermission))add(p as AdminPermission);return ALL_PERMISSIONS.filter(p=>result.has(p));}
 export const ADMIN_PRESETS:Record<string,AdminPermission[]>={
  "Recruitment Manager":normalizePermissions(["families.edit","families.review","nannies.edit","nannies.approve","matching.manage","credentials.review","messages.family","messages.nanny"]),

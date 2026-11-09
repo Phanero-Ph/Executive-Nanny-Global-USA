@@ -25,3 +25,17 @@ export async function queueEmail(userId:string|null,recipient:string,subject:str
 export async function notifySubmission(userId: string | null, email: string, role: "family" | "nanny") {
  try { await queueEmail(userId,email,role === "family" ? "We received your care request" : "We received your nanny application",`Thank you for your submission. Our team will review it and contact you about the next steps.\n\n${userId ? `Track your progress: ${appUrl(`/dashboard/${role}`)}` : "Our team will contact you about the next steps."}\n\nExecutive Global Nanny`); } catch { console.error("Submission confirmation could not be queued."); }
 }
+
+export async function notifyAccountRegistration(name: string, email: string, role: "family" | "nanny") {
+ try {
+  const label = role === "family" ? "family" : "nanny";
+  await queueEmail(
+   null,
+   "info@executiveglobalnanny.com",
+   `New ${label} account registration`,
+   `A new ${label} account was created on the website.\n\nName: ${name}\nEmail: ${email}\nAccount type: ${label}\n\nEmail verification may still be pending.`,
+  );
+ } catch {
+  console.error("Registration notification could not be queued.");
+ }
+}

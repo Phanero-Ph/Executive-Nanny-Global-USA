@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { BLOG_POSTS, SERVICES } from "@/data/site";
+import { BLOG_POSTS, SERVICES, SERVICE_AREAS } from "@/data/site";
 
 const SITE_URL = "https://executiveglobalnannyusa.com";
 const PUBLIC_ROUTES = [
@@ -11,7 +11,7 @@ const PUBLIC_ROUTES = [
   "/faqs",
   "/contact",
   "/pricing",
-  "/apply",
+  "/service-areas",
   "/privacy-policy",
   "/terms-conditions",
 ];
@@ -23,9 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const servicePages = SERVICES.map((service) => ({
     url: `${SITE_URL}/services/${service.slug}`,
   }));
+  const serviceAreaPages = SERVICE_AREAS.map((area) => ({
+    url: `${SITE_URL}/service-areas/${area.slug}`,
+  }));
   const articlePages = BLOG_POSTS.map((post) => ({
     url: `${SITE_URL}/blog/${post.slug}`,
   }));
 
-  return [...staticPages, ...servicePages, ...articlePages];
+  return [...staticPages, ...servicePages, ...serviceAreaPages, ...articlePages];
 }

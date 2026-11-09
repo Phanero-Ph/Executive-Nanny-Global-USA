@@ -84,7 +84,7 @@ export function Header() {
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
         <div className="flex min-h-[72px] items-center justify-between gap-4 py-2 xl:min-h-[84px]">
           <Link href="/" className="flex min-w-0 shrink items-center" aria-label="Executive Global Nanny — home">
-            <Image src="/navigation-logo.png" alt="Executive Global Nanny" width={880} height={240} priority className="h-11 w-auto max-w-[min(65vw,260px)] object-contain sm:h-12 xl:h-14" />
+            <Image src="/images/egn-reference/navigation-logo.png" alt="Executive Global Nanny" width={880} height={240} priority className="h-11 w-auto max-w-[min(65vw,260px)] object-contain sm:h-12 xl:h-14" />
           </Link>
 
           <nav aria-label="Primary navigation" className="hidden min-w-0 items-center justify-end gap-3 xl:flex 2xl:gap-5">

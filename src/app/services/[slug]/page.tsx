@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowLeft, Check, PhoneCall } from "lucide-react";
@@ -17,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: "Service Not Found" };
   return {
     title: `${service.title} in New Jersey`,
-    description: `${service.description} Serving Branchburg, Somerset County & all of NJ with vetted, CPR-certified nannies and babysitters.`,
+    description: `${service.description} Serving families throughout New Jersey, with service availability across the United States.`,
     alternates: { canonical: `/services/${service.slug}` },
   };
 }
@@ -49,7 +48,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               addressCountry: "US",
             },
           },
-          areaServed: { "@type": "State", name: "New Jersey" },
+          areaServed: [
+            { "@type": "State", name: "New Jersey" },
+            { "@type": "Country", name: "United States" },
+          ],
         }}
       />
 
@@ -62,17 +64,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="bg-cream-100 py-16">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
           <div className="lg:col-span-2">
-            <Reveal>
-              <div className="overflow-hidden rounded-3xl shadow-card">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  width={1200}
-                  height={700}
-                  className="aspect-[16/9] w-full object-cover"
-                />
-              </div>
-            </Reveal>
             <Reveal>
               <div className="mt-8 space-y-4 text-[17px] leading-relaxed text-slate-600">
                 {service.longDescription.map((p, i) => (
@@ -158,22 +149,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <Reveal key={r.slug} delay={i * 90}>
                 <Link
                   href={`/services/${r.slug}`}
-                  className="group block h-full overflow-hidden rounded-3xl border border-cream-300 bg-cream-100 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-lg"
+                  className="group block h-full rounded-3xl border border-cream-300 bg-cream-100 p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-card-lg"
                 >
-                  <div className="overflow-hidden">
-                    <Image
-                      src={r.image}
-                      alt={r.title}
-                      width={700}
-                      height={440}
-                      loading="lazy"
-                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-lg font-extrabold text-ink-900">{r.title}</h3>
-                    <p className="mt-1 line-clamp-2 text-sm text-slate-600">{r.short}</p>
-                  </div>
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-ink-900 text-ember-400"><ServiceIcon name={r.icon} /></span>
+                  <h3 className="mt-4 text-lg font-extrabold text-ink-900">{r.title}</h3>
+                  <p className="mt-1 line-clamp-2 text-sm text-slate-600">{r.short}</p>
                 </Link>
               </Reveal>
             ))}

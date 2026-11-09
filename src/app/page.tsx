@@ -31,19 +31,26 @@ import { Reveal, FaqAccordion, TestimonialCarousel } from "@/components/ui-clien
 import { FamilyRequestForm } from "@/components/forms";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = {
+  title: "Nanny & Babysitting Services in New Jersey",
+  description:
+    "Looking for a nanny or babysitter in New Jersey? Executive Global Nanny offers nanny placement, babysitting, and backup childcare for families across NJ and throughout the U.S.",
+  alternates: { canonical: "/" },
+};
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://executiveglobalnannyusa.com",
+    "@id": "https://executiveglobalnannyusa.com/#localbusiness",
     name: "Executive Global Nanny LLC",
     description:
-      "Professional nanny placement, babysitting services, and backup childcare in Branchburg and throughout New Jersey.",
+      "Nanny placement, babysitting, and backup childcare for families in New Jersey and throughout the United States.",
     url: "https://executiveglobalnannyusa.com",
     telephone: "+1-609-429-6399",
     email: SITE.email,
+    image: "https://executiveglobalnannyusa.com/images/egn-reference/family-care.webp",
+    logo: "https://executiveglobalnannyusa.com/images/egn-reference/navigation-logo.png",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Branchburg",
@@ -51,16 +58,33 @@ const jsonLd = [
       postalCode: "08876",
       addressCountry: "US",
     },
-    geo: { "@type": "GeoCoordinates", latitude: "40.5618", longitude: "-74.7102" },
-    areaServed: [{ "@type": "State", name: "New Jersey" }],
-    priceRange: "$$",
-    openingHours: "Mo-Fr 08:00-18:00",
+    areaServed: [
+      { "@type": "State", name: "New Jersey" },
+      { "@type": "Country", name: "United States" },
+    ],
+    openingHoursSpecification: [{
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "08:00",
+      closes: "18:00",
+    }],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+1-609-429-6399",
+      email: SITE.email,
+      contactType: "customer service",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://executiveglobalnannyusa.com/#website",
     name: "Executive Global Nanny",
     url: "https://executiveglobalnannyusa.com",
+    publisher: { "@id": "https://executiveglobalnannyusa.com/#localbusiness" },
+    inLanguage: "en-US",
   },
 ];
 
@@ -80,7 +104,7 @@ export default function HomePage() {
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-ember-200 bg-white px-4 py-1.5 text-xs font-bold tracking-wide text-ink-900 uppercase shadow-sm">
                 <MapPin className="h-3.5 w-3.5 text-ember-500" aria-hidden="true" />
-                Branchburg, NJ · Serving All of New Jersey
+                Branchburg, NJ · New Jersey first · Nationwide availability
               </span>
             </Reveal>
             <Reveal delay={80}>
@@ -197,7 +221,7 @@ export default function HomePage() {
             <SectionHeader
               eyebrow="Our Services"
               title={<>Tailored Childcare Solutions</>}
-              sub="Professional babysitting, backup childcare, and full-time nanny placements in Branchburg and across New Jersey — safe, reliable, and convenient for your family."
+              sub="Professional babysitting, backup childcare, and nanny placements for families across New Jersey, with services available nationwide."
             />
           </Reveal>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -207,15 +231,19 @@ export default function HomePage() {
                   href={`/services/${service.slug}`}
                   className="group flex h-full flex-col overflow-hidden rounded-3xl border border-cream-300 bg-cream-100 transition-all duration-300 hover:-translate-y-1.5 hover:border-ember-300 hover:shadow-card-lg"
                 >
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      width={800}
-                      height={500}
-                      loading="lazy"
-                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
+                  <div className={`relative flex aspect-[16/10] items-center justify-center overflow-hidden ${service.image ? "bg-cream-200" : "bg-gradient-to-br from-ink-900 to-teal-brand"}`}>
+                    {service.image ? (
+                      <Image
+                        src={service.image}
+                        alt={service.title}
+                        width={800}
+                        height={500}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <ServiceIcon name={service.icon} className="h-14 w-14 text-ember-400" />
+                    )}
                     <span className="absolute top-4 left-4 rounded-full bg-ink-900/90 px-3.5 py-1.5 text-xs font-bold text-white backdrop-blur">
                       {service.startingAt}
                     </span>
@@ -289,12 +317,12 @@ export default function HomePage() {
             <div className="relative">
               <div className="overflow-hidden rounded-[2rem] border border-white/10 shadow-card-lg">
                 <Image
-                  src={IMAGES.readingBook}
-                  alt="Nanny reading with a child during a calm afternoon"
+                  src={IMAGES.safety}
+                  alt="Nanny holding a child"
                   width={1000}
                   height={750}
                   loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-[4/3] w-full bg-teal-pale object-contain"
                 />
               </div>
               <div className="absolute -right-3 -bottom-6 flex items-center gap-3 rounded-2xl bg-ember-500 px-5 py-4 shadow-ember sm:-right-6">
@@ -382,8 +410,8 @@ export default function HomePage() {
             <div className="relative">
               <div className="overflow-hidden rounded-[2rem] shadow-card-lg">
                 <Image
-                  src={IMAGES.training1}
-                  alt="Nannies learning together at the EGN Training Academy"
+                  src={IMAGES.homepageTraining}
+                  alt="Nanny portrait"
                   width={1000}
                   height={750}
                   loading="lazy"
@@ -415,25 +443,19 @@ export default function HomePage() {
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {SERVICE_AREAS.map((area, i) => (
               <Reveal key={area.slug} delay={(i % 4) * 70}>
-                <div
-                  className="relative block overflow-hidden rounded-2xl shadow-card"
+                <Link
+                  href={`/service-areas/${area.slug}`}
+                  aria-label={`Explore nanny and babysitting services in ${area.name}, New Jersey`}
+                  className="flex min-h-40 flex-col justify-between rounded-2xl border border-cream-300 bg-white p-5 shadow-card transition hover:-translate-y-1 hover:shadow-card-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-brand"
                 >
-                  <Image
-                    src={area.image}
-                    alt={`Childcare services in ${area.name}, NJ`}
-                    width={600}
-                    height={400}
-                    loading="lazy"
-                    className="aspect-[3/2] w-full object-cover"
-                  />
-                  <span className="absolute inset-0 bg-gradient-to-t from-ink-950/90 via-ink-950/25 to-transparent" aria-hidden="true" />
-                  <span className="absolute right-4 bottom-4 left-4">
-                    <span className="flex items-center gap-1.5 text-xs font-bold tracking-wider text-ember-300 uppercase">
-                      <MapPin className="h-3.5 w-3.5" aria-hidden="true" /> {area.county}
-                    </span>
-                    <span className="mt-1 block text-xl font-extrabold text-white">{area.name}, NJ</span>
+                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-pale text-teal-brand">
+                    <MapPin className="h-5 w-5" aria-hidden="true" />
                   </span>
-                </div>
+                  <span>
+                    <span className="block text-xs font-bold tracking-wider text-ember-600 uppercase">{area.county}</span>
+                    <span className="mt-1 block text-xl font-extrabold text-ink-900">{area.name}, NJ</span>
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -481,16 +503,6 @@ export default function HomePage() {
                   href={post.href}
                   className="group flex h-full flex-col overflow-hidden rounded-3xl border border-cream-300 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-lg"
                 >
-                  <div className="overflow-hidden">
-                    <Image
-                      src={post.image}
-                      alt={post.title}
-                      width={800}
-                      height={500}
-                      loading="lazy"
-                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
                   <div className="flex flex-1 flex-col p-6">
                     <span className="text-xs font-bold tracking-wider text-ember-600 uppercase">{post.category}</span>
                     <h3 className="mt-2 text-lg leading-snug font-extrabold text-ink-900 transition-colors group-hover:text-ember-600">

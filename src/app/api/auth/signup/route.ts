@@ -1,4 +1,5 @@
 import { notifyVerification } from "@/lib/account-recovery";
+import { notifyAccountRegistration } from "@/lib/mail";
 import { isDuplicateEntry } from "@/db/errors";
 import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
@@ -59,7 +60,10 @@ export async function POST(req: Request) {
       }
     });
 
-    await notifyVerification(user.id);
+    await Promise.all([
+      notifyVerification(user.id),
+      notifyAccountRegistration(name, email, role),
+    ]);
     return NextResponse.json({ ok: true, role: user.role, email });
   } catch (error) {
     if (isDuplicateEntry(error)) return NextResponse.json({ error: "An account with this email already exists. Please log in." }, { status: 409 });

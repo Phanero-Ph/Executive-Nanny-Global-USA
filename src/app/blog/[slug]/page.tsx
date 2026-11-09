@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Clock3, UserRound, PhoneCall } from "lucide-react";
@@ -33,7 +32,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           "@type": "Article",
           headline: post.title,
           description: post.excerpt,
-          image: post.image,
           author: { "@type": "Organization", name: post.author },
           publisher: {
             "@type": "Organization",
@@ -51,11 +49,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <article className="bg-cream-100 py-14">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="overflow-hidden rounded-3xl shadow-card">
-              <Image src={post.image} alt={post.title} width={1200} height={700} className="aspect-[16/9] w-full object-cover" />
-            </div>
-          </Reveal>
           <Reveal>
             <div className="mt-8 space-y-8">
               {post.sections.map((section, i) => (
@@ -111,18 +104,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <Reveal key={r.slug} delay={i * 90}>
                 <Link
                   href={`/blog/${r.slug}`}
-                  className="group grid h-full overflow-hidden rounded-3xl border border-cream-300 bg-cream-100 transition hover:-translate-y-1 hover:shadow-card-lg sm:grid-cols-2"
+                  className="group grid h-full overflow-hidden rounded-3xl border border-cream-300 bg-cream-100 transition hover:-translate-y-1 hover:shadow-card-lg"
                 >
-                  <div className="overflow-hidden">
-                    <Image
-                      src={r.image}
-                      alt={r.title}
-                      width={600}
-                      height={400}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
                   <div className="p-6">
                     <span className="text-xs font-bold tracking-wider text-ember-600 uppercase">{r.category}</span>
                     <h3 className="mt-2 leading-snug font-extrabold text-ink-900">{r.title}</h3>

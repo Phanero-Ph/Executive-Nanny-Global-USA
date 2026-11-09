@@ -1,7 +1,6 @@
-import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
-import { ArrowUpRight, Check, Phone, ShieldCheck } from "lucide-react";
-import { SITE, IMAGES } from "@/data/site";
+import { ArrowUpRight, Check, Phone, ShieldCheck, HeartHandshake } from "lucide-react";
+import { SITE } from "@/data/site";
 
 export function ApplicationLayout({ kind, children }: { kind: "family" | "nanny"; children: React.ReactNode }) {
  const family = kind === "family";
@@ -15,7 +14,7 @@ export function ApplicationLayout({ kind, children }: { kind: "family" | "nanny"
   <div className="mx-auto grid max-w-7xl items-start gap-7 px-5 pb-16 sm:px-8 lg:grid-cols-[260px_minmax(0,1fr)] lg:gap-9 lg:pb-24">
    <aside className="order-2 space-y-6 lg:order-1 lg:sticky lg:top-28">
     <div className="overflow-hidden rounded-2xl bg-ink-900 text-white">
-     <div className="relative hidden h-44 lg:block"><Image src={IMAGES.rockingHorse} alt="A nanny spending time with a child" fill sizes="260px" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-ink-900 to-transparent" /></div>
+     <div className="hidden h-44 items-center justify-center bg-gradient-to-br from-teal-brand to-ink-900 lg:flex"><HeartHandshake className="h-16 w-16 text-ember-400" aria-hidden="true" /></div>
      <div className="p-6"><span className="text-xs font-semibold tracking-widest text-ember-400">{family ? "CARE YOU CAN TRUST" : "GROW WITH US"}</span><h2 className="mt-3 text-2xl">{family ? "A personal approach to finding your nanny." : "More than a placement. A partnership."}</h2><ul className="mt-6 space-y-4">{benefits.map(benefit => <li key={benefit} className="flex gap-3 text-sm leading-6 text-teal-mist/85"><Check className="mt-1 h-4 w-4 shrink-0 text-ember-400" aria-hidden="true" />{benefit}</li>)}</ul></div>
     </div>
     <div className="px-1"><div className="flex items-center gap-2 text-sm font-semibold text-ink-900"><ShieldCheck className="h-4 w-4 text-teal-brand" aria-hidden="true" />{family ? "Here to guide you" : "What happens next?"}</div><p className="mt-2 text-sm leading-6 text-slate-500">{family ? "Our team will get in touch to understand your needs and walk you through your search." : "Our team reviews your application and contacts you within 3–5 business days with the next steps."}</p></div>

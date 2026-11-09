@@ -15,53 +15,31 @@ export const SITE = {
 };
 
 export const IMAGES = {
-  hero: "https://images.pexels.com/photos/8671138/pexels-photo-8671138.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  familyPlay:
-    "https://images.pexels.com/photos/4017415/pexels-photo-4017415.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  mealCare:
-    "https://images.pexels.com/photos/6974489/pexels-photo-6974489.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  kitchenPlay:
-    "https://images.pexels.com/photos/6222756/pexels-photo-6222756.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  sofaMoment:
-    "https://images.pexels.com/photos/6274932/pexels-photo-6274932.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  rockingHorse:
-    "https://images.pexels.com/photos/7180764/pexels-photo-7180764.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  kidsPlaying:
-    "https://images.pexels.com/photos/5063353/pexels-photo-5063353.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  familyWindow:
-    "https://images.pexels.com/photos/4868320/pexels-photo-4868320.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  bottleFeeding:
-    "https://images.pexels.com/photos/6849544/pexels-photo-6849544.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  stairsBaby:
-    "https://images.pexels.com/photos/19773885/pexels-photo-19773885.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  carryingBaby:
-    "https://images.pexels.com/photos/7282831/pexels-photo-7282831.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  dressingBaby:
-    "https://images.pexels.com/photos/7282212/pexels-photo-7282212.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  holdingHands:
-    "https://images.pexels.com/photos/34566653/pexels-photo-34566653.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  motherBaby:
-    "https://images.pexels.com/photos/7282778/pexels-photo-7282778.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  readingSofa:
-    "https://images.pexels.com/photos/33737251/pexels-photo-33737251.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  snackTime:
-    "https://images.pexels.com/photos/6274999/pexels-photo-6274999.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  readingBook:
-    "https://images.pexels.com/photos/6274942/pexels-photo-6274942.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  bedroomReading:
-    "https://images.pexels.com/photos/6274960/pexels-photo-6274960.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  sofaReading:
-    "https://images.pexels.com/photos/8909611/pexels-photo-8909611.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  coloring:
-    "https://images.pexels.com/photos/8909610/pexels-photo-8909610.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  training1:
-    "https://images.pexels.com/photos/5756649/pexels-photo-5756649.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  training2:
-    "https://images.pexels.com/photos/5756743/pexels-photo-5756743.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  training3:
-    "https://images.pexels.com/photos/3184317/pexels-photo-3184317.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
-  training4:
-    "https://images.pexels.com/photos/5756664/pexels-photo-5756664.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=627&w=1200",
+  hero: "/images/egn-reference/family-care.webp",
+  safety: "/images/egn-reference/nanny-with-child.webp",
+  fullTimeNanny: "/images/egn-reference/service-nanny-placement.webp",
+  partTimeNanny: "/images/egn-reference/service-babysitting.webp",
+  babysitting: "/images/egn-reference/service-backup-care.webp",
+  backupCare: "/images/egn-reference/children-presents.webp",
+  homepageTraining: "/images/egn-reference/nanny-portrait-one.webp",
+  aboutNanny: "/images/egn-reference/nanny-portrait-two.webp",
+  babysittingService: "/images/egn-reference/service-babysitting-generated.webp",
+  newbornCare: "/images/egn-reference/service-newborn-care-generated.webp",
+  householdManagement: "/images/egn-reference/service-household-management-generated.webp",
+  blogScreenTime: "/images/egn-reference/blog-screen-free-play.webp",
+  blogMultiAge: "/images/egn-reference/blog-multi-age-care.webp",
+  blogConfidence: "/images/egn-reference/blog-child-confidence.webp",
+  blogCommunity: "/images/egn-reference/blog-community-appreciation.webp",
+  blogBoundaries: "/images/egn-reference/blog-boundaries-respect.webp",
+  blogDevelopment: "/images/egn-reference/blog-early-development.webp",
+  blogTransition: "/images/egn-reference/blog-nanny-transition.webp",
+  blogCareer: "/images/egn-reference/blog-nanny-career.webp",
+  servicesFullTime: "/images/egn-reference/services-full-time-generated.webp",
+  servicesPartTime: "/images/egn-reference/services-part-time-generated.webp",
+  servicesBabysitting: "/images/egn-reference/services-babysitting-generated.webp",
+  servicesBackupCare: "/images/egn-reference/services-backup-care-generated.webp",
+  servicesNewbornCare: "/images/egn-reference/services-newborn-care-generated.webp",
+  servicesHouseholdManagement: "/images/egn-reference/services-household-management-generated.webp",
 };
 
 /* ---------------------------------- Services --------------------------------- */
@@ -72,7 +50,7 @@ export type Service = {
   short: string;
   description: string;
   longDescription: string[];
-  image: string;
+  image?: string;
   icon: string;
   features: string[];
   idealFor: string[];
@@ -91,7 +69,7 @@ export const SERVICES: Service[] = [
       "Every full-time candidate completes identity verification, reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview before you ever meet them. You interview only the best — typically 2 to 4 exceptional nannies.",
       "Once you choose your nanny, we support the transition with a trial period, a written work agreement template, and check-ins at 30, 60, and 90 days. If the placement isn't right within the guarantee window, we rematch at no additional placement fee.",
     ],
-    image: IMAGES.familyPlay,
+    image: IMAGES.fullTimeNanny,
     icon: "baby",
     features: [
       "Dedicated recruiter & tailored candidate shortlist",
@@ -118,7 +96,7 @@ export const SERVICES: Service[] = [
       "Not every family needs full-time care. Our part-time nannies provide dependable coverage for after-school hours, preschool gaps, work-from-home support, and weekend routines.",
       "Part-time placements go through the same rigorous vetting as full-time placements. We match on availability windows, driving requirements, homework support skills, and activity interests so your children look forward to every visit.",
     ],
-    image: IMAGES.readingBook,
+    image: IMAGES.partTimeNanny,
     icon: "clock",
     features: [
       "After-school pickup & homework support",
@@ -145,7 +123,7 @@ export const SERVICES: Service[] = [
       "Our babysitting membership gives your family on-demand access to a bench of vetted, CPR-certified sitters across Somerset, Hunterdon, Morris, and Middlesex counties.",
       "Request care in minutes through your family portal: share the date, time, ages, and bedtime routine — we confirm a sitter who already knows your household preferences. Members enjoy priority booking and flexible scheduling, with monthly plans ranging from 3 bookings to unlimited babysitter submissions.",
     ],
-    image: IMAGES.sofaMoment,
+    image: IMAGES.babysittingService,
     icon: "sparkles",
     features: [
       "CPR-certified sitters, background-checked",
@@ -172,7 +150,7 @@ export const SERVICES: Service[] = [
       "School closed? Regular nanny sick? Meeting you can't miss? Our backup-care bench exists for exactly these mornings.",
       "Backup members keep a household profile on file so we can arrange a vetted babysitter quickly — often within 2 to 4 hours in our core service area. Every backup babysitter meets the same screening bar: verified identity, references, background check, and CPR certification.",
     ],
-    image: IMAGES.kitchenPlay,
+    image: IMAGES.backupCare,
     icon: "siren",
     features: [
       "Same-day requests, often filled in hours",
@@ -199,7 +177,7 @@ export const SERVICES: Service[] = [
       "The first months are beautiful and exhausting. Our newborn care specialists provide overnight support — feeding, soothing, diapering, and sleep-shaping — so parents wake rested.",
       "Daytime postpartum support is also available: light household help, sibling care, and evidence-based guidance on feeding and sleep rhythms. All newborn specialists hold infant CPR certification and verified newborn experience.",
     ],
-    image: IMAGES.bottleFeeding,
+    image: IMAGES.newbornCare,
     icon: "moon",
     features: [
       "Overnight shifts (8–12 hours)",
@@ -226,7 +204,7 @@ export const SERVICES: Service[] = [
       "When life outgrows the calendar, a household manager brings it all back into order — school logistics, vendor coordination, grocery and meal planning, travel prep, and light family assisting.",
       "We recruit organized, discreet professionals with verified experience. Many families pair a household manager with part-time childcare for complete coverage.",
     ],
-    image: IMAGES.coloring,
+    image: IMAGES.householdManagement,
     icon: "briefcase",
     features: [
       "Calendar, school & activity logistics",
@@ -257,7 +235,7 @@ export type ServiceArea = {
   zips: string[];
   description: string[];
   highlights: string[];
-  image: string;
+  image?: string;
 };
 
 export const SERVICE_AREAS: ServiceArea[] = [
@@ -276,7 +254,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Deep bench of local, CPR-certified sitters",
       "Evening & weekend date-night coverage",
     ],
-    image: IMAGES.hero,
   },
   {
     slug: "bridgewater",
@@ -293,7 +270,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "After-school programs & activity transport",
       "Newborn & overnight specialists",
     ],
-    image: IMAGES.familyWindow,
   },
   {
     slug: "hillsborough",
@@ -310,7 +286,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Infant & toddler specialists",
       "Membership babysitting for weekends",
     ],
-    image: IMAGES.sofaReading,
   },
   {
     slug: "somerset-county",
@@ -327,7 +302,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "School-district-aware matching",
       "Same-day backup in core towns",
     ],
-    image: IMAGES.kidsPlaying,
   },
   {
     slug: "hunterdon-county",
@@ -344,7 +318,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Weekend babysitting memberships",
       "Newborn & postpartum support",
     ],
-    image: IMAGES.mealCare,
   },
   {
     slug: "morris-county",
@@ -361,7 +334,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Household managers for busy families",
       "Holiday & school-break coverage",
     ],
-    image: IMAGES.stairsBaby,
   },
   {
     slug: "middlesex-county",
@@ -378,7 +350,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Vetted date-night sitters",
       "Backup care for working parents",
     ],
-    image: IMAGES.snackTime,
   },
   {
     slug: "princeton-area",
@@ -395,7 +366,6 @@ export const SERVICE_AREAS: ServiceArea[] = [
       "Family assistants & household managers",
       "Newborn & overnight care",
     ],
-    image: IMAGES.holdingHands,
   },
 ];
 
@@ -574,7 +544,7 @@ export type BlogPost = {
   date: string;
   readTime: string;
   author: string;
-  image: string;
+  image?: string;
   sections: { heading?: string; paragraphs: string[] }[];
 };
 
@@ -588,7 +558,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "September 28, 2026",
     readTime: "8 min read",
     author: "EGN Family Advisory Team",
-    image: IMAGES.familyPlay,
     sections: [
       {
         paragraphs: [
@@ -628,7 +597,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "September 14, 2026",
     readTime: "7 min read",
     author: "EGN Recruiting Team",
-    image: IMAGES.readingSofa,
     sections: [
       {
         paragraphs: [
@@ -666,7 +634,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "August 30, 2026",
     readTime: "6 min read",
     author: "EGN Family Advisory Team",
-    image: IMAGES.kidsPlaying,
     sections: [
       {
         paragraphs: [
@@ -703,7 +670,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "August 12, 2026",
     readTime: "5 min read",
     author: "EGN Family Advisory Team",
-    image: IMAGES.bedroomReading,
     sections: [
       {
         paragraphs: [
@@ -739,7 +705,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "July 26, 2026",
     readTime: "6 min read",
     author: "EGN Family Advisory Team",
-    image: IMAGES.kitchenPlay,
     sections: [
       {
         paragraphs: [
@@ -775,7 +740,6 @@ export const BLOG_POSTS: BlogPost[] = [
     date: "July 8, 2026",
     readTime: "5 min read",
     author: "EGN Training Academy",
-    image: IMAGES.training3,
     sections: [
       {
         paragraphs: [

@@ -7,9 +7,9 @@ import { Reveal } from "@/components/ui-client";
 import { ContactForm } from "@/components/forms";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Branchburg, NJ",
+  title: "Contact Our New Jersey Nanny Agency",
   description:
-    "Contact Executive Global Nanny for your childcare needs. Serving New Jersey and surrounding areas from Branchburg, with business hours Monday–Friday, 8am–6pm EST.",
+    "Contact Executive Global Nanny about nanny placement, babysitting, or backup childcare. Based in Branchburg, NJ and serving families throughout New Jersey and the U.S.",
   alternates: { canonical: "/contact" },
 };
 
@@ -94,12 +94,13 @@ export default function ContactPage() {
                   <h2 className="font-extrabold text-ink-900">Serving NJ and surrounding areas</h2>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {SERVICE_AREAS.map((a) => (
-                      <span
+                      <Link
                         key={a.slug}
-                        className="rounded-full bg-cream-100 px-3.5 py-1.5 text-sm font-bold text-ink-900"
+                        href={`/service-areas/${a.slug}`}
+                        className="rounded-full bg-cream-100 px-3.5 py-1.5 text-sm font-bold text-ink-900 hover:text-ember-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-brand"
                       >
                         {a.name}
-                      </span>
+                      </Link>
                     ))}
                   </div>
                 </div>

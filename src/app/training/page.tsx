@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, MonitorPlay, Award, ClipboardCheck } from "lucide-react";
-import { IMAGES, TRAINING_COURSES } from "@/data/site";
+import { TRAINING_COURSES } from "@/data/site";
 import { PageHero, SectionHeader, CtaBand, ServiceIcon } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
 
@@ -62,12 +62,17 @@ export default function TrainingPage() {
             </ul>
           </Reveal>
           <Reveal delay={120}>
-            <div className="grid grid-cols-2 gap-4">
-              {[IMAGES.training2, IMAGES.training3, IMAGES.training4, IMAGES.training1].map((img, i) => (
-                <div key={i} className={`overflow-hidden rounded-2xl shadow-card ${i % 2 === 1 ? "mt-6" : ""}`}>
-                  <Image src={img} alt="EGN Training Academy session" width={500} height={380} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+            <div className="overflow-hidden rounded-3xl bg-white shadow-card-lg">
+              <Image src="/images/egn-reference/training-first-aid.webp" alt="Childcare trainees practicing infant CPR on a training mannequin with an instructor" width={1200} height={900} loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <div className="p-8 sm:p-10">
+                <MonitorPlay className="h-10 w-10 text-ember-500" aria-hidden="true" />
+                <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-ember-600">Flexible learning</p>
+                <h2 className="mt-3 text-2xl font-extrabold text-ink-900">Build skills for real childcare moments</h2>
+                <p className="mt-3 leading-relaxed text-slate-600">Explore practical training in child development, safety, first aid, nutrition, and family support at your own pace.</p>
+                <div className="mt-7 flex flex-wrap gap-2">
+                  {["Child safety", "Development", "Family support"].map((topic) => <span key={topic} className="rounded-full border border-cream-300 bg-cream-100 px-3 py-1.5 text-sm font-semibold text-ink-900">{topic}</span>)}
                 </div>
-              ))}
+              </div>
             </div>
           </Reveal>
         </div>

@@ -9,7 +9,7 @@ try {
  console.log(rows[0].connected === 1 ? 'MySQL connection successful.' : 'Unexpected database response.');
  const [tables] = await connection.query('SHOW TABLES');
  const names = new Set(tables.map(row => Object.values(row)[0]));
- const required = ['users','family_requests','nanny_applications','contact_messages','newsletter_subscribers','review_events','account_tokens','mail_jobs','recovery_limits','nanny_matches','membership_cycles','membership_payments','membership_reminders','stripe_billing','stripe_events','caregiver_fees','care_bookings','booking_assignments','booking_events','training_courses','training_lessons','training_enrollments','training_progress','training_certificates','training_events','caregiver_credentials','credential_events','credential_reminders','conversations','conversation_messages','conversation_reads'];
+ const required = ['users','family_requests','nanny_applications','contact_messages','newsletter_subscribers','review_events','account_tokens','mail_jobs','recovery_limits','nanny_matches','membership_cycles','membership_payments','membership_reminders','stripe_billing','stripe_events','caregiver_fees','agency_fee_settings','care_bookings','booking_assignments','booking_events','training_courses','training_lessons','training_enrollments','training_progress','training_certificates','training_events','caregiver_credentials','credential_events','credential_reminders','conversations','conversation_messages','conversation_reads'];
  const missing = required.filter(name => !names.has(name));
  if (missing.length) { console.error('Missing tables: ' + missing.join(', ') + '. Import the schema or run npm run db:migrate.'); process.exitCode = 1; }
  else console.log('All application tables are present.');

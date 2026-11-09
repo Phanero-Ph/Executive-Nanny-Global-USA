@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HeartHandshake, ShieldCheck, GraduationCap, MapPin, MessageCircle, Users, Award, Check } from "lucide-react";
 import { PageHero, SectionHeader, CtaBand } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
+import { IMAGES } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "About Us — Premier Childcare Training & Placement",
@@ -31,7 +32,7 @@ export default function AboutPage() {
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <Reveal><div className="relative">
           <div className="overflow-hidden rounded-[2rem] shadow-card-lg">
-            <Image src="/images/about/family.webp" alt="Joyful family playing together" width={1000} height={750} className="aspect-[4/3] w-full object-cover" />
+            <Image src={IMAGES.aboutNanny} alt="Nanny portrait" width={1000} height={750} className="aspect-[4/3] w-full object-cover" />
           </div>
           <div className="absolute -right-3 -bottom-6 rounded-2xl bg-ink-900 px-6 py-4 text-white shadow-card-lg sm:-right-6">
             <MapPin className="mb-1 h-7 w-7 text-ember-400" aria-hidden="true" />

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { PublicImage as Image } from "@/components/PublicImage";
 import Link from "next/link";
 import { ArrowRight, Check, ShieldCheck } from "lucide-react";
-import { PRICING, SERVICES } from "@/data/site";
+import { IMAGES, PRICING, SERVICES } from "@/data/site";
 import { cn } from "@/lib/utils";
 import { PageHero, SectionHeader, CtaBand, ServiceIcon } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
@@ -17,6 +17,15 @@ export const metadata: Metadata = {
 };
 
 export const dynamic="force-dynamic";
+const SERVICE_LIST_IMAGES: Record<string, string> = {
+  "full-time-nanny": IMAGES.servicesFullTime,
+  "part-time-nanny": IMAGES.servicesPartTime,
+  babysitting: IMAGES.servicesBabysitting,
+  "backup-care": IMAGES.servicesBackupCare,
+  "newborn-overnight": IMAGES.servicesNewbornCare,
+  "household-manager": IMAGES.servicesHouseholdManagement,
+};
+
 export default async function ServicesPage() {
   const fees=await getAgencyFees();
   return (
@@ -24,7 +33,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Our Services"
         title="Complete childcare, one trusted agency"
-        sub="Every service is delivered by vetted, CPR-certified nannies and babysitters and backed by a dedicated Branchburg-based team."
+        sub="Every service is backed by our Branchburg-based team, with local coverage across New Jersey and service availability for families throughout the United States."
       />
 
       <section id="babysitting-memberships" aria-labelledby="membership-heading" className="scroll-mt-20 bg-cream-100 py-16 sm:py-20">
@@ -67,15 +76,10 @@ export default async function ServicesPage() {
                   i % 2 === 1 ? "" : ""
                 }`}
               >
-                <div className={`relative min-h-64 ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    loading="lazy"
-                    className="object-cover"
-                  />
-                  <span className="absolute top-5 left-5 rounded-full bg-ink-900/90 px-4 py-1.5 text-xs font-bold text-white backdrop-blur">
+                <div className={`relative min-h-64 overflow-hidden ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+                  <Image src={SERVICE_LIST_IMAGES[service.slug]} alt={service.title} fill sizes="(max-width: 1024px) 100vw, 40vw" loading="lazy" className="object-cover" />
+                  <span className="absolute inset-0 bg-gradient-to-t from-ink-950/75 via-transparent to-transparent" aria-hidden="true" />
+                  <span className="absolute bottom-5 left-5 rounded-full border border-white/30 bg-ink-900/80 px-4 py-1.5 text-center text-xs font-bold text-white backdrop-blur">
                     {service.startingAt}
                   </span>
                 </div>
