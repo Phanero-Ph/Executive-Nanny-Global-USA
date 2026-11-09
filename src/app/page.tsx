@@ -101,12 +101,6 @@ export default function HomePage() {
 
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 pt-12 pb-16 sm:px-6 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:pt-20 lg:pb-24">
           <div>
-            <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-ember-200 bg-white px-4 py-1.5 text-xs font-bold tracking-wide text-ink-900 uppercase shadow-sm">
-                <MapPin className="h-3.5 w-3.5 text-ember-500" aria-hidden="true" />
-                Branchburg, NJ · New Jersey first · Nationwide availability
-              </span>
-            </Reveal>
             <Reveal delay={80}>
               <h1 className="mt-5 text-4xl leading-[1.08] font-extrabold tracking-tight text-balance text-ink-900 sm:text-5xl lg:text-[3.6rem]">
                 Trusted Nannies. Expert Care <span className="relative inline-block text-ember-600">Anywhere
