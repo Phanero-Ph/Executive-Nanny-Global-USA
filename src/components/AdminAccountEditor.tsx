@@ -1,7 +1,7 @@
 "use client";
-import { UserRound, Save, Mail, Loader2, Trash2 } from "lucide-react";
+import { UserRound, Save, Mail, Loader2, Trash2, X } from "lucide-react";
 import { useAdminPermissions } from "./AdminPermissions";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 type AccountPermission = "families.edit" | "nannies.edit";
@@ -17,8 +17,26 @@ export function AdminAccountEditor({
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [confirmation, setConfirmation] = useState("");
+  const [deleteError, setDeleteError] = useState("");
+  const deleteTriggerRef = useRef<HTMLButtonElement>(null);
+  const confirmationInputRef = useRef<HTMLInputElement>(null);
   const canEdit = !!permission && can(permission);
   const canDelete = !!deletePermission && can(deletePermission) && !!returnTo;
+
+  useEffect(() => {
+    if (!deleteOpen) return;
+    confirmationInputRef.current?.focus();
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDeleteOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("keydown", closeOnEscape);
+      deleteTriggerRef.current?.focus();
+    };
+  }, [deleteOpen]);
 
   async function save(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -34,16 +52,20 @@ export function AdminAccountEditor({
   }
 
   async function removeAccount() {
-    const confirmation = window.prompt(`This removes the account’s login and personal profile data. Some financial, placement, and audit history may be retained where needed.\n\nType the account email to confirm:\n${email}`);
-    if (confirmation === null) return;
-    setBusy(true); setMessage("");
+    setBusy(true); setDeleteError("");
     try {
       const response = await fetch(`/api/admin/accounts/${id}`, { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ confirmation, version }) });
       const result = await response.json();
       if (!response.ok) throw Error(result.error);
       router.replace(returnTo!); router.refresh();
-    } catch (e) { setMessage(e instanceof Error ? e.message : "Could not delete account."); }
+    } catch (e) { setDeleteError(e instanceof Error ? e.message : "Could not delete account."); }
     finally { setBusy(false); }
+  }
+
+  function openDeleteModal() {
+    setConfirmation("");
+    setDeleteError("");
+    setDeleteOpen(true);
   }
 
   const editForm = canEdit ? (variant === "settings"
@@ -52,5 +74,18 @@ export function AdminAccountEditor({
 
   if (variant === "settings") return editForm;
   if (!editForm && !canDelete) return null;
-  return <div className="space-y-4">{editForm}{canDelete && <section className="dashboard-card space-y-3 border border-red-200"><h2 className="text-red-800">Delete account</h2><p className="text-sm leading-6 text-slate-600">Revokes login access and removes personal profile details and uploaded documents. Some financial, placement, and audit history may be retained where needed. Active bookings, memberships, subscriptions, or placements must be resolved first.</p>{message && !canEdit && <p role="status" className="text-sm text-red-800">{message}</p>}<button type="button" disabled={busy} onClick={removeAccount} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-red-300 px-4 py-2 text-sm font-semibold text-red-800 hover:bg-red-50 disabled:opacity-60"><Trash2 size={16} aria-hidden="true"/>{busy ? "Deleting…" : "Delete account"}</button></section>}</div>;
+  return <>
+    <div className="space-y-4">{editForm}{canDelete && <section className="dashboard-card space-y-3 border border-red-200"><h2 className="text-red-800">Delete account</h2><p className="text-sm leading-6 text-slate-600">Revokes login access and removes personal profile details and uploaded documents. Some financial, placement, and audit history may be retained where needed. Active bookings, memberships, subscriptions, or placements must be resolved first.</p>{message && !canEdit && <p role="status" className="text-sm text-red-800">{message}</p>}<button ref={deleteTriggerRef} type="button" disabled={busy} onClick={openDeleteModal} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-red-300 px-4 py-2 text-sm font-semibold text-red-800 hover:bg-red-50 disabled:opacity-60"><Trash2 size={16} aria-hidden="true"/>Delete account</button></section>}</div>
+    {canDelete && deleteOpen && <div className="fixed inset-0 z-[120] flex items-center justify-center overflow-y-auto bg-ink-950/65 p-4 backdrop-blur-sm" onMouseDown={event => { if (event.target === event.currentTarget && !busy) setDeleteOpen(false); }}>
+      <section role="dialog" aria-modal="true" aria-labelledby="delete-account-title" aria-describedby="delete-account-description" className="w-full max-w-lg rounded-2xl border border-red-200 bg-white p-6 shadow-2xl sm:p-8">
+        <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-bold uppercase tracking-[0.16em] text-red-700">Permanent account action</p><h2 id="delete-account-title" className="mt-2 text-2xl font-bold text-ink-900">Delete this account?</h2></div><button type="button" disabled={busy} onClick={() => setDeleteOpen(false)} aria-label="Close delete confirmation" className="rounded-full p-2 text-slate-500 hover:bg-slate-100 disabled:opacity-50"><X size={20}/></button></div>
+        <p id="delete-account-description" className="mt-4 text-sm leading-6 text-slate-600">This revokes login access and removes personal profile details and uploaded documents. Some financial, placement, and audit history may be retained where needed. You must resolve active bookings, memberships, subscriptions, or placements first.</p>
+        <label htmlFor="delete-account-email" className="mt-6 block text-sm font-semibold text-ink-900">Type this account’s email to confirm</label>
+        <p className="mt-1 break-all text-sm text-slate-600">{email}</p>
+        <input ref={confirmationInputRef} id="delete-account-email" type="email" autoComplete="off" value={confirmation} onChange={event => setConfirmation(event.target.value)} className="application-input mt-2" placeholder="Enter the account email" disabled={busy}/>
+        {deleteError && <p role="alert" className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm leading-5 text-red-800">{deleteError}</p>}
+        <div className="mt-7 flex flex-col-reverse justify-end gap-3 sm:flex-row"><button type="button" disabled={busy} onClick={() => setDeleteOpen(false)} className="min-h-11 rounded-lg border border-slate-300 px-5 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">Cancel</button><button type="button" disabled={busy || confirmation.trim() !== email} onClick={removeAccount} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-red-700 px-5 py-2 text-sm font-semibold text-white hover:bg-red-800 disabled:cursor-not-allowed disabled:opacity-50">{busy ? <><Loader2 size={16} className="animate-spin"/>Deleting…</> : <><Trash2 size={16}/>Delete account</>}</button></div>
+      </section>
+    </div>}
+  </>;
 }
