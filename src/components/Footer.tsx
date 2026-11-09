@@ -24,8 +24,8 @@ export function Footer() {
     <footer id="site-footer" className="scroll-mt-20 border-t border-white/10 bg-ink-900 text-white">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,2fr)] lg:gap-16 lg:px-8 lg:py-16">
         <div className="min-w-0">
-          <Link href="/" aria-label="Executive Global Nanny — home" className="inline-flex max-w-full items-center rounded-xl bg-cream-100 px-3 py-2 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400">
-            <Image src="/images/egn-reference/footer-logo.png" alt="Executive Global Nanny" width={880} height={240} className="h-auto w-64 max-w-full" />
+          <Link href="/" aria-label="Executive Global Nanny — home" className="inline-flex max-w-full items-center rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ember-400">
+            <Image src="/images/egn-reference/footer-logo.png" alt="Executive Global Nanny" width={880} height={240} className="h-auto w-[320px] max-w-full" />
           </Link>
           <p className="mt-6 max-w-sm text-sm leading-7 text-teal-mist/75">
             Empowering families with exceptional childcare solutions tailored to their unique needs. Fostering a nurturing environment where children can thrive.
