@@ -7,8 +7,8 @@ import { Reveal } from "@/components/ui-client";
 import { IMAGES } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "About Us — Premier Childcare Training & Placement",
-  description: "Discover Executive Global Nanny's mission, vision, nanny and babysitter matching process, and professional training programs for families across New Jersey.",
+  title: "About Executive Global Nanny, a New Jersey Nanny Agency",
+  description: "Meet Executive Global Nanny, a Branchburg-based agency for nanny placement, babysitting, and childcare support for families across New Jersey.",
   alternates: { canonical: "/about" },
 };
 
@@ -24,8 +24,8 @@ export default function AboutPage() {
   return <>
     <PageHero
       eyebrow="All About Care"
-      title="Discover Exceptional Care for Every Family"
-      sub="We believe that every family deserves the best. From personalized nanny placements to expert training programs and specialized aftercare services, we are committed to providing a nurturing environment where children can thrive."
+      title="A Branchburg-Based Nanny Agency Serving New Jersey Families"
+      sub="Executive Global Nanny helps New Jersey families find nanny placement, babysitting, and childcare support, with a personal matching process based on each household's needs."
     />
 
     <section className="bg-cream-100 py-16 sm:py-20">

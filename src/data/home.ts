@@ -58,16 +58,7 @@ export const HOME_FAQS: Faq[] = [
   { q: "What areas do you serve?", a: "We serve families across New Jersey (NJ), including Central Jersey, North Jersey, and South Jersey. This includes Bergen, Hudson, Essex, Morris, Passaic, Middlesex, Monmouth, Somerset, Mercer, Burlington, and Gloucester counties.", category: "families" },
 ];
 
-const REFERENCE_ARTICLES = [
-  { title: "Mistakes families make when they hire a nanny", excerpt: "Urgent Need — 'I need someone urgently and it should not take long to find someone'. This is usually the..." },
-  { title: "7 First Signs To Note In An Unprofessional Nanny", excerpt: "One of the first signs to watch for is inconsistent punctuality. A professional nanny should be reliable and..." },
-  { title: "The Benefits of Hiring a Nanny: Why Families Trust Executive Global Nanny", excerpt: "One of the most significant advantages of hiring a nanny is the personalized attention your child receives. Unlike..." },
-];
-export const HOME_BLOG_POSTS = BLOG_POSTS.slice(0, 3).map((post, i) => ({
+export const HOME_BLOG_POSTS = BLOG_POSTS.slice(0, 3).map((post) => ({
   ...post,
-  ...REFERENCE_ARTICLES[i],
-  href: "/blog",
-  category: "Caregiving 101",
-  date: "Stories, Insights, Tips",
-  readTime: "Read More",
+  href: `/blog/${post.slug}`,
 }));

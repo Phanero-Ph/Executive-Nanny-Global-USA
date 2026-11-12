@@ -10,9 +10,9 @@ import { PageHero, SectionHeader, CtaBand, ServiceIcon } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
 
 export const metadata: Metadata = {
-  title: "Childcare Services in New Jersey",
+  title: "Nanny Agency Services in New Jersey | Executive Global Nanny",
   description:
-    "Full-time & part-time nanny placement, babysitter subscriptions, backup care, newborn & overnight care, and household managers — all across New Jersey.",
+    "Compare nanny placement, babysitting, backup care, newborn and overnight care, and family assistant services from a New Jersey nanny agency.",
   alternates: { canonical: "/services" },
 };
 
@@ -32,7 +32,7 @@ export default async function ServicesPage() {
     <>
       <PageHero
         eyebrow="Our Services"
-        title="Complete childcare, one trusted agency"
+        title="Nanny Placement, Babysitting & Backup Care in New Jersey"
         sub="Every service is backed by our Branchburg-based team, with local coverage across New Jersey and service availability for families throughout the United States."
       />
 

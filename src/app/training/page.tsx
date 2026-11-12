@@ -7,9 +7,9 @@ import { PageHero, SectionHeader, CtaBand, ServiceIcon } from "@/components/ui";
 import { Reveal } from "@/components/ui-client";
 
 export const metadata: Metadata = {
-  title: "Training — Expert-Led Childcare Programs",
+  title: "Professional Nanny Training & Childcare Courses",
   description:
-    "Explore expert-led childcare training, early childhood development, first aid and CPR, special needs childcare, nutrition, household management, and emotional intelligence.",
+    "Explore nanny and childcare courses in child development, CPR and first aid, special-needs awareness, nutrition, and household management.",
   alternates: { canonical: "/training" },
 };
 
@@ -34,7 +34,7 @@ export default function TrainingPage() {
     <>
       <PageHero
         eyebrow="Expert-Led Training"
-        title="Elevate Your Childcare Skills with Our Expert-Led Training"
+        title="Professional Nanny Training and Childcare Courses"
         sub="Join a community of dedicated nannies and take the first step towards a fulfilling and impactful career. Our training programs are designed to equip you with the essential skills and confidence to excel in professional childcare, all while offering the flexibility you need to learn at your pace."
       />
 
@@ -49,9 +49,9 @@ export default function TrainingPage() {
             />
             <ul className="mt-6 space-y-3">
               {[
-                "500+ Graduates Certified",
-                "95% Success Rate",
-                "100+ Hours",
+                "Online and blended learning options",
+                "Courses in safety and child development",
+                "Flexible learning at your pace",
                 "Essential childcare knowledge and specialized skills",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5 font-medium text-slate-700">

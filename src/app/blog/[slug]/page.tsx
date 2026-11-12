@@ -38,7 +38,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             name: "Executive Global Nanny LLC",
             logo: { "@type": "ImageObject", url: "https://executiveglobalnannyusa.com/favicon.svg" },
           },
-          datePublished: post.date,
+          datePublished: new Date(post.date).toISOString(),
         }}
       />
       <PageHero

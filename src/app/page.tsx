@@ -103,17 +103,17 @@ export default function HomePage() {
           <div>
             <Reveal delay={80}>
               <h1 className="mt-5 text-4xl leading-[1.08] font-extrabold tracking-tight text-balance text-ink-900 sm:text-5xl lg:text-[3.6rem]">
-                Trusted Nannies. Expert Care <span className="relative inline-block text-ember-600">Anywhere
+                Nanny Agency in <span className="relative inline-block text-ember-600">New Jersey
                   <svg viewBox="0 0 220 12" className="absolute -bottom-1 left-0 w-full" preserveAspectRatio="none" aria-hidden="true">
                     <path d="M3 9C60 3 160 3 217 8" stroke="#FF8C42" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.5" />
                   </svg>
-                </span>{" "}Anytime
+                </span> for Trusted Childcare
               </h1>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-                At Executive Global Nanny, we help families thrive by providing reliable and nurturing childcare
-                solutions that meet the unique needs of each household.
+                Executive Global Nanny is a Branchburg-based nanny agency helping New Jersey families find nanny
+                placement, babysitting, and backup childcare that fits their household.
               </p>
             </Reveal>
             <Reveal delay={240}>
@@ -482,8 +482,8 @@ export default function HomePage() {
               <SectionHeader
                 align="left"
                 eyebrow="Blogs"
-                title={<>Caregiving 101: Stories, Insights, Tips</>}
-                sub="Get the latest tips, trends, and advice on childcare, home management, and family life. Explore expert insights, success stories, and practical guides curated just for you."
+                title={<>Nanny &amp; Childcare Guides for New Jersey Families</>}
+                sub="Explore practical guidance on nanny hiring, childcare costs, safety, and preparing for in-home care."
               />
               <CtaButton href="/blog" variant="outline-ink" size="sm" className="shrink-0">
                 View More <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -619,7 +619,7 @@ export const BLOG_POSTS: BlogPost[] = [
       {
         heading: "Day-to-day fit",
         paragraphs: [
-          "7. 'Describe your ideal daily schedule with a child this age.' 8. 'How do you balance activities vs. downtime?' 9. 'What's your approach to screen time?' 10. 'How do you handle schedule changes or last-minute requests?' 11–15. Logistics: driving comfort, meal prep, homework help, travel willingness, and long-term availability.",
+          "7. 'Describe your ideal daily schedule with a child this age.' 8. 'How do you balance activities with downtime?' 9. 'What is your approach to screen time?' 10. 'How do you handle schedule changes or last-minute requests?' 11. 'Are you comfortable driving children, and what safety steps do you take?' 12. 'What meals or snacks are you comfortable preparing?' 13. 'How would you support a school-age child's homework without doing it for them?' 14. 'Would you be available for occasional family travel, if agreed in advance?' 15. 'What kind of schedule and length of commitment are you looking for?'",
           "Close with this: 'What questions do you have for us?' The best nannies interview you right back — about communication style, feedback, and growth. That's exactly what you want.",
         ],
       },
