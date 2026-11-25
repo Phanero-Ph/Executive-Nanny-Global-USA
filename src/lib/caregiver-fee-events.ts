@@ -29,7 +29,7 @@ export async function syncCaregiverFeeCheckout(requestId:string){
    if(!currentRequest||!currentFee||currentFee.checkoutSessionId!==session.id||currentFee.checkoutKey!==metadata.egnFeeKey||currentFee.paidAt)return;
    await tx.update(caregiverFees).set({status,checkoutSessionId:session.id,paymentIntentId:intentId,paidAt:new Date(session.created*1000),refundedCents:refunded}).where(eq(caregiverFees.id,currentFee.id));
    await tx.update(familyRequests).set({placementFeeStatus:status}).where(eq(familyRequests.id,currentRequest.id));
-   await tx.insert(mailJobs).values({userId:currentRequest.userId,recipient:currentRequest.email,subject:"Your nanny fee payment was confirmed",body:`Your ${feeMoney(currentFee.amountCents)} placement fee has been received. View your care request: ${appUrl("/dashboard/family?view=caregiver")}\n\nExecutive Global Nanny`});
+   await tx.insert(mailJobs).values({userId:currentRequest.userId,recipient:currentRequest.email,subject:"Your nanny placement balance payment was confirmed",body:`Your remaining placement balance of ${feeMoney(currentFee.amountCents)} has been received. The $300 application fee was credited toward your total placement fee. View your care request: ${appUrl("/dashboard/family?view=caregiver")}\n\nExecutive Global Nanny`});
   });
  }catch(error){
   // A transient Stripe/network error should not prevent the family from viewing
@@ -82,7 +82,7 @@ export async function processCaregiverFeeEvent(event: Stripe.Event, stripe: Stri
    const refunded=charges.data.reduce((sum,c)=>sum+c.amount_refunded,0), status=refunded>0?"refunded":"paid";
    await tx.update(caregiverFees).set({status,checkoutSessionId:session.id,paymentIntentId:intentId,paidAt:fee.paidAt??new Date(event.created*1000),refundedCents:refunded}).where(eq(caregiverFees.id,fee.id));
    await tx.update(familyRequests).set(fee.kind==="search"?{searchFeeStatus:status,...(["lead","search_fee_invoiced"].includes(request.status)&&status==="paid"?{status:"search_fee_paid"}:{})}:{placementFeeStatus:status}).where(eq(familyRequests.id,request.id));
-   if (!fee.paidAt) await tx.insert(mailJobs).values({userId:request.userId,recipient:request.email,subject:"Your nanny fee payment was confirmed",body:`Your ${feeMoney(fee.amountCents)} ${fee.kind} fee has been received. View your care request: ${appUrl("/dashboard/family?view=caregiver")}\n\nExecutive Global Nanny`});
+   if (!fee.paidAt) {const label=fee.kind==="search"?"application fee":"remaining placement balance";await tx.insert(mailJobs).values({userId:request.userId,recipient:request.email,subject:"Your nanny payment was confirmed",body:`Your ${label} payment of ${feeMoney(fee.amountCents)} has been received.${fee.kind==="placement"?" The $300 application fee was credited toward your total placement fee.":""} View your care request: ${appUrl("/dashboard/family?view=caregiver")}\n\nExecutive Global Nanny`});}
   } else if (!fee.paidAt) {
    // A new attempt gets a new idempotency key; stale expiry events cannot
    // invalidate a later checkout because its metadata key must match above.

@@ -63,7 +63,7 @@ export default async function ServicesPage() {
               </Reveal>
             ))}
           </div>
-          <p className="mt-7 text-center text-sm text-slate-600">Subscriptions cover babysitter search submissions and company placement fees. Nanny placement needs no subscription: {feeMoney(fees.searchCents)} search fee and {feePercent(fees.placementRateBps)} of the agreed annual salary before work starts. Wages are separate.</p>
+          <p className="mt-7 text-center text-sm text-slate-600">Search fee is {feeMoney(fees.searchCents)} to begin the search. We then present you with qualified candidates who are interested in applying for the position. Once you review candidates, we’ll connect you by setting up the initial interview. After you’ve decided to hire, we collect the remaining balance of the placement fee before the official start date. Details are outlined in our Client Contract.</p>
         </div>
       </section>
 

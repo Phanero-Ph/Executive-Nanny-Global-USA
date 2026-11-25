@@ -9,6 +9,7 @@ import {getCurrentUser} from "@/lib/auth";
 import {getStripe} from "@/lib/stripe";
 import {appUrl} from "@/lib/mail";
 import {PlacementError} from "@/lib/placement-policy";
+import {annualPlacementFee} from "@/lib/fee-format";
 export const runtime="nodejs";
 export async function POST(req:Request){
  if(!isAllowedRequestOrigin(req))return NextResponse.json({error:"Request origin not allowed."},{status:403});
@@ -34,6 +35,7 @@ export async function POST(req:Request){
    let [fee]=await tx.select().from(caregiverFees).where(and(eq(caregiverFees.requestId,request.id),eq(caregiverFees.kind,body.kind))).for("update");
    if(body.kind==="placement"){
     if(!fee)throw new PlacementError("Your agency must issue a salary-based placement quote before payment.");
+    if(fee.amountCents<=0)throw new PlacementError("Your $300 application fee covers the placement fee. There is no remaining balance to pay.");
     if(fee.annualSalaryCents!==null){const [candidate]=await tx.select({id:nannyMatches.id}).from(nannyMatches).where(and(eq(nannyMatches.id,fee.matchId??""),eq(nannyMatches.familyRequestId,request.id),eq(nannyMatches.status,"shortlisted")));if(!candidate)throw new PlacementError("This placement quote is no longer available. Contact the agency.");}
    }
    if(fee?.paidAt)throw new PlacementError(fee.status==="paid"?"This fee has already been paid.":"This fee was refunded. Contact the agency before paying again.");
@@ -44,6 +46,17 @@ export async function POST(req:Request){
     await tx.update(caregiverFees).set({checkoutKey:randomUUID(),checkoutSessionId:null,status:"unpaid"}).where(eq(caregiverFees.id,fee.id));
     [fee]=await tx.select().from(caregiverFees).where(eq(caregiverFees.id,fee.id));
    }
+   if(body.kind==="placement"&&fee&&fee.annualSalaryCents!==null&&!fee.paidAt&&!fee.checkoutSessionId){
+    const settings=await getAgencyFees(tx),total=annualPlacementFee(fee.annualSalaryCents,fee.placementRateBps??settings.placementRateBps);
+    if(fee.amountCents===total){
+     const [searchFee]=await tx.select().from(caregiverFees).where(and(eq(caregiverFees.requestId,request.id),eq(caregiverFees.kind,"search"))).for("update");
+     const balance=Math.max(0,total-Math.min(total,searchFee?.amountCents??settings.searchCents)),status=balance===0?"paid":"unpaid";
+     await tx.update(caregiverFees).set({amountCents:balance,status,checkoutKey:randomUUID()}).where(eq(caregiverFees.id,fee.id));
+     await tx.update(familyRequests).set({placementFeeStatus:status}).where(eq(familyRequests.id,request.id));
+     [fee]=await tx.select().from(caregiverFees).where(eq(caregiverFees.id,fee.id));
+    }
+   }
+   if(body.kind==="placement"&&fee?.amountCents===0)throw new PlacementError("Your application fee covers the placement fee. There is no remaining balance to pay.");
    if(!fee){
     const prices=await getAgencyFees(tx);
     const [created]=await tx.insert(caregiverFees).values({requestId:request.id,kind:body.kind,amountCents:prices.searchCents,checkoutKey:randomUUID()}).$returningId();

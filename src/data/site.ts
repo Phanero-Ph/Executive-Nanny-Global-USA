@@ -474,12 +474,12 @@ export const FAQS: Faq[] = [
   },
   {
     q: "What is the family search fee?",
-    a: "Babysitter requests use a paid family subscription. Nanny requests need no subscription: pay the search fee before the search starts, then the placement fee calculated from the agreed annual salary before work starts.",
+    a: "Babysitter requests use a paid family subscription. For a long-term part-time or full-time nanny search, families pay a $300 application fee to begin. It is credited toward the total placement fee, not charged separately; the remaining balance is due before the nanny starts, as outlined in the Client Contract.",
     category: "pricing",
   },
   {
     q: "How do placement fees work?",
-    a: "The agency selects a nanny and records the agreed annual salary. Your placement quote shows the annual salary, percentage rate and calculated fee. Review and pay it before your nanny starts work; wages are paid separately.",
+    a: "Families looking for a long-term part-time or full-time nanny pay a $300 application fee to begin the search. We then present qualified candidates who are interested in the position. After you review the candidates, we arrange the initial interview. Once you decide to hire, the remaining placement-fee balance is due before the nanny’s official start date. The $300 is credited toward the total placement fee; it is not a separate fee. Full details are outlined in the Client Contract.",
     category: "pricing",
   },
   {
@@ -771,8 +771,8 @@ export const postBySlug = (slug: string) =>
 export const PRICING = {
   familySearch: [
     {name:"Babysitter membership",price:"$59",unit:"/month and up",blurb:"Subscribe before submitting your babysitter requirements.",features:["3, 5, 8 or unlimited submissions per paid month","Recruiter search and shortlist","Agency selection and placement","Company search and placement fees included"],cta:"Choose a Subscription",featured:true},
-    {name:"Nanny search",price:"Quoted per request",unit:"per request",blurb:"No subscription required. Pay after submitting your requirements.",features:["Recruiter search after confirmed payment","Candidates matched to your requirements","Agency matching and selection"],cta:"Request a Nanny",featured:false},
-    {name:"Nanny placement",price:"Salary-based",unit:"of agreed annual salary",blurb:"The agency records the agreed annual salary and calculates your placement fee.",features:["Separate from the search fee","Review the salary and fee before paying","Placement starts after both fees are paid"],cta:"View Your Requests",featured:false},
+    {name:"Nanny search",price:"Quoted per request",unit:"per request",blurb:"A $300 application fee starts the search and is credited toward the total placement fee.",features:["Recruiter search after the application fee is confirmed","Qualified candidates interested in the position","Agency-coordinated interviews and selection"],cta:"Request a Nanny",featured:false},
+    {name:"Nanny placement",price:"Salary-based",unit:"of agreed annual salary",blurb:"The $300 application fee is credited toward the total placement fee; the remaining balance is due before the nanny starts.",features:["No separate application fee on top of the placement fee","Review the placement terms in your Client Contract","Remaining balance due before the official start date"],cta:"View Your Requests",featured:false},
   ],
   memberships: [
     {

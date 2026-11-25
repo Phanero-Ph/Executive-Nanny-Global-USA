@@ -2,7 +2,7 @@ import Link from "next/link";
 import {ArrowUpRight,ShieldCheck} from "lucide-react";
 import {feeMoney,feePercent} from "@/lib/fee-format";
 
-type FeeNoticeItem={id:string;rate:number;amount:number|null;salary:number|null};
+type FeeNoticeItem={id:string;rate:number;amount:number|null;total:number|null;credit:number;salary:number|null};
 
 export function FamilyPlacementFeeNotice({items}:{items:FeeNoticeItem[]}){
  if(!items.length)return null;
@@ -13,7 +13,7 @@ export function FamilyPlacementFeeNotice({items}:{items:FeeNoticeItem[]}){
     <div>
      <p className="text-[11px] font-bold uppercase tracking-[.14em] text-orange-800">Action required before placement</p>
      <h2 id="placement-fee-notice-title" className="mt-1 text-lg font-semibold text-ink-900">Your nanny placement fee</h2>
-     <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-700">The placement fee is <strong>{feePercent(items[0].rate)}</strong> of the agreed annual salary. {items[0].amount!==null&&items[0].salary!==null?<>Your current fee is <strong>{feeMoney(items[0].amount)}</strong> ({feeMoney(items[0].salary)} × {feePercent(items[0].rate)}).</>:"The agency will confirm the exact amount after recording your agreed salary."} It must be paid before your nanny starts work. Nanny wages are separate.</p>
+     <p className="mt-1 max-w-3xl text-sm leading-6 text-slate-700">The total placement fee is <strong>{feePercent(items[0].rate)}</strong> of the agreed annual salary. {items[0].total!==null&&items[0].salary!==null?<>Your total fee is <strong>{feeMoney(items[0].total)}</strong> ({feeMoney(items[0].salary)} × {feePercent(items[0].rate)}); the {feeMoney(items[0].credit)} application fee is credited, leaving <strong>{feeMoney(items[0].amount??0)}</strong> due before the official start date.</>:"The agency will confirm the total and remaining balance after recording your agreed salary."} Nanny wages are separate.</p>
      {items.length>1&&<p className="mt-2 text-xs font-medium text-orange-900">{items.length} nanny requests still have an unpaid placement fee.</p>}
     </div>
    </div>

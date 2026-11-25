@@ -185,7 +185,7 @@ export function ContactForm() {
 /* ------------------------------- Family request ------------------------------ */
 
 export function FamilyRequestForm({ compact = false }: { compact?: boolean }) {
- return <div className={cn("space-y-5",compact&&"text-sm")}><p className="leading-7 text-slate-600">Choose babysitter placement with a monthly subscription, or nanny placement with a separate search fee and salary-based placement fee. Nanny wages are separate.</p><div className="flex flex-wrap gap-3"><Link href="/find-nanny" className="application-submit">Start your care request</Link><Link href="/dashboard/family/new" className="application-secondary">Already have a family account?</Link></div></div>;
+ return <div className={cn("space-y-5",compact&&"text-sm")}><p className="leading-7 text-slate-600">Choose babysitter placement with a monthly subscription, or request a long-term nanny search with a $300 application fee credited toward the total placement fee. Any remaining balance is due before the nanny starts. Nanny wages are separate.</p><div className="flex flex-wrap gap-3"><Link href="/find-nanny" className="application-submit">Start your care request</Link><Link href="/dashboard/family/new" className="application-secondary">Already have a family account?</Link></div></div>;
 }
 
 const NANNY_STEPS = ["Your details", "Experience", "Final details"];

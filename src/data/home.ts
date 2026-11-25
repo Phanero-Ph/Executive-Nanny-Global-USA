@@ -24,7 +24,7 @@ export const HOME_SERVICES = SERVICES.map((service) => {
   if (service.slug === "part-time-nanny") return {
     ...service,
     title: "Part-Time Nanny Placement",
-    description: "Families looking for long-term placement usually need care for at least one year. Families pay the nanny directly. A separate search fee is due before the search starts, followed by a placement fee calculated from the agreed annual salary before work starts.",
+    description: "Families looking for long-term placement usually need care for at least one year. Families pay the nanny directly. The $300 application fee starts the search and is credited toward the total placement fee; any remaining balance is due before work starts.",
     startingAt: "Search fee + salary-based placement fee",
   };
   if (service.slug === "backup-care") return {

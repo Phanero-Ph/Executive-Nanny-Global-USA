@@ -40,15 +40,15 @@ const STATUSES: Record<string, { label: string; next: string; stage: number }> =
 
  lead: { label: "Request received", next: "Our team will contact you to discuss your care needs.", stage: 0 },
 
- search_fee_invoiced: { label: "Search fee due", next: "Pay your nanny search fee below so our team can start searching.", stage: 0 },
+ search_fee_invoiced: { label: "Application fee due", next: "Pay the $300 nanny application fee below so our team can begin your search.", stage: 0 },
 
- search_fee_paid: { label: "Search active", next: "Your search can begin. Our team will keep you updated.", stage: 1 },
+ search_fee_paid: { label: "Application fee paid", next: "Your application fee is confirmed and credited toward the total placement fee. Our team can begin the search and will keep you updated.", stage: 1 },
 
  searching: { label: "Recruiter searching", next: "We are looking for care providers who fit your family's needs.", stage: 1 },
 
  shortlist: { label: "Shortlist ready", next: "Our agency is reviewing the shortlist to select your match.", stage: 2 },
 
- placement_fee_due: {label:"Placement fee due",next:"The agency has selected your nanny. Pay the placement fee below before the nanny starts work.",stage:2},
+ placement_fee_due: {label:"Placement balance due",next:"The agency has selected your nanny. Your $300 application fee is credited toward the total placement fee; pay any remaining balance below before the nanny starts work.",stage:2},
 
  placed: { label: "Placed", next: "Your nanny has been placed with your family. Contact us if you need support.", stage: 3 },
 
@@ -102,7 +102,7 @@ export default async function FamilyDashboardPage({searchParams}:{searchParams:P
 
     {!visibleRequests.length ? <div className="mt-7 rounded-xl bg-cream-50 p-8 text-center"><CalendarCheck className="mx-auto h-9 w-9 text-teal-brand" aria-hidden="true" /><h3 className="mt-4 text-lg text-ink-900">Your search starts here</h3><p className="mt-2 text-sm text-slate-500">Tell us what your family needs and we will help you take the next step.</p><div className="mt-5 flex justify-center">{caregiverView?<Link href="/dashboard/family/book" className="application-secondary">Create your first request</Link>:<FamilyNannyAction subscribed={subscribed}/>}</div></div> : <ul className="mt-7 space-y-5">{visibleRequests.map(request => {
 
-     const status = request.status==="placed"?STATUSES.placed:request.careCategory==="caregiver"&&request.placementFeeStatus==="paid"?{label:"Placement fee paid",next:"Your payment is confirmed. The agency will coordinate your nanny’s start date.",stage:2}:STATUSES[request.status] ?? { label: "Under review", next: "Contact our team for an update on this request.", stage: 0 };
+     const status = request.status==="placed"?STATUSES.placed:request.careCategory==="caregiver"&&request.placementFeeStatus==="paid"?{label:"Placement balance settled",next:"Your application-fee credit and any remaining payment are confirmed. The agency will coordinate your nanny’s start date.",stage:2}:STATUSES[request.status] ?? { label: "Under review", next: "Contact our team for an update on this request.", stage: 0 };
 
      return <li key={request.id} className="min-w-0 rounded-xl border border-cream-300 p-5"><div className="flex flex-wrap items-start justify-between gap-3"><div><h3 className="text-lg text-ink-900">{request.careCategory==="caregiver"?"Nanny":"Babysitter"} · {request.serviceType}</h3><p className="mt-1 text-xs text-slate-500">Submitted {date(request.createdAt)} · Request {request.id.slice(0,8)}</p></div><span className="rounded-full bg-teal-pale px-3 py-1.5 text-xs font-semibold text-ink-900">{status.label}</span></div>
 

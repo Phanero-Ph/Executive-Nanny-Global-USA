@@ -1,4 +1,4 @@
-export const FAMILY_REVIEW_STATUSES = { lead: "Request received", search_fee_invoiced: "Search fee due", search_fee_paid: "Search fee paid", searching: "Recruiter searching", shortlist: "Shortlist ready", placement_fee_due: "Candidate selected / placement fee due", placed: "Placed" };
+export const FAMILY_REVIEW_STATUSES = { lead: "Request received", search_fee_invoiced: "Application fee due", search_fee_paid: "Application fee paid", searching: "Recruiter searching", shortlist: "Shortlist ready", placement_fee_due: "Candidate selected / placement balance due", placed: "Placed" };
 export const NANNY_REVIEW_STATUSES = { draft: "Draft", changes_requested: "Changes requested", rejected: "Application rejected", submitted: "Submitted for review", document_review: "Document review", screening: "Screening", interview: "Invite to recruiter meeting", subscription_pending: "Ready for matching", active: "Eligible for matching", placed: "Placed" };
 // Compact admin decisions. Historical/intermediate states remain available as
 // labels for existing records but are no longer offered as manual choices.

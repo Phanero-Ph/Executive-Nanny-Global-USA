@@ -42,7 +42,7 @@ const SECTIONS: LegalSection[] = [
       {
         title: "Nanny search and placement fees",
         paragraphs: [
-          "Nanny placement does not require a babysitter subscription. A $300 search fee is due for each nanny request. The request is released to the agency for matching after the search payment is confirmed. After the agency selects a nanny and records the agreed annual salary, a placement fee equal to 15% of that salary is due before the nanny starts work. Nanny wages are separate and are paid by the family directly to the nanny unless a written agreement says otherwise.",
+          "For long-term part-time or full-time nanny placement, a $300 application fee is due to begin the search. This amount is credited toward the total placement fee and is not a separate fee. After the family decides to hire, the remaining balance is due before the nanny's official start date. The Client Contract governs the placement fee, payment timing, and other placement terms. Nanny wages are separate and are paid by the family directly to the nanny unless a written agreement says otherwise.",
           "The applicable fee and payment status are displayed in the family account. If a fee or term changes, the amount applicable to a new request or placement will be shown before payment or agreement. Search fees are not refundable once the agency has begun the search, except where required by law or stated in a written service agreement.",
         ],
       },

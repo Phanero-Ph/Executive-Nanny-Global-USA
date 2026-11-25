@@ -12,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Pricing — Family Search Fees & Babysitter Plans",
   description:
-    "Babysitter subscriptions from $59/month. Nanny placement requires separate search and placement fees, with no family subscription required.",
+    "Babysitter subscriptions from $59/month. For long-term nanny placement, the $300 application fee is credited toward the total placement fee.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -100,7 +100,7 @@ export default async function PricingPage() {
             <div className="mt-8 flex gap-3 rounded-2xl border border-teal-border bg-teal-pale p-5 text-[15px] leading-relaxed text-slate-700">
               <Info className="h-5 w-5 shrink-0 text-ink-900" aria-hidden="true" />
               <p>
-                <strong className="text-ink-900">Two placement options:</strong> Babysitter search and placement company fees are included in your subscription. For nanny requests, pay {feeMoney(fees.searchCents)} to start searching and {feePercent(fees.placementRateBps)} of the agreed annual salary after agency selection, before work starts. No subscription is needed for nanny placement.
+                <strong className="text-ink-900">Two placement options:</strong> Babysitter search and placement company fees are included in your subscription. For a long-term nanny placement, the {feeMoney(fees.searchCents)} application fee starts the search and is credited toward the total placement fee, not charged separately. After you decide to hire, the remaining balance outlined in your Client Contract is due before the official start date.
               </p>
             </div>
           </Reveal>
