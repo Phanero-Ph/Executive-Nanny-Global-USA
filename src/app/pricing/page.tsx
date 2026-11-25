@@ -10,7 +10,7 @@ import { FAQS } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Pricing — Search Fees, Memberships & Nanny Plans",
+  title: "Pricing — Family Search Fees & Babysitter Plans",
   description:
     "Babysitter subscriptions from $59/month. Nanny placement requires separate search and placement fees, with no family subscription required.",
   alternates: { canonical: "/pricing" },
@@ -158,71 +158,6 @@ export default async function PricingPage() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Nanny subscription */}
-      <section className="bg-cream-100 py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <SectionHeader
-              eyebrow="For Nannies"
-              title={<>Nanny subscription</>}
-              sub="Approved nannies hold an active subscription that keeps profiles visible for matching and unlocks the full Training Academy."
-            />
-          </Reveal>
-          <Reveal delay={120}>
-            <div className="mt-10 grid overflow-hidden rounded-3xl border border-cream-300 bg-white shadow-card md:grid-cols-2">
-              <div className="bg-ink-900 p-8 text-white sm:p-10">
-                <h3 className="text-xl font-extrabold">Simple, flat pricing</h3>
-                <div className="mt-6 space-y-4">
-                  <div className="flex items-center justify-between rounded-2xl border border-white/15 bg-white/5 p-5">
-                    <div>
-                      <p className="font-extrabold">Monthly</p>
-                      <p className="text-sm text-teal-mist/75">Cancel anytime</p>
-                    </div>
-                    <p className="text-3xl font-extrabold text-ember-400">
-                      {PRICING.caregiver.monthly.price}
-                      <span className="text-sm font-semibold text-teal-mist/75">{PRICING.caregiver.monthly.unit}</span>
-                    </p>
-                  </div>
-                  <div className="flex items-center justify-between rounded-2xl border border-ember-500/50 bg-ember-500/10 p-5">
-                    <div>
-                      <p className="font-extrabold">Yearly</p>
-                      <p className="text-sm text-ember-300">{PRICING.caregiver.yearly.note}</p>
-                    </div>
-                    <p className="text-3xl font-extrabold text-ember-400">
-                      {PRICING.caregiver.yearly.price}
-                      <span className="text-sm font-semibold text-teal-mist/75">{PRICING.caregiver.yearly.unit}</span>
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  href="/signup?role=nanny"
-                  className="mt-6 block rounded-xl bg-ember-500 px-6 py-3.5 text-center font-bold text-white shadow-ember transition hover:bg-ember-600"
-                >
-                  Apply as a Nanny
-                </Link>
-              </div>
-              <div className="p-8 sm:p-10">
-                <h3 className="text-xl font-extrabold text-ink-900">Every plan includes</h3>
-                <ul className="mt-5 space-y-3.5">
-                  {PRICING.caregiver.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-[15px] font-medium text-slate-700">
-                      <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-teal-pale">
-                        <Check className="h-3.5 w-3.5 text-teal-brand" aria-hidden="true" />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mt-6 rounded-2xl bg-cream-100 p-4 text-sm leading-relaxed text-slate-600">
-                  Matching eligibility pauses automatically if a subscription lapses — protecting families from inactive
-                  profiles and keeping the network genuinely engaged.
-                </p>
-              </div>
-            </div>
-          </Reveal>
         </div>
       </section>
 

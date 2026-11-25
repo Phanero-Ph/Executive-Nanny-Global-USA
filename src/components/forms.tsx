@@ -340,7 +340,7 @@ export function NannyApplicationForm() {
             <input type="checkbox" required className="mt-0.5" />
             <span>
               I confirm I&apos;m eligible to work in the US, my information is accurate, and I consent to reference and background
-              screening. I understand approved nannies hold an active platform subscription ($19/mo or $190/yr).
+              screening. There is no fee to apply or join the nanny network.
             </span>
           </label>
         </div>

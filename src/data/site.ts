@@ -434,7 +434,7 @@ export const TESTIMONIALS: Testimonial[] = [
     location: "Somerville, NJ",
     role: "EGN Nanny",
     quote:
-      "As a nanny, the training and support stand out. The subscription gives me real visibility with great families, and my recruiter checks in regularly.",
+      "As a nanny, the training and support stand out. My recruiter helps me connect with families who fit my experience and checks in regularly.",
     rating: 5,
     service: "Nanny Network",
   },
@@ -464,7 +464,7 @@ export const FAQS: Faq[] = [
   },
   {
     q: "Can we browse nanny profiles ourselves?",
-    a: "No — and that's intentional. EGN is an agency-controlled service: our recruiters curate tailored shortlists from fully vetted, subscription-active nannies and babysitters. This protects their privacy and ensures every candidate you meet is already qualified, available, and genuinely suited to your household.",
+    a: "No — and that's intentional. EGN is an agency-controlled service: our recruiters curate tailored shortlists from vetted nannies and babysitters. This protects their privacy and ensures every candidate you meet is qualified, available, and suited to your household.",
     category: "families",
   },
   {
@@ -488,13 +488,13 @@ export const FAQS: Faq[] = [
     category: "pricing",
   },
   {
-    q: "Do nannies pay to join the platform?",
-    a: "Yes. Approved nannies hold an active platform subscription ($19/month or $190/year) that keeps their profile visible for matching, unlocks training, and funds ongoing verification. Matching eligibility pauses automatically if a subscription lapses, which protects families from inactive profiles.",
+    q: "Do nannies pay any fees to Executive Global Nanny?",
+    a: "No. Nannies never pay fees to create an account, apply, access the network, or be considered for opportunities. Executive Global Nanny manages nanny screening and matching. Fees shown on this page are for families.",
     category: "pricing",
   },
   {
     q: "How do you vet nannies?",
-    a: "Every nanny completes identity verification, professional reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview. Credentials and certifications are re-verified on expiry, and only subscription-active nannies are proposed to families.",
+    a: "Every nanny completes identity verification, professional reference checks, a compliant background screen with documented consent, CPR/First Aid verification, and an in-depth recruiter interview. Credentials and certifications are re-verified on expiry before candidates are proposed to families.",
     category: "safety",
   },
   {
@@ -812,18 +812,6 @@ export const PRICING = {
       featured: false,
     },
   ],
-  caregiver: {
-    monthly: { price: "$19", unit: "/month" },
-    yearly: { price: "$190", unit: "/year", note: "2 months free" },
-    features: [
-      "Active profile & matching eligibility",
-      "Full Training Academy access",
-      "CPR/First Aid course discounts",
-      "Verified-profile badge for families",
-      "Direct recruiter support",
-      "Priority placement consideration",
-    ],
-  },
 };
 
 /* ----------------------------------- Training --------------------------------- */

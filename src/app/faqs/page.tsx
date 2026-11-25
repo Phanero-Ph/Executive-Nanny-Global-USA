@@ -6,7 +6,7 @@ import { Reveal, FaqAccordion } from "@/components/ui-client";
 export const metadata: Metadata = {
   title: "FAQs — Nanny Services, Pricing & Safety Questions",
   description:
-    "Answers about EGN's nanny matching process, search fees, babysitting memberships, nanny subscriptions, vetting, and guarantees in New Jersey.",
+    "Answers about EGN's nanny matching process, family search fees, babysitting memberships, nanny applications, vetting, and guarantees in New Jersey.",
   alternates: { canonical: "/faqs" },
 };
 
