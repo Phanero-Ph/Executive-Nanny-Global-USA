@@ -3,6 +3,8 @@
  * Production hosts often terminate TLS or rewrite hosts at a reverse proxy,
  * so request.url may describe the internal upstream rather than the browser's
  * public origin. APP_URL is the trusted canonical origin configured by ops.
+ * The public site is also served on its www alias, so allow both exact HTTPS
+ * origins while keeping APP_URL as the canonical URL for generated links.
  */
 export function isAllowedRequestOrigin(request: Request): boolean {
   const rawOrigin = request.headers.get("origin");
@@ -22,7 +24,17 @@ export function isAllowedRequestOrigin(request: Request): boolean {
     try {
       const configured = new URL(appUrl);
       if (configured.protocol !== "https:" && configured.protocol !== "http:") return false;
-      return origin === configured.origin;
+      const allowedOrigins = new Set([configured.origin]);
+      if (configured.hostname === "executiveglobalnannyusa.com") {
+        const www = new URL(configured);
+        www.hostname = "www.executiveglobalnannyusa.com";
+        allowedOrigins.add(www.origin);
+      } else if (configured.hostname === "www.executiveglobalnannyusa.com") {
+        const apex = new URL(configured);
+        apex.hostname = "executiveglobalnannyusa.com";
+        allowedOrigins.add(apex.origin);
+      }
+      return allowedOrigins.has(origin);
     } catch {
       return false;
     }
