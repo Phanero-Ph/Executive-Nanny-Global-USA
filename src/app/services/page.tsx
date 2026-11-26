@@ -33,7 +33,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Our Services"
         title="Nanny Placement, Babysitting & Backup Care in New Jersey"
-        sub="Every service is backed by our Branchburg-based team, with local coverage across New Jersey and service availability for families throughout the United States."
+        sub="Our Branchburg-based team provides nanny placement, babysitting, and childcare services to families throughout New Jersey, with availability across the United States."
       />
 
       <section id="babysitting-memberships" aria-labelledby="membership-heading" className="scroll-mt-20 bg-cream-100 py-16 sm:py-20">

@@ -245,11 +245,11 @@ export const SERVICE_AREAS: ServiceArea[] = [
     county: "Somerset County",
     zips: ["08876", "08853"],
     description: [
-      "Executive Global Nanny is headquartered in Branchburg, NJ — which means Branchburg families get our fastest response times, deepest network of nannies and babysitters, and same-day backup availability.",
+      "Executive Global Nanny is headquartered in Branchburg, NJ and provides nanny placement, babysitting, and backup childcare to families throughout New Jersey, including Branchburg and nearby communities.",
       "From neighborhoods around Raritan Valley Community College to the family streets off Route 28 and Old York Road, our nannies, sitters, and newborn specialists serve Branchburg daily — including after-school coverage for Branchburg Township schools.",
     ],
     highlights: [
-      "HQ town — fastest matching & backup response",
+      "Local support near our New Jersey headquarters",
       "After-school care for Branchburg Township schools",
       "Deep bench of local, CPR-certified sitters",
       "Evening & weekend date-night coverage",

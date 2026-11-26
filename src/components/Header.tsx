@@ -62,8 +62,8 @@ export function Header() {
   };
 
   const dashboardHref = me?.role === "admin" ? "/dashboard/admin" : me?.role === "nanny" ? "/dashboard/nanny" : "/dashboard/family";
-  const linkStyle = "whitespace-nowrap text-sm font-medium text-ink-900 transition-colors duration-200 hover:text-ember-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-brand";
-  const buttonStyle = "inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors";
+  const linkStyle = "whitespace-nowrap text-sm font-medium text-ink-900 transition-colors duration-200 hover:text-ember-600 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-teal-brand min-[1100px]:text-xs 2xl:text-sm";
+  const buttonStyle = "inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-full px-5 py-2.5 text-center text-sm font-semibold text-white transition-colors min-[1100px]:min-h-10 min-[1100px]:px-3 min-[1100px]:py-2 min-[1100px]:text-xs 2xl:px-5 2xl:text-sm";
 
   const accountLinks = (mobile = false) => {
     const mobileStyle = mobile ? "min-h-11 justify-start rounded-xl px-3 text-base" : "";
@@ -82,12 +82,12 @@ export function Header() {
   return (
     <header className={cn("sticky top-0 z-50 transition-colors duration-300", scrolled ? "bg-white/95 shadow-sm backdrop-blur-md" : "bg-cream-100")}>
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8">
-        <div className="flex min-h-[72px] items-center justify-between gap-4 py-2 xl:min-h-[84px]">
+        <div className="flex min-h-[72px] items-center justify-between gap-2 py-2 min-[1100px]:min-h-[80px] min-[1100px]:gap-3 2xl:min-h-[84px]">
           <Link href="/" className="flex min-w-0 shrink items-center" aria-label="Executive Global Nanny — home">
-            <Image src="/images/egn-reference/navigation-logo.png" alt="Executive Global Nanny" width={880} height={240} priority className="h-11 w-auto max-w-[min(65vw,260px)] object-contain sm:h-12 xl:h-14" />
+            <Image src="/images/egn-reference/navigation-logo.png" alt="Executive Global Nanny" width={880} height={240} priority className="h-11 w-auto max-w-[min(65vw,260px)] object-contain sm:h-12 min-[1100px]:h-11 min-[1100px]:max-w-[190px] 2xl:h-14 2xl:max-w-[260px]" />
           </Link>
 
-          <nav aria-label="Primary navigation" className="hidden min-w-0 items-center justify-end gap-3 xl:flex 2xl:gap-5">
+          <nav aria-label="Primary navigation" className="hidden min-w-0 items-center justify-end gap-5 min-[1100px]:flex 2xl:gap-7">
             {NAV.primary.map((item) => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? "page" : undefined} className={linkStyle}>{item.label}</Link>)}
             <Link href="/find-nanny" className={cn(buttonStyle, "bg-ink-900 shadow-sm hover:bg-ink-800")}>Find Nanny</Link>
             <Link href="/signup?role=nanny" className={cn(buttonStyle, "bg-ember-500 shadow-sm hover:bg-ember-600")}>I&apos;m a Nanny</Link>
@@ -97,7 +97,7 @@ export function Header() {
           <button
             ref={menuButton}
             type="button"
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-ink-900/10 bg-white text-ink-900 shadow-sm transition hover:border-ink-900/25 hover:bg-cream-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-brand xl:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-ink-900/10 bg-white text-ink-900 shadow-sm transition hover:border-ink-900/25 hover:bg-cream-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-brand min-[1100px]:hidden"
             aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={menuOpen}
             aria-controls="mobile-primary-navigation"
@@ -108,13 +108,13 @@ export function Header() {
         </div>
       </div>
 
-      {menuOpen && <button type="button" aria-label="Close navigation menu" className="fixed inset-0 z-40 bg-ink-950/40 xl:hidden" onClick={() => setMenuOpen(false)} />}
+      {menuOpen && <button type="button" aria-label="Close navigation menu" className="fixed inset-0 z-40 bg-ink-950/40 min-[1100px]:hidden" onClick={() => setMenuOpen(false)} />}
       <nav
         ref={mobileNav}
         id="mobile-primary-navigation"
         aria-label="Mobile primary navigation"
         aria-hidden={!menuOpen}
-        className={cn("absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-72px)] flex-col overflow-y-auto overscroll-contain border-t border-cream-300 bg-white px-5 pb-6 pt-4 shadow-xl xl:hidden", menuOpen ? "flex" : "hidden")}
+        className={cn("absolute inset-x-0 top-full z-50 max-h-[calc(100dvh-72px)] flex-col overflow-y-auto overscroll-contain border-t border-cream-300 bg-white px-5 pb-6 pt-4 shadow-xl min-[1100px]:hidden", menuOpen ? "flex" : "hidden")}
       >
         <div className="mb-2 flex items-center justify-between border-b border-slate-100 pb-3">
           <span className="text-xs font-semibold uppercase tracking-[.14em] text-slate-400">Explore</span>

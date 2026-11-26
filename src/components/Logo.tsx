@@ -33,7 +33,7 @@ export function Logo({ dark = false, compact = false }: { dark?: boolean; compac
         </span>
         {!compact && (
           <span className={cn("block text-[11px] font-semibold tracking-[0.18em] uppercase", dark ? "text-ember-400" : "text-ember-600")}>
-            Branchburg · New Jersey
+            Serving New Jersey
           </span>
         )}
       </span>

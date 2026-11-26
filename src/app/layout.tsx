@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SITE } from "@/data/site";
 import { PublicChrome } from "@/components/PublicChrome";
+import { BookCallLauncher } from "@/components/BookCallLauncher";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://executiveglobalnannyusa.com"),
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <PublicChrome><Header /></PublicChrome>
         <main>{children}</main>
         <PublicChrome><Footer /></PublicChrome>
+        <PublicChrome><BookCallLauncher /></PublicChrome>
       </body>
     </html>
   );

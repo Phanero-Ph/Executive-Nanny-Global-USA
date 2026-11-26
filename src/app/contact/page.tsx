@@ -18,7 +18,7 @@ const CONTACT_EMAIL = SITE.email;
 const CARDS = [
   { icon: Phone, title: "Phone", lines: [SITE.phone, "Call us during business hours"], href: SITE.phoneHref, action: "Call Now" },
   { icon: Mail, title: "Email", lines: [CONTACT_EMAIL, "Send us a message anytime"], href: `mailto:${CONTACT_EMAIL}`, action: "Send email" },
-  { icon: MapPin, title: "Location", lines: ["Serving NJ and surrounding areas", "Branchburg, New Jersey"], href: undefined, action: undefined },
+  { icon: MapPin, title: "Service area & office", lines: ["Serving families throughout New Jersey", "Office: Branchburg, New Jersey"], href: undefined, action: undefined },
   { icon: Clock, title: "Business Hours", lines: [SITE.hours, "We respond within 24 hours"], href: undefined, action: undefined },
 ];
 
@@ -91,7 +91,7 @@ export default function ContactPage() {
               </Reveal>
               <Reveal delay={160}>
                 <div className="rounded-3xl border border-cream-300 bg-white p-7 shadow-card">
-                  <h2 className="font-extrabold text-ink-900">Serving NJ and surrounding areas</h2>
+                  <h2 className="font-extrabold text-ink-900">Serving families throughout New Jersey</h2>
                   <div className="mt-3 flex flex-wrap gap-2">
                     {SERVICE_AREAS.map((a) => (
                       <Link

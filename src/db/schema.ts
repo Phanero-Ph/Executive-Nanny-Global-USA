@@ -424,3 +424,33 @@ export const adminInvitations = mysqlTable("admin_invitations", {
  createdAt:timestamp("created_at").defaultNow().notNull(),
 });
 export const adminAccessLock = mysqlTable("admin_access_lock",{id:int("id").primaryKey()});
+
+/** Public call-booking availability and one-time reservations (times stored in UTC). */
+export const callBookingSettings = mysqlTable("call_booking_settings", {
+ id: int("id").primaryKey(),
+ timezone: varchar("timezone", {length:64}).notNull().default("America/New_York"),
+ durationMinutes: int("duration_minutes").notNull().default(30),
+ bufferMinutes: int("buffer_minutes").notNull().default(0),
+ leadHours: int("lead_hours").notNull().default(1),
+ maxDaysAhead: int("max_days_ahead").notNull().default(60),
+ weeklyHours: longtext("weekly_hours").notNull(),
+ blockedDates: longtext("blocked_dates").notNull(),
+ revision: int("revision").notNull().default(0),
+ updatedBy: varchar("updated_by", {length:36}).references(()=>users.id),
+ updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+export const callBookings = mysqlTable("call_bookings", {
+ id: varchar("id", {length:36}).$defaultFn(()=>randomUUID()).primaryKey(),
+ name: varchar("name", {length:255}).notNull(),
+ email: varchar("email", {length:254}).notNull(),
+ phone: varchar("phone", {length:50}),
+ startsAt: datetime("starts_at").notNull(),
+ endsAt: datetime("ends_at").notNull(),
+ timezone: varchar("timezone", {length:64}).notNull().default("America/New_York"),
+ message: text("message"),
+ status: varchar("status", {length:20}).notNull().default("pending"),
+ meetingDetails: text("meeting_details"),
+ adminReply: text("admin_reply"),
+ createdAt: timestamp("created_at").defaultNow().notNull(),
+ updatedAt: timestamp("updated_at").defaultNow().notNull(),
+}, table=>[index("call_booking_status_start_idx").on(table.status,table.startsAt)]);

@@ -28,6 +28,7 @@ export function DashboardShell({user,children,notice,subscriptionNotice,familySu
   {label:"Families",href:base+"/families",icon:Users},
   {label:"Nannies",href:base+"/nannies",icon:UserRound},
   {label:"Matching & Placements",href:base+"/matching",icon:Users},
+  {label:"Book a Call",href:base+"/calls",icon:CalendarDays},
   {label:"Credential Reviews",href:base+"/credentials",icon:ShieldCheck},
   {label:"Payments & Billing",href:base+"/payments",icon:CreditCard},
   {label:"Training Academy",href:base+"/training",icon:GraduationCap},

@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui-client";
 export const metadata: Metadata = {
   title: "Nanny & Babysitting Service Areas in New Jersey",
   description:
-    "Explore Executive Global Nanny's local service areas across Somerset, Hunterdon, Morris, Middlesex, and Mercer counties in New Jersey. Based in Branchburg, serving families across the U.S.",
+    "Executive Global Nanny provides nanny placement, babysitting, and childcare services for families throughout New Jersey. Based in Branchburg and available nationwide.",
   alternates: { canonical: "/service-areas" },
 };
 
@@ -23,7 +23,7 @@ export default function ServiceAreasPage() {
       <main className="bg-cream-100 py-14 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="mx-auto max-w-3xl text-center text-lg leading-relaxed text-slate-600">
-            Our local area pages explain the nanny placement, babysitting, and childcare support available in the communities we serve most closely. If you are outside these New Jersey areas, contact us to discuss service availability in your state.
+            We provide nanny placement, babysitting, and childcare support throughout New Jersey. The local pages below highlight some of the communities and counties we serve; if your town is not listed, our services are still available across the state. We also work with families throughout the United States.
           </p>
           <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {SERVICE_AREAS.map((area, i) => (

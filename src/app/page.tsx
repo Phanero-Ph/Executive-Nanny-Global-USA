@@ -112,7 +112,7 @@ export default function HomePage() {
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-                Executive Global Nanny is a Branchburg-based nanny agency helping New Jersey families find nanny
+                Based in Branchburg, Executive Global Nanny helps families throughout New Jersey find nanny
                 placement, babysitting, and backup childcare that fits their household.
               </p>
             </Reveal>

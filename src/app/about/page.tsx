@@ -8,7 +8,7 @@ import { IMAGES } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "About Executive Global Nanny, a New Jersey Nanny Agency",
-  description: "Meet Executive Global Nanny, a Branchburg-based agency for nanny placement, babysitting, and childcare support for families across New Jersey.",
+  description: "Meet Executive Global Nanny, based in Branchburg and providing nanny placement, babysitting, and childcare services to families throughout New Jersey.",
   alternates: { canonical: "/about" },
 };
 
@@ -24,8 +24,8 @@ export default function AboutPage() {
   return <>
     <PageHero
       eyebrow="All About Care"
-      title="A Branchburg-Based Nanny Agency Serving New Jersey Families"
-      sub="Executive Global Nanny helps New Jersey families find nanny placement, babysitting, and childcare support, with a personal matching process based on each household's needs."
+      title="Childcare Services for Families Throughout New Jersey"
+      sub="Based in Branchburg, Executive Global Nanny provides nanny placement, babysitting, and childcare support to families across the entire state of New Jersey."
     />
 
     <section className="bg-cream-100 py-16 sm:py-20">
