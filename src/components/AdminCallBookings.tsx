@@ -49,6 +49,7 @@ export function AdminCallBookings() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+  const [messageTone, setMessageTone] = useState<"success" | "warning">("success");
   const [drafts, setDrafts] = useState<Record<string, Draft>>({});
 
   async function load() {
@@ -75,7 +76,8 @@ export function AdminCallBookings() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
-      setMessage("Changes saved.");
+      setMessage(data.message ?? "Changes saved.");
+      setMessageTone(data.emailDelivery && data.emailDelivery !== "sent" ? "warning" : "success");
       await load();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Unable to save changes.");
@@ -307,7 +309,7 @@ export function AdminCallBookings() {
         </div>
       )}
 
-      {(error || message) && <p role={error ? "alert" : "status"} className={`mt-5 rounded-xl p-3 text-sm ${error ? "bg-red-50 text-red-800" : "bg-teal-pale text-ink-900"}`}>{busy ? <LoaderCircle className="mr-2 inline animate-spin" size={15} aria-hidden="true" /> : null}{error || message}</p>}
+      {(error || message) && <p role={error || messageTone === "warning" ? "alert" : "status"} className={`mt-5 rounded-xl p-3 text-sm ${error ? "bg-red-50 text-red-800" : messageTone === "warning" ? "border border-amber-200 bg-amber-50 text-amber-950" : "bg-teal-pale text-ink-900"}`}>{busy ? <LoaderCircle className="mr-2 inline animate-spin" size={15} aria-hidden="true" /> : null}{error || message}</p>}
     </div>
   );
 }

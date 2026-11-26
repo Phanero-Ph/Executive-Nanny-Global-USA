@@ -5,6 +5,7 @@ import {callBookings,callBookingSettings} from "@/db/schema";
 import {getCurrentUser} from "@/lib/auth";
 import {adminCan} from "@/lib/admin-permissions";
 import {getCallSettings,parseSettings,formatCallTime} from "@/lib/call-scheduling";
+import {callConfirmationEmail} from "@/lib/call-email";
 import {queueEmail} from "@/lib/mail";
 async function authorized(){const actor=await getCurrentUser();return actor?.role==="admin"&&await adminCan(actor,"matching.manage")?actor:null;}
 export async function GET(){if(!await authorized())return NextResponse.json({error:"Administrator access required."},{status:403});try{const [row,bookings]=await Promise.all([getCallSettings(),db.select().from(callBookings).orderBy(desc(callBookings.startsAt)).limit(200)]);return NextResponse.json({settings:parseSettings(row),bookings});}catch{return NextResponse.json({error:"Unable to load call bookings."},{status:503});}}
@@ -21,10 +22,13 @@ export async function PATCH(request:Request){
   if(typeof b.id!=="string"||!(["confirm","cancel"].includes(b.action)))return NextResponse.json({error:"Choose a valid booking action."},{status:400});
   const [booking]=await db.select().from(callBookings).where(eq(callBookings.id,b.id)).limit(1);if(!booking)return NextResponse.json({error:"Call request not found."},{status:404});
   if(b.action==="cancel"){
-   await db.update(callBookings).set({status:"cancelled",updatedAt:new Date()}).where(eq(callBookings.id,b.id));try{await queueEmail(null,booking.email,"Your call request was cancelled",`Hello ${booking.name},\n\nYour call request for ${formatCallTime(booking.startsAt,booking.timezone)} has been cancelled. Please visit the website to choose another available time.\n\nExecutive Global Nanny`);}catch{}return NextResponse.json({ok:true});
+   await db.update(callBookings).set({status:"cancelled",updatedAt:new Date()}).where(eq(callBookings.id,b.id));
+   try{const delivery=await queueEmail(null,booking.email,"Your call request was cancelled",`Hello ${booking.name},\n\nYour call request for ${formatCallTime(booking.startsAt,booking.timezone)} has been cancelled. Please visit the website to choose another available time.\n\nExecutive Global Nanny`);return NextResponse.json({ok:true,emailDelivery:delivery.status,message:delivery.message});}
+   catch(error){console.error("Call request was cancelled, but its email could not be queued.",error);return NextResponse.json({ok:true,emailDelivery:"failed",message:"The request was cancelled, but the notification could not be queued. Check the mail server configuration."});}
   }
   if(typeof b.meetingDetails!=="string"||!b.meetingDetails.trim()||b.meetingDetails.length>2000||typeof b.reply!=="string"||!b.reply.trim()||b.reply.length>4000)return NextResponse.json({error:"Add meeting details and a reply for the visitor."},{status:400});
   await db.update(callBookings).set({status:"confirmed",meetingDetails:b.meetingDetails.trim(),adminReply:b.reply.trim(),updatedAt:new Date()}).where(eq(callBookings.id,b.id));
-  await queueEmail(null,booking.email,"Your call is confirmed",`Hello ${booking.name},\n\nYour call is confirmed for ${formatCallTime(booking.startsAt,booking.timezone)}.\n\nMeeting details:\n${b.meetingDetails.trim()}\n\n${b.reply.trim()}\n\nExecutive Global Nanny`);return NextResponse.json({ok:true});
+  try{const content=callConfirmationEmail({name:booking.name,scheduledFor:formatCallTime(booking.startsAt,booking.timezone),meetingDetails:b.meetingDetails.trim(),reply:b.reply.trim()});const delivery=await queueEmail(null,booking.email,"Your call is confirmed",content.text,content.html);return NextResponse.json({ok:true,emailDelivery:delivery.status,message:delivery.message});}
+  catch(error){console.error("Meeting details were saved, but the confirmation email could not be queued.",error);return NextResponse.json({ok:true,emailDelivery:"failed",message:"Meeting details were saved, but the email could not be queued. Check the mail server configuration."});}
  }catch(error){console.error("Call booking update failed.",error);return NextResponse.json({error:"Unable to update this call request."},{status:500});}
 }

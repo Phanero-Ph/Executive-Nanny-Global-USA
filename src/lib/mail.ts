@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { mailJobs } from "@/db/schema";
-import { deliverMail } from "./mail-delivery.mjs";
+import { deliverMail, mailDeliveryIssue, packHtmlEmail } from "./mail-delivery.mjs";
 export function appUrl(path: string) {
  const base = process.env.APP_URL;
  if (!base) throw new Error("APP_URL is required for email links.");
@@ -11,16 +11,20 @@ export function appUrl(path: string) {
  return url.toString();
 }
 /** Claim an existing outbox item before sending so the retry worker cannot send it twice. */
-export async function deliverQueuedEmail(id:string){
+export type MailDeliveryResult={status:"sent"|"preview"|"queued";message:string};
+export async function deliverQueuedEmail(id:string):Promise<MailDeliveryResult>{
  const [claim]=await db.update(mailJobs).set({status:"sending",attempts:sql`${mailJobs.attempts}+1`,attemptedAt:new Date()}).where(and(eq(mailJobs.id,id),eq(mailJobs.status,"pending")));
- if(!claim.affectedRows)return;
- try{const [job]=await db.select().from(mailJobs).where(eq(mailJobs.id,id));if(!job)return;
+ if(!claim.affectedRows)return {status:"queued",message:"This email is already being processed or is queued for retry."};
+ try{const [job]=await db.select().from(mailJobs).where(eq(mailJobs.id,id));if(!job)return {status:"queued",message:"Email job was not found; it was not delivered."};
   const status=await deliverMail({id,recipient:job.recipient,subject:job.subject,body:job.body});
   await db.update(mailJobs).set({status,sentAt:new Date(),body:""}).where(eq(mailJobs.id,id));
- }catch{await db.update(mailJobs).set({status:"pending"}).where(eq(mailJobs.id,id));}
+  return status==="preview"
+   ? {status:"preview",message:"Email preview saved locally; no email was delivered to the recipient."}
+   : {status:"sent",message:"Email accepted by the outgoing mail server."};
+ }catch(error){const issue=mailDeliveryIssue(error);console.error(`[mail] Delivery failed for queue job ${id}: ${issue}`,{code:(error as any)?.code,responseCode:(error as any)?.responseCode});await db.update(mailJobs).set({status:"pending"}).where(eq(mailJobs.id,id));return {status:"queued",message:`Email was not delivered and remains queued for retry. ${issue}`};}
 }
-export async function queueEmail(userId:string|null,recipient:string,subject:string,body:string){
- const id=randomUUID();await db.insert(mailJobs).values({id,userId,recipient,subject,body});await deliverQueuedEmail(id);
+export async function queueEmail(userId:string|null,recipient:string,subject:string,body:string,html?:string):Promise<MailDeliveryResult>{
+ const id=randomUUID(),storedBody=html?packHtmlEmail(body,html):body;await db.insert(mailJobs).values({id,userId,recipient,subject,body:storedBody});return deliverQueuedEmail(id);
 }
 export async function notifySubmission(userId: string | null, email: string, role: "family" | "nanny") {
  try { await queueEmail(userId,email,role === "family" ? "We received your care request" : "We received your nanny application",`Thank you for your submission. Our team will review it and contact you about the next steps.\n\n${userId ? `Track your progress: ${appUrl(`/dashboard/${role}`)}` : "Our team will contact you about the next steps."}\n\nExecutive Global Nanny`); } catch { console.error("Submission confirmation could not be queued."); }
